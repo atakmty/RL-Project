@@ -1,6 +1,8 @@
 # 🧬 RNA Inverse Folding — Multi-Objective Deep Reinforcement Learning
 
-> Solving the RNA inverse folding problem with PPO and DQN, optimizing for structural accuracy, GC-content, thermodynamic stability, and homopolymer avoidance simultaneously.
+> 🚧 **Work in Progress** — This project is actively being developed. Results and code are updated regularly.
+
+Solving the RNA inverse folding problem with PPO and DQN, optimizing for structural accuracy, GC-content, thermodynamic stability, and homopolymer avoidance simultaneously.
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Stable-Baselines3](https://img.shields.io/badge/RL-Stable--Baselines3-green.svg)](https://github.com/DLR-RM/stable-baselines3)
@@ -22,12 +24,13 @@ Existing DRL frameworks like [LEARNA](https://github.com/automl/learna) optimize
 
 **Compound reward:** `R = α·R_struct + β·R_GC − γ·P_homo + δ·R_MFE`
 
-### Key Results
+### Preliminary Findings (so far)
 
 - ✅ **100% success rate** on short structures (P1, P8)
-- ✅ **48% success rate** on P10 Frog Foot (len=45, 3 hairpins) — up from 0%
-- 📊 PPO consistently outperforms DQN on structures with n > 30
-- 🔬 Partner-Aware observation space boosted DQN R_struct from 0.27 → 0.46 on P54 (92 nt)
+- ✅ **48% success rate** on P10 Frog Foot (len=45, 3 hairpins) — up from initial 0%
+- 📊 PPO shows better performance than DQN on longer structures (n > 30)
+- 🔬 Partner-Aware observation space improved DQN R_struct from 0.27 → 0.46 on P54 (92 nt)
+- ⏳ Grid search and hyperparameter tuning still ongoing
 
 ## 🏗️ Architecture
 
@@ -195,17 +198,28 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 | Long-horizon (n>30) | ✅ Strong | ⚠️ Weak |
 | Exploration | Entropy bonus | ε-greedy (1.0 → 0.08) |
 
-**Finding:** PPO with GAE is empirically superior for sequential combinatorial problems with sparse terminal rewards and n > 30.
+**Preliminary finding:** PPO with GAE appears superior to DQN for sequential combinatorial problems with sparse terminal rewards and n > 30. Further experiments are in progress.
 
-## 📊 Benchmark Results (Eterna100-V2 Subset)
+## 📊 Current Best Results (Eterna100-V2 Subset)
 
-| Puzzle | Length | Type | PPO R_struct | Status |
-|--------|--------|------|-------------|--------|
+> ⚠️ These are preliminary results from ongoing experiments. Final results will be updated.
+
+| Puzzle | Length | Type | PPO Best R_struct | Current Status |
+|--------|--------|------|-------------------|----------------|
 | P1 Simple Hairpin | 18 | Basic | 1.000 | ✅ Solved |
 | P8 G-C Placement | 12 | Basic | 1.000 | ✅ Solved |
-| P10 Frog Foot | 45 | Multi-stem | 0.860 | 🟡 Close |
-| P13 Square | 67 | Nested | 0.760 | 🟡 Partial |
-| P54 7-Multiloop | 92 | Complex | 0.420 | ❌ Insufficient |
+| P10 Frog Foot | 45 | Multi-stem | 0.860 | 🟡 Improving |
+| P13 Square | 67 | Nested | 0.760 | 🟡 In progress |
+| P54 7-Multiloop | 92 | Complex | 0.420 | ⏳ Needs more training |
+
+## 🗺️ Roadmap
+
+- [ ] Complete grid search across all 3 weight configurations
+- [ ] Run DQN experiments with optimized hyperparameters for all puzzles
+- [ ] Deterministic evaluation of all trained models
+- [ ] Test set evaluation (5 held-out targets)
+- [ ] Final comparative analysis (PPO vs DQN)
+- [ ] Generate final project report PDF
 
 ## 📚 References
 
