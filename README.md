@@ -103,7 +103,7 @@ RL-Project/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-username>/RL-Project.git
+git clone https://github.com/atakmty/RL-Project.git
 cd RL-Project
 
 # 2. Create environment with ALL dependencies (single command)
