@@ -103,17 +103,12 @@ RL-Project/
 git clone https://github.com/<your-username>/RL-Project.git
 cd RL-Project
 
-# 2. Create conda environment
-conda create -n rlrna python=3.10 -y
+# 2. Create environment with ALL dependencies (single command)
+conda env create -f environment.yml
 conda activate rlrna
-
-# 3. Install ViennaRNA (MUST use conda, not pip)
-conda install -c bioconda -c conda-forge viennarna -y
-conda install -c conda-forge gsl -y
-
-# 4. Install Python dependencies
-pip install -r requirements.txt
 ```
+
+> **Not:** `environment.yml` dosyası Python 3.10, ViennaRNA, GSL ve tüm pip paketlerini otomatik kurar. Ayrı `pip install` gerekmez.
 
 ### Training
 
