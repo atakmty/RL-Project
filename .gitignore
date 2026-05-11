@@ -1,0 +1,63 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# ===== Virtual Environments =====
+venv/
+env/
+.env/
+.venv/
+miniconda*/
+
+# ===== Trained Models (too large for GitHub) =====
+# Models are ~111MB total. Download from releases or retrain.
+models/
+
+# ===== TensorBoard Logs (too large for GitHub) =====
+# Logs are ~193MB total. Retrain to regenerate.
+tensorboard_logs/
+
+# ===== Large Binary Files =====
+codes/miniconda.sh
+
+# ===== IDE / Editor =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== OS Generated =====
+desktop.ini
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+
+# ===== PDF Reports (can be regenerated) =====
+docs/project_report.pdf
+
+# ===== Legacy / Duplicate Code =====
+# codes/ contains older versions of files already in root & scripts/
+codes/
+
+# ===== Scratch / Temporary Analysis =====
+scratch_*.py
+
+# ===== Parsed Text Files (can be regenerated) =====
+docs/parsed_pdf.txt
+docs/parsed_proposal.txt
+docs/setup_wsl.sh
+
+# ===== Misc =====
+*.log
+*.tmp

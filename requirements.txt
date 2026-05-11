@@ -1,0 +1,17 @@
+# Core RL Framework
+stable-baselines3>=2.0.0
+gymnasium>=0.28.0
+
+# Scientific Computing
+numpy>=1.24.0
+
+# TensorBoard (logging & visualization)
+tensorboard>=2.12.0
+
+# Report Generation (optional)
+reportlab>=4.0.0
+
+# ViennaRNA — MUST be installed via conda, not pip:
+#   conda install -c bioconda -c conda-forge viennarna
+#   conda install -c conda-forge gsl
+# See README.md for full setup instructions.
