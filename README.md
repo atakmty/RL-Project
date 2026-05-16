@@ -1,4 +1,4 @@
-# 🧬 RNA Inverse Folding — Multi-Objective Deep Reinforcement Learning
+# RNA Inverse Folding — Multi-Objective Deep Reinforcement Learning
 
 > **Work in Progress** — This project is actively being developed. Results and code are updated regularly.
 
@@ -11,7 +11,7 @@ Solving the RNA inverse folding problem with PPO and DQN, optimizing for structu
 
 ## Overview
 
-The RNA inverse folding problem asks: *given a target secondary structure, find a nucleotide sequence that folds into it*. This is an NP-hard combinatorial optimization problem with a search space of 4ⁿ candidates.
+The RNA inverse folding problem asks: *given a target secondary structure, find a nucleotide sequence that folds into it*. This is an NP-hard combinatorial optimization problem with a search space of **4ⁿ** candidates.
 
 Existing DRL frameworks like [LEARNA](https://github.com/automl/learna) optimize for structural match alone. Our pipeline extends this with **four simultaneous objectives**:
 
@@ -24,13 +24,12 @@ Existing DRL frameworks like [LEARNA](https://github.com/automl/learna) optimize
 
 **Compound reward:** `R = α·R_struct + β·R_GC − γ·P_homo + δ·R_MFE`
 
-### Preliminary Findings (so far)
+### Preliminary Findings
 
-- ✅ **100% success rate** on short structures (P1, P8)
-- ✅ **48% success rate** on P10 Frog Foot (len=45, 3 hairpins) — up from initial 0%
-- 📊 PPO shows better performance than DQN on longer structures (n > 30)
-- 🔬 Partner-Aware observation space improved DQN R_struct from 0.27 → 0.46 on P54 (92 nt)
-- ⏳ Grid search and hyperparameter tuning still ongoing
+- 100% success rate on short structures (P1, P8)
+- 48% success rate on P10 Frog Foot (len=45, 3 hairpins) — up from initial 0%
+- PPO shows better performance than DQN on longer structures (n > 30)
+- Partner-Aware observation space improved DQN R_struct from 0.27 → 0.46 on P54 (92 nt)
 
 ## Architecture
 
@@ -58,39 +57,43 @@ Existing DRL frameworks like [LEARNA](https://github.com/automl/learna) optimize
 | **B** (30–70%) | Linear ramp | Smooth transition to target weights |
 | **C** (70–100%) | Joint optimization | All weights at target values |
 
-> **Critical insight:** Phase A must include non-zero β and γ from step 0 to prevent GC-content collapse (see Section 5.5 of our report).
+> **Critical insight:** Phase A must include non-zero β and γ from step 0 to prevent GC-content collapse.
 
 ## Project Structure
 
 ```
 RL-Project/
-├── environment.py           # Gymnasium environment (Partner-Aware obs)
-├── eterna100.py             # Eterna100-V2 dataset (15 train + 5 test)
-├── train_multi_target.py    # Full training pipeline with curriculum
-├── baseline.py              # PPO baseline (structure-only Phase A)
-├── baseline_dqn.py          # DQN baseline (structure-only Phase A)
-├── generate_final_report.py # PDF report generator (ReportLab)
-├── run_grid_search.sh       # Grid search runner (3 weight configs)
+├── environment.py              # Gymnasium RL environment (Partner-Aware obs, 4-objective reward)
+├── eterna100.py                # Eterna100-V2 dataset (15 train + 5 test targets)
+├── train_multi_target.py       # Main training pipeline (curriculum learning, weight scheduling)
+├── run_grid_search_ppo.sh      # Grid search runner — 3 weight configs × PPO
+├── run_grid_search_dqn.sh      # Grid search runner — 3 weight configs × DQN
 ├── scripts/
-│   ├── analyze_ppo_vs_dqn.py       # PPO vs DQN comparison from TB logs
-│   ├── analyze_dqn.py              # DQN-specific result analysis
-│   ├── analyze_results.py          # General result analyzer
-│   ├── evaluate_deterministic.py   # Deterministic evaluation (ε=0)
-│   ├── colab_ppo_train.py          # Self-contained Colab training script
-│   ├── check_logs.py               # TensorBoard log inspector
-│   ├── preflight_check.py          # Environment verification
-│   ├── quick_test.py               # Quick sanity check
-│   └── generate_report_pdf.py      # Alternative report generator
-├── docs/
-│   ├── Ata_Kamutay_Utku_Bora_Döke_RL_Proposal.pdf  # Project proposal
-│   └── Utku Bora Döke_Ata_Kamutay_RLmakale (1).pdf # Research paper
-├── codes/                   # Legacy development scripts
-├── models/                  # Trained model checkpoints (gitignored)
-├── tensorboard_logs/        # Training logs (gitignored)
-├── requirements.txt
+│   ├── analyze_ppo_vs_dqn.py   # PPO vs DQN comparison from TensorBoard logs
+│   ├── analyze_dqn.py          # DQN-specific result analysis
+│   ├── evaluate_deterministic.py  # Deterministic evaluation (ε=0, no exploration noise)
+│   ├── colab_ppo_train.py      # Self-contained single-file script for Google Colab
+│   └── preflight_check.py      # Environment verification (ViennaRNA, GPU, etc.)
+├── models/                     # Trained model checkpoints (gitignored)
+├── tensorboard_logs/           # Training logs (gitignored)
+├── environment.yml             # Conda environment definition
+├── requirements.txt            # pip dependencies
 ├── LICENSE
 └── README.md
 ```
+
+### What each file does
+
+| File | Purpose |
+|------|---------|
+| `environment.py` | Defines the `LearnaEnv` Gymnasium environment. The agent places one nucleotide (A/C/G/U) per step. At the final step, ViennaRNA folds the sequence and returns a 4-objective reward. Intermediate steps use Ng et al. (1999) potential-based reward shaping. |
+| `eterna100.py` | Contains the 20 selected Eterna100-V2 target structures (15 train + 5 test). Each target is a dot-bracket string like `((((((......))))))`. |
+| `train_multi_target.py` | The main training script. Trains a **separate PPO or DQN model for each puzzle** sequentially. Includes the 3-phase adaptive weight scheduler and adaptive episode scaling for longer sequences. |
+| `run_grid_search_ppo.sh` | Runs `train_multi_target.py` 3 times with PPO for each weight configuration (Balanced, Structure-heavy, Thermodynamic-focused). |
+| `run_grid_search_dqn.sh` | Same as above but with DQN. |
+| `scripts/evaluate_deterministic.py` | Loads saved models and evaluates them with `deterministic=True` (no exploration noise), revealing the true learned policy performance. |
+| `scripts/analyze_ppo_vs_dqn.py` | Reads TensorBoard logs and prints a side-by-side PPO vs DQN comparison table. |
+| `scripts/colab_ppo_train.py` | A self-contained single file that bundles the environment, dataset, and training pipeline for running on Google Colab without cloning the repo. |
 
 ## Quick Start
 
@@ -115,11 +118,9 @@ conda env create -f environment.yml
 conda activate rlrna
 ```
 
-> **Not:** `environment.yml` dosyası Python 3.10, ViennaRNA, GSL ve tüm pip paketlerini otomatik kurar. Ayrı `pip install` gerekmez.
+> `environment.yml` installs Python 3.10, ViennaRNA, GSL, and all pip packages automatically. No separate `pip install` needed.
 
 #### Windows (via WSL2)
-
-ViennaRNA is not available on Windows through conda, so the project runs inside a Linux environment on Windows via WSL2. One-time setup:
 
 **1. Install WSL2 + Ubuntu.** In an **administrator PowerShell**:
 
@@ -129,12 +130,12 @@ wsl --install -d Ubuntu
 
 Reboot when prompted. Ubuntu will launch and ask you to create a Linux username and password.
 
-**2. Open Ubuntu** (Start menu → "Ubuntu", or run `wsl` in any terminal) and install Miniconda for Linux:
+**2. Open Ubuntu** (Start menu → "Ubuntu", or run `wsl` in any terminal) and install Miniconda:
 
 ```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
-# accept defaults; when it asks about running `conda init`, say yes
+# accept defaults; when it asks about running conda init, say yes
 ```
 
 Close and reopen the Ubuntu terminal — your prompt should now start with `(base)`.
@@ -148,8 +149,6 @@ conda env create -f environment.yml
 conda activate rlrna
 ```
 
-From here, every command in the Training / Evaluation / TensorBoard sections below runs unchanged inside the Ubuntu terminal. Your Windows files remain accessible from Ubuntu at `/mnt/c/Users/<YourName>/`, and the WSL filesystem is reachable from Windows Explorer at `\\wsl.localhost\Ubuntu\home\<YourLinuxName>\`.
-
 > **Tip:** `conda env create` is a **one-time** setup. After it succeeds, every new Ubuntu session only needs `cd ~/RL-Project && conda activate rlrna`.
 
 ### Training
@@ -161,12 +160,12 @@ python train_multi_target.py --algo ppo --seed 42 --weight-config 0
 # Train DQN on all 15 targets
 python train_multi_target.py --algo dqn --seed 42 --weight-config 0
 
-# Run full grid search (3 weight configs × PPO)
-bash run_grid_search.sh
-
-# Run baseline (single structure, structure-only reward)
-python baseline.py
+# Run full grid search (3 weight configs)
+bash run_grid_search_ppo.sh   # PPO × 3 configs
+bash run_grid_search_dqn.sh   # DQN × 3 configs
 ```
+
+> Each run trains **15 separate models** (one per puzzle). Models are saved under `models/` and logs under `tensorboard_logs/`.
 
 ### Weight Configurations (Grid Search)
 
@@ -207,17 +206,25 @@ For Colab training, use the self-contained script:
 
 ## Technical Details
 
+### Search Space
+
+The search space is **4ⁿ** — for a target of length *n*, there are 4ⁿ possible nucleotide sequences (A, C, G, U at each position). For example, the longest puzzle P54 (n=92) has a search space of 4⁹² ≈ 2.4 × 10⁵⁵ candidates, making brute-force search infeasible.
+
 ### Observation Space (7n + 10 dimensions)
 
 | Component | Dims | Description |
 |-----------|------|-------------|
 | Sequence one-hot | 4n | A/C/G/U at each position |
-| Target one-hot | 3n | ./(/\) at each position |
+| Target one-hot | 3n | ./(/) at each position |
 | Progress | 1 | current_step / n |
 | Local target char | 3 | One-hot of target at current step |
 | is_paired | 1 | Whether current position has a base-pair partner |
 | partner_placed | 1 | Whether partner is already placed |
 | partner_nucleotide | 4 | One-hot of partner's nucleotide |
+
+### Action Space
+
+**Discrete(4)** — at each step, the agent chooses one of: A (0), C (1), G (2), U (3).
 
 ### Reward Shaping (Ng et al., 1999)
 
@@ -234,22 +241,22 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 |---------|-----|-----|
 | Policy type | On-policy | Off-policy |
 | Credit assignment | Multi-step (GAE) | 1-step TD bootstrap |
-| Long-horizon (n>30) | ✅ Strong | ⚠️ Weak |
+| Long-horizon (n>30) | Strong | Weak |
 | Exploration | Entropy bonus | ε-greedy (1.0 → 0.08) |
 
 **Preliminary finding:** PPO with GAE appears superior to DQN for sequential combinatorial problems with sparse terminal rewards and n > 30. Further experiments are in progress.
 
 ## Current Best Results (Eterna100-V2 Subset)
 
-> ⚠️ These are preliminary results from ongoing experiments. Final results will be updated.
+> These are preliminary results from ongoing experiments. Final results will be updated.
 
 | Puzzle | Length | Type | PPO Best R_struct | Current Status |
 |--------|--------|------|-------------------|----------------|
-| P1 Simple Hairpin | 18 | Basic | 1.000 | ✅ Solved |
-| P8 G-C Placement | 12 | Basic | 1.000 | ✅ Solved |
-| P10 Frog Foot | 45 | Multi-stem | 0.860 | 🟡 Improving |
-| P13 Square | 67 | Nested | 0.760 | 🟡 In progress |
-| P54 7-Multiloop | 92 | Complex | 0.420 | ⏳ Needs more training |
+| P1 Simple Hairpin | 18 | Basic | 1.000 | Solved |
+| P8 G-C Placement | 12 | Basic | 1.000 | Solved |
+| P10 Frog Foot | 45 | Multi-stem | 0.860 | Improving |
+| P13 Square | 67 | Nested | 0.760 | In progress |
+| P54 7-Multiloop | 92 | Complex | 0.420 | Needs more training |
 
 ## Roadmap
 
@@ -258,7 +265,6 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 - [ ] Deterministic evaluation of all trained models
 - [ ] Test set evaluation (5 held-out targets)
 - [ ] Final comparative analysis (PPO vs DQN)
-- [ ] Generate final project report PDF
 
 ## References
 
