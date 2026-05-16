@@ -72,7 +72,6 @@ RL-Project/
 │   ├── analyze_ppo_vs_dqn.py   # PPO vs DQN comparison from TensorBoard logs
 │   ├── analyze_dqn.py          # DQN-specific result analysis
 │   ├── evaluate_deterministic.py  # Deterministic evaluation (ε=0, no exploration noise)
-│   ├── colab_ppo_train.py      # Self-contained single-file script for Google Colab
 │   └── preflight_check.py      # Environment verification (ViennaRNA, GPU, etc.)
 ├── models/                     # Trained model checkpoints (gitignored)
 ├── tensorboard_logs/           # Training logs (gitignored)
@@ -93,7 +92,6 @@ RL-Project/
 | `run_grid_search_dqn.sh` | Same as above but with DQN. |
 | `scripts/evaluate_deterministic.py` | Loads saved models and evaluates them with `deterministic=True` (no exploration noise), revealing the true learned policy performance. |
 | `scripts/analyze_ppo_vs_dqn.py` | Reads TensorBoard logs and prints a side-by-side PPO vs DQN comparison table. |
-| `scripts/colab_ppo_train.py` | A self-contained single file that bundles the environment, dataset, and training pipeline for running on Google Colab without cloning the repo. |
 
 ## Quick Start
 
@@ -194,15 +192,6 @@ python scripts/analyze_dqn.py
 tensorboard --logdir ./tensorboard_logs/
 ```
 
-### Google Colab
-
-For Colab training, use the self-contained script:
-
-```python
-# In a Colab cell:
-!pip install stable-baselines3 gymnasium tensorboard viennarna
-!python colab_ppo_train.py --algo ppo --seed 42 --weight-config 0
-```
 
 ## Technical Details
 
@@ -212,19 +201,39 @@ The search space is **4ⁿ** — for a target of length *n*, there are 4ⁿ poss
 
 ### Observation Space (7n + 10 dimensions)
 
+The observation vector has two parts: a **base encoding** of 7n + 1 dimensions and a **Partner-Aware extension** of 9 dimensions.
+
+**Base encoding (7n + 1):**
+
 | Component | Dims | Description |
 |-----------|------|-------------|
-| Sequence one-hot | 4n | A/C/G/U at each position |
+| Sequence one-hot | 4n | A/C/G/U at each placed position |
 | Target one-hot | 3n | ./(/) at each position |
 | Progress | 1 | current_step / n |
-| Local target char | 3 | One-hot of target at current step |
-| is_paired | 1 | Whether current position has a base-pair partner |
-| partner_placed | 1 | Whether partner is already placed |
-| partner_nucleotide | 4 | One-hot of partner's nucleotide |
+
+**Partner-Aware extension (+9 → total +10 with progress):**
+
+RNA structures contain base pairs — positions marked `(` are paired with positions marked `)`. The agent needs to know about its partner when placing a nucleotide at a paired position. Without this context, the agent has no way to choose a complementary base (e.g., G for a partner C).
+
+| Component | Dims | Description |
+|-----------|------|-------------|
+| Local target char | 3 | One-hot of target structure at current step: `.` / `(` / `)` |
+| is_paired | 1 | 1.0 if current position has a base-pair partner, 0.0 otherwise |
+| partner_placed | 1 | 1.0 if the partner's nucleotide has already been placed |
+| partner_nucleotide | 4 | One-hot of partner's nucleotide (A/C/G/U), zeros if not yet placed |
+
+> These 9 extra dimensions give the agent explicit structural context. For example, when placing position 15 (a `)`) whose partner position 3 (a `(`) already has `C`, the agent sees `partner_nucleotide = [0,1,0,0]` and can learn to place `G` for a valid C-G base pair.
 
 ### Action Space
 
-**Discrete(4)** — at each step, the agent chooses one of: A (0), C (1), G (2), U (3).
+**Discrete(4)** — at each step, the agent selects one nucleotide. The action is encoded as one-hot:
+
+| Action | Nucleotide | One-hot |
+|--------|------------|----------|
+| 0 | A (Adenine) | `[1, 0, 0, 0]` |
+| 1 | C (Cytosine) | `[0, 1, 0, 0]` |
+| 2 | G (Guanine) | `[0, 0, 1, 0]` |
+| 3 | U (Uracil) | `[0, 0, 0, 1]` |
 
 ### Reward Shaping (Ng et al., 1999)
 
@@ -271,6 +280,7 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 - Runge, F., Stoll, D., Falkner, S., & Hutter, F. (2019). *Learning to Design RNA*. ICLR.
 - Ng, A. Y., Harada, D., & Russell, S. (1999). *Policy invariance under reward transformations*. ICML.
 - Schulman, J., Wolski, F., Dhariwal, P., Radford, A., & Klimov, O. (2017). *Proximal Policy Optimization Algorithms*. arXiv:1707.06347.
+- Mnih, V., et al. (2015). *Human-level control through deep reinforcement learning*. Nature, 518(7540), 529–533.
 - Lorenz, R., et al. (2011). *ViennaRNA Package 2.0*. Algorithms for Molecular Biology.
 
 ## Authors
