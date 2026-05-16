@@ -1,6 +1,6 @@
 # 🧬 RNA Inverse Folding — Multi-Objective Deep Reinforcement Learning
 
-> 🚧 **Work in Progress** — This project is actively being developed. Results and code are updated regularly.
+> **Work in Progress** — This project is actively being developed. Results and code are updated regularly.
 
 Solving the RNA inverse folding problem with PPO and DQN, optimizing for structural accuracy, GC-content, thermodynamic stability, and homopolymer avoidance simultaneously.
 
@@ -9,7 +9,7 @@ Solving the RNA inverse folding problem with PPO and DQN, optimizing for structu
 [![ViennaRNA](https://img.shields.io/badge/Folding-ViennaRNA-orange.svg)](https://www.tbi.univie.ac.at/RNA/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## 📋 Overview
+## Overview
 
 The RNA inverse folding problem asks: *given a target secondary structure, find a nucleotide sequence that folds into it*. This is an NP-hard combinatorial optimization problem with a search space of 4ⁿ candidates.
 
@@ -32,7 +32,7 @@ Existing DRL frameworks like [LEARNA](https://github.com/automl/learna) optimize
 - 🔬 Partner-Aware observation space improved DQN R_struct from 0.27 → 0.46 on P54 (92 nt)
 - ⏳ Grid search and hyperparameter tuning still ongoing
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌──────────────┐     ┌──────────────────┐     ┌───────────────┐
@@ -60,7 +60,7 @@ Existing DRL frameworks like [LEARNA](https://github.com/automl/learna) optimize
 
 > **Critical insight:** Phase A must include non-zero β and γ from step 0 to prevent GC-content collapse (see Section 5.5 of our report).
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 RL-Project/
@@ -92,7 +92,7 @@ RL-Project/
 └── README.md
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -101,7 +101,7 @@ RL-Project/
 
 ### Installation
 
-> ⚠️ **Platform note — ViennaRNA is Linux/macOS only.** The bioconda channel does not publish `viennarna` for `win-64`, so `conda env create` will fail on native Windows with `PackagesNotFoundError: viennarna`. **Windows users must use WSL2** (instructions below). macOS and Linux users can skip straight to the standard install.
+> **Platform note — ViennaRNA is Linux/macOS only.** The bioconda channel does not publish `viennarna` for `win-64`, so `conda env create` will fail on native Windows with `PackagesNotFoundError: viennarna`. **Windows users must use WSL2** (instructions below). macOS and Linux users can skip straight to the standard install.
 
 #### Linux / macOS
 
@@ -205,7 +205,7 @@ For Colab training, use the self-contained script:
 !python colab_ppo_train.py --algo ppo --seed 42 --weight-config 0
 ```
 
-## 🔬 Technical Details
+## Technical Details
 
 ### Observation Space (7n + 10 dimensions)
 
@@ -239,7 +239,7 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 
 **Preliminary finding:** PPO with GAE appears superior to DQN for sequential combinatorial problems with sparse terminal rewards and n > 30. Further experiments are in progress.
 
-## 📊 Current Best Results (Eterna100-V2 Subset)
+## Current Best Results (Eterna100-V2 Subset)
 
 > ⚠️ These are preliminary results from ongoing experiments. Final results will be updated.
 
@@ -251,7 +251,7 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 | P13 Square | 67 | Nested | 0.760 | 🟡 In progress |
 | P54 7-Multiloop | 92 | Complex | 0.420 | ⏳ Needs more training |
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [ ] Complete grid search across all 3 weight configurations
 - [ ] Run DQN experiments with optimized hyperparameters for all puzzles
@@ -260,18 +260,18 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 - [ ] Final comparative analysis (PPO vs DQN)
 - [ ] Generate final project report PDF
 
-## 📚 References
+## References
 
 - Runge, F., Stoll, D., Falkner, S., & Hutter, F. (2019). *Learning to Design RNA*. ICLR.
 - Ng, A. Y., Harada, D., & Russell, S. (1999). *Policy invariance under reward transformations*. ICML.
 - Schulman, J., Wolski, F., Dhariwal, P., Radford, A., & Klimov, O. (2017). *Proximal Policy Optimization Algorithms*. arXiv:1707.06347.
 - Lorenz, R., et al. (2011). *ViennaRNA Package 2.0*. Algorithms for Molecular Biology.
 
-## 👥 Authors
+## Authors
 
 - **Utku Bora Döke** — Department of Health Informatics
 - **Ata Kamutay** — Department of Health Informatics
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
