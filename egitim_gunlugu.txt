@@ -1,0 +1,1284 @@
+run_grid_search.sh: line 4: $'\r': command not found
+=================================================================
+  RNA Inverse Folding - PPO Grid Search
+=================================================================
+run_grid_search.sh: line 8: $'\r': command not found
+
+>>> Step 1/3: Config 0 (Balanced: 0.5, 0.2, 0.1, 0.2)
+================================================================================
+  RNA Inverse Folding — Multi-Objective Training Pipeline
+================================================================================
+  Algorithm    : PPO
+  Seed         : 42
+  Timesteps    : ADAPTIVE (min 3000 eps, +50% for len>30)
+                 Range: 36,000 – 846,400 steps (3,000–9,200 episodes)
+  Total steps  : 3,361,038
+  Targets      : 15
+  Weight config: #0  (α=0.5, β=0.2, γ=0.1, δ=0.2)
+  Log dir      : ./tensorboard_logs/
+================================================================================
+
+┌─ [1/15] Puzzle #1: Simple Hairpin
+│  Structure: ((((((......)))))) (len=18)
+│  Training 54,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.564 (best=1.000) | R_gc=0.306 | Succ=2.0% | Reward=0.604 | ETA=107s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.727 (best=1.000) | R_gc=0.181 | Succ=6.0% | Reward=0.742 | ETA=98s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.929 (best=1.000) | R_gc=0.056 | Succ=58.0% | Reward=0.905 | ETA=94s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.984 (best=1.000) | R_gc=0.017 | Succ=94.0% | Reward=0.962 | ETA=90s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.980 (best=1.000) | R_gc=0.206 | Succ=82.0% | Reward=0.965 | ETA=86s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.971 (best=1.000) | R_gc=0.306 | Succ=84.0% | Reward=0.971 | ETA=81s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.978 (best=1.000) | R_gc=0.276 | Succ=92.0% | Reward=0.942 | ETA=75s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.944 (best=1.000) | R_gc=0.176 | Succ=76.0% | Reward=0.874 | ETA=68s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.993 (best=1.000) | R_gc=0.003 | Succ=94.0% | Reward=0.847 | ETA=62s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.976 (best=1.000) | R_gc=0.003 | Succ=88.0% | Reward=0.783 | ETA=56s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.991 (best=1.000) | R_gc=0.014 | Succ=94.0% | Reward=0.750 | ETA=51s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.003 | Succ=100.0% | Reward=0.720 | ETA=45s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.670 | ETA=39s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.626 | ETA=33s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.003 | Succ=100.0% | Reward=0.628 | ETA=28s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.998 (best=1.000) | R_gc=0.014 | Succ=98.0% | Reward=0.618 | ETA=22s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.014 | Succ=100.0% | Reward=0.625 | ETA=17s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.626 | ETA=11s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.006 | Succ=100.0% | Reward=0.624 | ETA=5s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.625 | ETA=0s | Ep=3000
+    ✓ Done in 109.7s | Final: R_struct=1.000, Success=100.0%, Best=1.000, Episodes=3000
+│  Model saved: models/ppo_puzzle1_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 110.6s | Overall: 2% | ETA: 112.9 min remaining
+
+┌─ [2/15] Puzzle #8: G-C Placement
+│  Structure: ((((...)))). (len=12)
+│  Training 36,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.6% | Phase A (struct) | R_struct=0.343 (best=0.833) | R_gc=0.688 | Succ=0.0% | Reward=0.432 | ETA=62s | Ep=166
+    [██░░░░░░░░░░░░░░░░░░]  11.1% | Phase A (struct) | R_struct=0.637 (best=1.000) | R_gc=0.296 | Succ=2.0% | Reward=0.677 | ETA=61s | Ep=333
+    [███░░░░░░░░░░░░░░░░░]  16.7% | Phase A (struct) | R_struct=0.923 (best=1.000) | R_gc=0.321 | Succ=64.0% | Reward=0.959 | ETA=56s | Ep=500
+    [████░░░░░░░░░░░░░░░░]  22.2% | Phase A (struct) | R_struct=0.990 (best=1.000) | R_gc=0.798 | Succ=94.0% | Reward=1.101 | ETA=54s | Ep=666
+    [█████░░░░░░░░░░░░░░░]  27.8% | Phase A (struct) | R_struct=0.997 (best=1.000) | R_gc=0.808 | Succ=98.0% | Reward=1.109 | ETA=50s | Ep=833
+    [██████░░░░░░░░░░░░░░]  33.3% | Phase B (ramp) | R_struct=0.967 (best=1.000) | R_gc=0.757 | Succ=84.0% | Reward=1.050 | ETA=46s | Ep=1000
+    [███████░░░░░░░░░░░░░]  38.9% | Phase B (ramp) | R_struct=0.990 (best=1.000) | R_gc=0.816 | Succ=94.0% | Reward=1.034 | ETA=42s | Ep=1166
+    [████████░░░░░░░░░░░░]  44.4% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.821 | Succ=98.0% | Reward=0.993 | ETA=38s | Ep=1333
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.983 (best=1.000) | R_gc=0.817 | Succ=90.0% | Reward=0.931 | ETA=35s | Ep=1500
+    [███████████░░░░░░░░░]  55.6% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.821 | Succ=100.0% | Reward=0.897 | ETA=31s | Ep=1666
+    [████████████░░░░░░░░]  61.1% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.779 | Succ=100.0% | Reward=0.841 | ETA=27s | Ep=1833
+    [█████████████░░░░░░░]  66.7% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.671 | Succ=100.0% | Reward=0.768 | ETA=23s | Ep=2000
+    [██████████████░░░░░░]  72.2% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.804 | Succ=100.0% | Reward=0.761 | ETA=19s | Ep=2166
+    [███████████████░░░░░]  77.8% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.642 | Succ=100.0% | Reward=0.727 | ETA=16s | Ep=2333
+    [████████████████░░░░]  83.3% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.525 | Succ=100.0% | Reward=0.706 | ETA=12s | Ep=2500
+    [█████████████████░░░]  88.9% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.346 | Succ=100.0% | Reward=0.663 | ETA=8s | Ep=2666
+    [██████████████████░░]  94.4% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.167 | Succ=100.0% | Reward=0.619 | ETA=4s | Ep=2833
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.250 | Succ=100.0% | Reward=0.643 | ETA=0s | Ep=3000
+    ✓ Done in 70.0s | Final: R_struct=1.000, Success=100.0%, Best=1.000, Episodes=3008
+│  Model saved: models/ppo_puzzle8_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 70.1s | Overall: 3% | ETA: 109.5 min remaining
+
+┌─ [3/15] Puzzle #10: Frog Foot
+│  Structure: ..........((((....))))((((....))))((((...)))) (len=45)
+│  Training 202,500 timesteps (~4,500 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.482 (best=0.733) | R_gc=0.431 | Succ=0.0% | Reward=0.508 | ETA=383s | Ep=225
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.521 (best=0.800) | R_gc=0.354 | Succ=0.0% | Reward=0.536 | ETA=366s | Ep=450
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.515 (best=0.822) | R_gc=0.840 | Succ=0.0% | Reward=0.612 | ETA=346s | Ep=675
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.612 (best=0.822) | R_gc=0.913 | Succ=0.0% | Reward=0.722 | ETA=325s | Ep=900
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.619 (best=0.822) | R_gc=0.959 | Succ=0.0% | Reward=0.743 | ETA=304s | Ep=1125
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.573 (best=0.822) | R_gc=0.963 | Succ=0.0% | Reward=0.699 | ETA=284s | Ep=1350
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.669 (best=0.822) | R_gc=0.994 | Succ=0.0% | Reward=0.761 | ETA=263s | Ep=1575
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.728 (best=0.822) | R_gc=0.898 | Succ=0.0% | Reward=0.775 | ETA=243s | Ep=1800
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.762 (best=0.822) | R_gc=0.999 | Succ=0.0% | Reward=0.785 | ETA=222s | Ep=2025
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.672 (best=0.822) | R_gc=0.974 | Succ=0.0% | Reward=0.670 | ETA=202s | Ep=2250
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.724 (best=0.822) | R_gc=1.000 | Succ=0.0% | Reward=0.682 | ETA=182s | Ep=2475
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.756 (best=0.822) | R_gc=0.970 | Succ=0.0% | Reward=0.658 | ETA=162s | Ep=2700
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.748 (best=0.822) | R_gc=0.962 | Succ=0.0% | Reward=0.616 | ETA=141s | Ep=2925
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.808 (best=0.822) | R_gc=1.000 | Succ=0.0% | Reward=0.605 | ETA=121s | Ep=3150
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.675 (best=0.822) | R_gc=0.596 | Succ=0.0% | Reward=0.432 | ETA=101s | Ep=3375
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.699 (best=0.822) | R_gc=0.488 | Succ=0.0% | Reward=0.425 | ETA=80s | Ep=3600
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.732 (best=0.822) | R_gc=0.440 | Succ=0.0% | Reward=0.419 | ETA=60s | Ep=3825
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.743 (best=0.822) | R_gc=0.230 | Succ=0.0% | Reward=0.387 | ETA=40s | Ep=4050
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.746 (best=0.822) | R_gc=0.193 | Succ=0.0% | Reward=0.381 | ETA=20s | Ep=4275
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.652 (best=0.822) | R_gc=0.096 | Succ=0.0% | Reward=0.314 | ETA=0s | Ep=4500
+    ✓ Done in 402.1s | Final: R_struct=0.648, Success=0.0%, Best=0.822, Episodes=4502
+│  Model saved: models/ppo_puzzle10_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 402.1s | Overall: 9% | ETA: 101.9 min remaining
+
+┌─ [4/15] Puzzle #13: square
+│  Structure: ((((((((((((((((((((((((((...))))))....)))))))....))))))....... (len=67)
+│  Training 448,900 timesteps (~6,700 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.382 (best=0.672) | R_gc=0.721 | Succ=0.0% | Reward=0.474 | ETA=868s | Ep=335
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.607 (best=0.851) | R_gc=0.524 | Succ=0.0% | Reward=0.672 | ETA=825s | Ep=670
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.828 (best=1.000) | R_gc=0.612 | Succ=12.0% | Reward=0.899 | ETA=782s | Ep=1005
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.773 (best=1.000) | R_gc=0.698 | Succ=8.0% | Reward=0.854 | ETA=736s | Ep=1340
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.781 (best=1.000) | R_gc=0.824 | Succ=0.0% | Reward=0.872 | ETA=690s | Ep=1675
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.739 (best=1.000) | R_gc=0.926 | Succ=0.0% | Reward=0.842 | ETA=643s | Ep=2010
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.798 (best=1.000) | R_gc=0.803 | Succ=2.0% | Reward=0.852 | ETA=597s | Ep=2345
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.629 (best=1.000) | R_gc=0.482 | Succ=0.0% | Reward=0.643 | ETA=550s | Ep=2680
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.769 (best=1.000) | R_gc=0.769 | Succ=12.0% | Reward=0.772 | ETA=505s | Ep=3015
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.952 (best=1.000) | R_gc=0.386 | Succ=36.0% | Reward=0.834 | ETA=459s | Ep=3350
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.915 (best=1.000) | R_gc=0.429 | Succ=20.0% | Reward=0.773 | ETA=413s | Ep=3685
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.716 (best=1.000) | R_gc=0.709 | Succ=0.0% | Reward=0.644 | ETA=367s | Ep=4020
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.887 (best=1.000) | R_gc=0.492 | Succ=20.0% | Reward=0.678 | ETA=321s | Ep=4355
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.842 (best=1.000) | R_gc=0.606 | Succ=26.0% | Reward=0.645 | ETA=275s | Ep=4690
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.795 (best=1.000) | R_gc=0.921 | Succ=4.0% | Reward=0.673 | ETA=229s | Ep=5025
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.781 (best=1.000) | R_gc=0.964 | Succ=0.0% | Reward=0.652 | ETA=184s | Ep=5360
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.841 (best=1.000) | R_gc=0.946 | Succ=4.0% | Reward=0.676 | ETA=138s | Ep=5695
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.794 (best=1.000) | R_gc=0.861 | Succ=0.0% | Reward=0.650 | ETA=92s | Ep=6030
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.860 (best=1.000) | R_gc=0.989 | Succ=0.0% | Reward=0.679 | ETA=46s | Ep=6365
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.876 (best=1.000) | R_gc=0.997 | Succ=0.0% | Reward=0.699 | ETA=0s | Ep=6700
+    ✓ Done in 919.3s | Final: R_struct=0.876, Success=0.0%, Best=1.000, Episodes=6701
+│  Model saved: models/ppo_puzzle13_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 919.3s | Overall: 22% | ETA: 88.5 min remaining
+
+┌─ [5/15] Puzzle #15: Small and Easy 6
+│  Structure: (((((.....))..((.........))))) (len=30)
+│  Training 90,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.497 (best=0.800) | R_gc=0.827 | Succ=0.0% | Reward=0.605 | ETA=166s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.612 (best=0.867) | R_gc=0.943 | Succ=0.0% | Reward=0.733 | ETA=159s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.815 (best=0.867) | R_gc=0.988 | Succ=0.0% | Reward=0.932 | ETA=149s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.864 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.979 | ETA=143s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.853 (best=0.867) | R_gc=0.973 | Succ=0.0% | Reward=0.953 | ETA=134s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.863 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.968 | ETA=126s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.997 | Succ=0.0% | Reward=0.932 | ETA=117s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.820 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.863 | ETA=108s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.857 | ETA=100s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.867 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.824 | ETA=90s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.863 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.771 | ETA=81s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.733 | ETA=72s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.861 (best=0.867) | R_gc=0.995 | Succ=0.0% | Reward=0.689 | ETA=63s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase C (joint) | R_struct=0.706 (best=0.867) | R_gc=0.953 | Succ=0.0% | Reward=0.572 | ETA=54s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.863 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.658 | ETA=45s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.848 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.654 | ETA=36s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.856 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.655 | ETA=27s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.865 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.658 | ETA=18s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.867 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.661 | ETA=9s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.845 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.650 | ETA=0s | Ep=3000
+    ✓ Done in 179.9s | Final: R_struct=0.845, Success=0.0%, Best=0.867, Episodes=3003
+│  Model saved: models/ppo_puzzle15_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 179.9s | Overall: 25% | ETA: 85.3 min remaining
+
+┌─ [6/15] Puzzle #23: Shortie 4
+│  Structure: ((....)).((....)) (len=17)
+│  Training 51,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.509 (best=0.765) | R_gc=0.801 | Succ=0.0% | Reward=0.619 | ETA=89s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.525 (best=0.765) | R_gc=0.891 | Succ=0.0% | Reward=0.648 | ETA=86s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.531 (best=0.765) | R_gc=0.894 | Succ=0.0% | Reward=0.651 | ETA=83s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.529 (best=0.765) | R_gc=0.657 | Succ=0.0% | Reward=0.613 | ETA=78s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.527 (best=0.765) | R_gc=0.656 | Succ=0.0% | Reward=0.614 | ETA=73s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.567 (best=0.765) | R_gc=0.816 | Succ=0.0% | Reward=0.672 | ETA=69s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.612 (best=0.765) | R_gc=0.858 | Succ=0.0% | Reward=0.693 | ETA=64s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.612 (best=0.765) | R_gc=0.877 | Succ=0.0% | Reward=0.662 | ETA=59s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.613 (best=0.765) | R_gc=0.977 | Succ=0.0% | Reward=0.650 | ETA=55s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.629 (best=0.765) | R_gc=0.971 | Succ=0.0% | Reward=0.635 | ETA=50s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.611 (best=0.765) | R_gc=0.932 | Succ=0.0% | Reward=0.584 | ETA=45s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.641 (best=0.765) | R_gc=0.905 | Succ=0.0% | Reward=0.566 | ETA=40s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.647 (best=0.765) | R_gc=0.862 | Succ=0.0% | Reward=0.529 | ETA=35s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.628 (best=0.765) | R_gc=0.748 | Succ=0.0% | Reward=0.465 | ETA=30s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.628 (best=0.765) | R_gc=0.871 | Succ=0.0% | Reward=0.481 | ETA=25s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.644 (best=0.765) | R_gc=0.944 | Succ=0.0% | Reward=0.504 | ETA=20s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.633 (best=0.765) | R_gc=0.986 | Succ=0.0% | Reward=0.502 | ETA=15s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.640 (best=0.765) | R_gc=0.844 | Succ=0.0% | Reward=0.483 | ETA=10s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.646 (best=0.765) | R_gc=0.802 | Succ=0.0% | Reward=0.479 | ETA=5s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.646 (best=0.765) | R_gc=0.855 | Succ=0.0% | Reward=0.488 | ETA=0s | Ep=3000
+    ✓ Done in 99.9s | Final: R_struct=0.646, Success=0.0%, Best=0.765, Episodes=3004
+│  Model saved: models/ppo_puzzle23_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 100.0s | Overall: 26% | ETA: 83.4 min remaining
+
+┌─ [7/15] Puzzle #25: The Ministry
+│  Structure: (((.....(((.....(((.....(((.....(((........))).))).))).))).)... (len=62)
+│  Training 384,338 timesteps (~6,199 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.517 (best=0.645) | R_gc=0.131 | Succ=0.0% | Reward=0.472 | ETA=740s | Ep=309
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.519 (best=0.645) | R_gc=0.547 | Succ=0.0% | Reward=0.562 | ETA=706s | Ep=619
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.735 (best=0.903) | R_gc=0.973 | Succ=0.0% | Reward=0.851 | ETA=667s | Ep=929
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.712 (best=0.903) | R_gc=0.999 | Succ=0.0% | Reward=0.837 | ETA=625s | Ep=1239
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.647 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.756 | ETA=585s | Ep=1549
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.794 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.918 | ETA=546s | Ep=1859
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.808 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.899 | ETA=505s | Ep=2169
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.680 (best=0.903) | R_gc=0.855 | Succ=0.0% | Reward=0.715 | ETA=466s | Ep=2479
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.706 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.726 | ETA=427s | Ep=2789
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.754 (best=0.903) | R_gc=0.863 | Succ=0.0% | Reward=0.725 | ETA=388s | Ep=3099
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.516 (best=0.903) | R_gc=0.827 | Succ=0.0% | Reward=0.469 | ETA=349s | Ep=3409
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.755 (best=0.903) | R_gc=0.998 | Succ=0.0% | Reward=0.682 | ETA=311s | Ep=3719
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.746 (best=0.903) | R_gc=0.947 | Succ=0.0% | Reward=0.623 | ETA=273s | Ep=4029
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.739 (best=0.903) | R_gc=0.980 | Succ=0.0% | Reward=0.563 | ETA=234s | Ep=4339
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | R_struct=0.663 (best=0.903) | R_gc=0.847 | Succ=0.0% | Reward=0.487 | ETA=194s | Ep=4649
+    [███████████████░░░░░]  80.0% | Phase C (joint) | R_struct=0.653 (best=0.903) | R_gc=0.996 | Succ=0.0% | Reward=0.522 | ETA=156s | Ep=4958
+    [████████████████░░░░]  85.0% | Phase C (joint) | R_struct=0.632 (best=0.903) | R_gc=0.781 | Succ=0.0% | Reward=0.450 | ETA=117s | Ep=5268
+    [█████████████████░░░]  90.0% | Phase C (joint) | R_struct=0.696 (best=0.903) | R_gc=0.858 | Succ=0.0% | Reward=0.500 | ETA=78s | Ep=5578
+    [██████████████████░░]  95.0% | Phase C (joint) | R_struct=0.710 (best=0.903) | R_gc=0.887 | Succ=0.0% | Reward=0.515 | ETA=39s | Ep=5888
+    [███████████████████░] 100.0% | Phase C (joint) | R_struct=0.569 (best=0.903) | R_gc=0.993 | Succ=0.0% | Reward=0.459 | ETA=0s | Ep=6198
+    ✓ Done in 777.3s | Final: R_struct=0.567, Success=0.0%, Best=0.903, Episodes=6199
+│  Model saved: models/ppo_puzzle25_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 777.3s | Overall: 38% | ETA: 70.5 min remaining
+
+┌─ [8/15] Puzzle #26: stickshift
+│  Structure: ..((((((((.....)).)))))).. (len=26)
+│  Training 78,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.517 (best=0.846) | R_gc=0.727 | Succ=0.0% | Reward=0.616 | ETA=139s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.800 (best=0.923) | R_gc=0.315 | Succ=0.0% | Reward=0.808 | ETA=134s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.826 (best=0.923) | R_gc=0.192 | Succ=0.0% | Reward=0.810 | ETA=128s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.825 (best=0.923) | R_gc=0.354 | Succ=0.0% | Reward=0.839 | ETA=121s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.831 (best=0.923) | R_gc=0.676 | Succ=0.0% | Reward=0.893 | ETA=114s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.872 (best=0.923) | R_gc=0.751 | Succ=0.0% | Reward=0.946 | ETA=107s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.869 (best=0.923) | R_gc=0.750 | Succ=0.0% | Reward=0.917 | ETA=100s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.905 (best=1.000) | R_gc=0.864 | Succ=4.0% | Reward=0.936 | ETA=92s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.845 (best=1.000) | R_gc=0.440 | Succ=0.0% | Reward=0.786 | ETA=85s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.845 (best=1.000) | R_gc=0.427 | Succ=0.0% | Reward=0.757 | ETA=77s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.846 (best=1.000) | R_gc=0.583 | Succ=0.0% | Reward=0.762 | ETA=69s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.912 (best=1.000) | R_gc=0.866 | Succ=0.0% | Reward=0.810 | ETA=62s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.920 (best=1.000) | R_gc=0.995 | Succ=0.0% | Reward=0.761 | ETA=54s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.914 (best=1.000) | R_gc=0.992 | Succ=0.0% | Reward=0.752 | ETA=46s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.922 (best=1.000) | R_gc=0.975 | Succ=0.0% | Reward=0.762 | ETA=39s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.918 (best=1.000) | R_gc=0.988 | Succ=0.0% | Reward=0.763 | ETA=31s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.911 (best=1.000) | R_gc=0.858 | Succ=0.0% | Reward=0.747 | ETA=23s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.620 (best=1.000) | R_gc=0.973 | Succ=0.0% | Reward=0.520 | ETA=15s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.489 (best=1.000) | R_gc=0.901 | Succ=0.0% | Reward=0.394 | ETA=8s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.791 (best=1.000) | R_gc=0.944 | Succ=0.0% | Reward=0.610 | ETA=0s | Ep=3000
+    ✓ Done in 154.0s | Final: R_struct=0.792, Success=0.0%, Best=1.000, Episodes=3003
+│  Model saved: models/ppo_puzzle26_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 154.1s | Overall: 40% | ETA: 67.8 min remaining
+
+┌─ [9/15] Puzzle #30: Corner bulge training
+│  Structure: .(((((((((((...)))))....)))))). (len=31)
+│  Training 96,100 timesteps (~3,100 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.522 (best=0.871) | R_gc=0.856 | Succ=0.0% | Reward=0.639 | ETA=179s | Ep=155
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.647 (best=0.935) | R_gc=0.947 | Succ=0.0% | Reward=0.776 | ETA=172s | Ep=310
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.867 (best=1.000) | R_gc=0.843 | Succ=12.0% | Reward=0.969 | ETA=162s | Ep=465
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.959 (best=1.000) | R_gc=0.658 | Succ=52.0% | Reward=1.018 | ETA=154s | Ep=620
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.968 (best=1.000) | R_gc=0.649 | Succ=72.0% | Reward=1.025 | ETA=144s | Ep=775
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.981 (best=1.000) | R_gc=0.613 | Succ=72.0% | Reward=1.031 | ETA=135s | Ep=930
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.995 (best=1.000) | R_gc=0.579 | Succ=92.0% | Reward=1.005 | ETA=125s | Ep=1085
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.992 (best=1.000) | R_gc=0.513 | Succ=88.0% | Reward=0.950 | ETA=115s | Ep=1240
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.994 (best=1.000) | R_gc=0.529 | Succ=90.0% | Reward=0.913 | ETA=106s | Ep=1395
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.733 (best=1.000) | R_gc=0.526 | Succ=42.0% | Reward=0.650 | ETA=96s | Ep=1550
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.995 (best=1.000) | R_gc=0.600 | Succ=92.0% | Reward=0.849 | ETA=87s | Ep=1705
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.994 (best=1.000) | R_gc=0.519 | Succ=90.0% | Reward=0.789 | ETA=77s | Ep=1860
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.692 | Succ=96.0% | Reward=0.789 | ETA=67s | Ep=2015
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.513 | Succ=96.0% | Reward=0.711 | ETA=58s | Ep=2170
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.999 (best=1.000) | R_gc=0.532 | Succ=98.0% | Reward=0.706 | ETA=48s | Ep=2325
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.999 (best=1.000) | R_gc=0.619 | Succ=98.0% | Reward=0.725 | ETA=38s | Ep=2480
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.974 (best=1.000) | R_gc=0.400 | Succ=84.0% | Reward=0.665 | ETA=29s | Ep=2635
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.968 (best=1.000) | R_gc=0.398 | Succ=58.0% | Reward=0.664 | ETA=19s | Ep=2790
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.996 (best=1.000) | R_gc=0.442 | Succ=98.0% | Reward=0.683 | ETA=10s | Ep=2945
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.888 (best=1.000) | R_gc=0.575 | Succ=62.0% | Reward=0.638 | ETA=0s | Ep=3100
+    ✓ Done in 191.4s | Final: R_struct=0.888, Success=62.0%, Best=1.000, Episodes=3100
+│  Model saved: models/ppo_puzzle30_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 191.4s | Overall: 43% | ETA: 64.5 min remaining
+
+┌─ [10/15] Puzzle #40: Tripod5
+│  Structure: ..((((((((.....))))((((.....)))))))).. (len=38)
+│  Training 144,400 timesteps (~3,800 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.415 (best=0.711) | R_gc=0.944 | Succ=0.0% | Reward=0.541 | ETA=269s | Ep=190
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.716 (best=0.842) | R_gc=0.936 | Succ=0.0% | Reward=0.828 | ETA=254s | Ep=380
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.767 (best=0.947) | R_gc=0.842 | Succ=0.0% | Reward=0.852 | ETA=242s | Ep=570
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.773 (best=0.947) | R_gc=0.966 | Succ=0.0% | Reward=0.874 | ETA=228s | Ep=760
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.783 (best=0.947) | R_gc=0.994 | Succ=0.0% | Reward=0.882 | ETA=214s | Ep=950
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.784 (best=0.947) | R_gc=0.973 | Succ=0.0% | Reward=0.883 | ETA=201s | Ep=1140
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.785 (best=0.947) | R_gc=1.000 | Succ=0.0% | Reward=0.863 | ETA=186s | Ep=1330
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.787 (best=0.947) | R_gc=1.000 | Succ=0.0% | Reward=0.832 | ETA=171s | Ep=1520
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.789 (best=0.947) | R_gc=0.992 | Succ=0.0% | Reward=0.808 | ETA=158s | Ep=1710
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.779 (best=0.947) | R_gc=0.987 | Succ=0.0% | Reward=0.763 | ETA=143s | Ep=1900
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.786 (best=0.947) | R_gc=0.922 | Succ=0.0% | Reward=0.743 | ETA=129s | Ep=2090
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.785 (best=0.947) | R_gc=0.763 | Succ=0.0% | Reward=0.685 | ETA=114s | Ep=2280
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.788 (best=0.947) | R_gc=0.822 | Succ=0.0% | Reward=0.666 | ETA=100s | Ep=2470
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.782 (best=0.947) | R_gc=0.712 | Succ=0.0% | Reward=0.621 | ETA=86s | Ep=2660
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.777 (best=0.947) | R_gc=0.718 | Succ=0.0% | Reward=0.612 | ETA=71s | Ep=2850
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.789 (best=0.947) | R_gc=0.951 | Succ=0.0% | Reward=0.658 | ETA=57s | Ep=3040
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.785 (best=0.947) | R_gc=0.980 | Succ=0.0% | Reward=0.658 | ETA=43s | Ep=3230
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.740 (best=0.947) | R_gc=0.957 | Succ=0.0% | Reward=0.621 | ETA=28s | Ep=3420
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.772 (best=0.947) | R_gc=0.953 | Succ=0.0% | Reward=0.647 | ETA=14s | Ep=3610
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.785 (best=0.947) | R_gc=0.885 | Succ=0.0% | Reward=0.641 | ETA=0s | Ep=3800
+    ✓ Done in 284.5s | Final: R_struct=0.785, Success=0.0%, Best=0.947, Episodes=3802
+│  Model saved: models/ppo_puzzle40_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 284.6s | Overall: 47% | ETA: 59.5 min remaining
+
+┌─ [11/15] Puzzle #41: Shortie 6
+│  Structure: ((....)).((....)).((....)).((....)) (len=35)
+│  Training 122,500 timesteps (~3,500 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.432 (best=0.543) | R_gc=0.917 | Succ=0.0% | Reward=0.547 | ETA=228s | Ep=175
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.534 (best=0.543) | R_gc=0.866 | Succ=0.0% | Reward=0.642 | ETA=218s | Ep=350
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.490 (best=0.600) | R_gc=0.817 | Succ=0.0% | Reward=0.589 | ETA=208s | Ep=525
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.535 (best=0.657) | R_gc=0.927 | Succ=0.0% | Reward=0.656 | ETA=196s | Ep=700
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.532 (best=0.657) | R_gc=0.937 | Succ=0.0% | Reward=0.650 | ETA=184s | Ep=875
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.585 (best=0.657) | R_gc=0.991 | Succ=0.0% | Reward=0.709 | ETA=172s | Ep=1050
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.578 (best=0.714) | R_gc=0.991 | Succ=0.0% | Reward=0.683 | ETA=159s | Ep=1225
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.577 (best=0.714) | R_gc=0.936 | Succ=0.0% | Reward=0.644 | ETA=147s | Ep=1400
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.652 (best=0.714) | R_gc=0.976 | Succ=0.0% | Reward=0.683 | ETA=135s | Ep=1575
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.642 (best=0.714) | R_gc=0.936 | Succ=0.0% | Reward=0.644 | ETA=123s | Ep=1750
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.634 (best=0.714) | R_gc=0.976 | Succ=0.0% | Reward=0.617 | ETA=110s | Ep=1925
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.682 (best=0.714) | R_gc=0.996 | Succ=0.0% | Reward=0.616 | ETA=98s | Ep=2100
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.675 (best=0.714) | R_gc=0.909 | Succ=0.0% | Reward=0.569 | ETA=86s | Ep=2275
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.664 (best=0.714) | R_gc=0.997 | Succ=0.0% | Reward=0.550 | ETA=74s | Ep=2450
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.686 (best=0.714) | R_gc=0.853 | Succ=0.0% | Reward=0.530 | ETA=61s | Ep=2625
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.677 (best=0.714) | R_gc=0.711 | Succ=0.0% | Reward=0.505 | ETA=49s | Ep=2800
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.697 (best=0.771) | R_gc=0.654 | Succ=0.0% | Reward=0.501 | ETA=37s | Ep=2975
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.693 (best=0.771) | R_gc=0.857 | Succ=0.0% | Reward=0.537 | ETA=24s | Ep=3150
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.638 (best=0.771) | R_gc=0.857 | Succ=0.0% | Reward=0.512 | ETA=12s | Ep=3325
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.543 (best=0.771) | R_gc=0.999 | Succ=0.0% | Reward=0.483 | ETA=0s | Ep=3500
+    ✓ Done in 243.3s | Final: R_struct=0.542, Success=0.0%, Best=0.771, Episodes=3503
+│  Model saved: models/ppo_puzzle41_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 243.4s | Overall: 51% | ETA: 55.4 min remaining
+
+┌─ [12/15] Puzzle #45: [CloudBeta] 5 Adjacent Stack Multi-Branch Loop
+│  Structure: (((((((((....))))(((((....)))))(((((....)))))((((....)))))))... (len=63)
+│  Training 396,900 timesteps (~6,300 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.584 (best=0.746) | R_gc=0.552 | Succ=0.0% | Reward=0.653 | ETA=752s | Ep=315
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.648 (best=1.000) | R_gc=0.947 | Succ=0.0% | Reward=0.774 | ETA=710s | Ep=630
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.670 (best=1.000) | R_gc=0.614 | Succ=0.0% | Reward=0.739 | ETA=671s | Ep=945
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.650 (best=1.000) | R_gc=0.749 | Succ=0.0% | Reward=0.743 | ETA=631s | Ep=1260
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.628 (best=1.000) | R_gc=0.914 | Succ=0.0% | Reward=0.746 | ETA=590s | Ep=1575
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.730 (best=1.000) | R_gc=0.922 | Succ=0.0% | Reward=0.847 | ETA=549s | Ep=1890
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.649 (best=1.000) | R_gc=0.957 | Succ=0.0% | Reward=0.751 | ETA=509s | Ep=2205
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.678 (best=1.000) | R_gc=0.985 | Succ=0.0% | Reward=0.760 | ETA=469s | Ep=2520
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.666 (best=1.000) | R_gc=0.981 | Succ=0.0% | Reward=0.731 | ETA=429s | Ep=2835
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.682 (best=1.000) | R_gc=0.935 | Succ=0.0% | Reward=0.717 | ETA=390s | Ep=3150
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.622 (best=1.000) | R_gc=0.826 | Succ=0.0% | Reward=0.624 | ETA=351s | Ep=3465
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.710 (best=1.000) | R_gc=0.925 | Succ=0.0% | Reward=0.679 | ETA=313s | Ep=3780
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.523 (best=1.000) | R_gc=0.925 | Succ=0.0% | Reward=0.496 | ETA=274s | Ep=4095
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.611 (best=1.000) | R_gc=0.624 | Succ=0.0% | Reward=0.544 | ETA=234s | Ep=4410
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.677 (best=1.000) | R_gc=0.904 | Succ=0.0% | Reward=0.613 | ETA=196s | Ep=4725
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.688 (best=1.000) | R_gc=0.980 | Succ=0.0% | Reward=0.612 | ETA=156s | Ep=5040
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.696 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.599 | ETA=117s | Ep=5355
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.595 (best=1.000) | R_gc=0.960 | Succ=0.0% | Reward=0.539 | ETA=78s | Ep=5670
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.667 (best=1.000) | R_gc=0.996 | Succ=0.0% | Reward=0.584 | ETA=39s | Ep=5985
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.679 (best=1.000) | R_gc=0.911 | Succ=0.0% | Reward=0.589 | ETA=0s | Ep=6300
+    ✓ Done in 781.9s | Final: R_struct=0.679, Success=0.0%, Best=1.000, Episodes=6300
+│  Model saved: models/ppo_puzzle45_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 782.0s | Overall: 63% | ETA: 41.9 min remaining
+
+┌─ [13/15] Puzzle #47: Misfolded Aptamer
+│  Structure: ((((......(((((...))).((....)).........)).....)))) (len=50)
+│  Training 250,000 timesteps (~5,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.550 (best=0.720) | R_gc=0.579 | Succ=0.0% | Reward=0.608 | ETA=457s | Ep=250
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.784 (best=1.000) | R_gc=0.957 | Succ=2.0% | Reward=0.901 | ETA=435s | Ep=500
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.813 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.930 | ETA=413s | Ep=750
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.760 (best=1.000) | R_gc=0.910 | Succ=0.0% | Reward=0.865 | ETA=389s | Ep=1000
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.776 (best=1.000) | R_gc=0.934 | Succ=0.0% | Reward=0.894 | ETA=365s | Ep=1250
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.741 (best=1.000) | R_gc=0.991 | Succ=0.0% | Reward=0.872 | ETA=340s | Ep=1500
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.717 (best=1.000) | R_gc=0.972 | Succ=0.0% | Reward=0.815 | ETA=316s | Ep=1750
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.757 (best=1.000) | R_gc=0.930 | Succ=0.0% | Reward=0.818 | ETA=291s | Ep=2000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.817 (best=1.000) | R_gc=0.958 | Succ=0.0% | Reward=0.836 | ETA=267s | Ep=2250
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.920 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.872 | ETA=242s | Ep=2500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.888 (best=1.000) | R_gc=0.999 | Succ=0.0% | Reward=0.809 | ETA=218s | Ep=2750
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.893 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.774 | ETA=194s | Ep=3000
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.853 (best=1.000) | R_gc=0.851 | Succ=0.0% | Reward=0.681 | ETA=170s | Ep=3250
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.808 (best=1.000) | R_gc=0.987 | Succ=0.0% | Reward=0.651 | ETA=145s | Ep=3500
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.878 (best=1.000) | R_gc=0.957 | Succ=0.0% | Reward=0.674 | ETA=121s | Ep=3750
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.843 (best=1.000) | R_gc=0.860 | Succ=0.0% | Reward=0.641 | ETA=97s | Ep=4000
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.838 (best=1.000) | R_gc=0.727 | Succ=0.0% | Reward=0.619 | ETA=72s | Ep=4250
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.892 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.684 | ETA=48s | Ep=4500
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.804 (best=1.000) | R_gc=0.921 | Succ=0.0% | Reward=0.631 | ETA=24s | Ep=4750
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.822 (best=1.000) | R_gc=0.782 | Succ=0.0% | Reward=0.587 | ETA=0s | Ep=5000
+    ✓ Done in 482.7s | Final: R_struct=0.823, Success=0.0%, Best=1.000, Episodes=5002
+│  Model saved: models/ppo_puzzle47_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 482.7s | Overall: 70% | ETA: 33.5 min remaining
+
+┌─ [14/15] Puzzle #54: 7 multiloop
+│  Structure: (((((((((....)))))(((((....)))))(((((....)))))(((((....)))))... (len=92)
+│  Training 846,400 timesteps (~9,200 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.342 (best=0.522) | R_gc=0.672 | Succ=0.0% | Reward=0.423 | ETA=1647s | Ep=460
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.383 (best=0.674) | R_gc=0.404 | Succ=0.0% | Reward=0.413 | ETA=1566s | Ep=920
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.385 (best=0.674) | R_gc=0.759 | Succ=0.0% | Reward=0.483 | ETA=1465s | Ep=1380
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.437 (best=0.674) | R_gc=0.922 | Succ=0.0% | Reward=0.558 | ETA=1376s | Ep=1840
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.508 (best=0.848) | R_gc=0.628 | Succ=0.0% | Reward=0.584 | ETA=1287s | Ep=2300
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.587 (best=0.978) | R_gc=0.860 | Succ=0.0% | Reward=0.690 | ETA=1198s | Ep=2760
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.532 (best=0.978) | R_gc=0.885 | Succ=0.0% | Reward=0.628 | ETA=1112s | Ep=3220
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.490 (best=0.978) | R_gc=0.935 | Succ=0.0% | Reward=0.581 | ETA=1025s | Ep=3680
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.568 (best=0.978) | R_gc=0.965 | Succ=0.0% | Reward=0.637 | ETA=939s | Ep=4140
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.525 (best=0.978) | R_gc=0.864 | Succ=0.0% | Reward=0.568 | ETA=854s | Ep=4600
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.554 (best=1.000) | R_gc=0.843 | Succ=0.0% | Reward=0.563 | ETA=769s | Ep=5060
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.540 (best=1.000) | R_gc=0.826 | Succ=0.0% | Reward=0.539 | ETA=684s | Ep=5520
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.533 (best=1.000) | R_gc=0.803 | Succ=0.0% | Reward=0.516 | ETA=599s | Ep=5980
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.538 (best=1.000) | R_gc=0.872 | Succ=2.0% | Reward=0.511 | ETA=513s | Ep=6440
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.610 (best=1.000) | R_gc=0.807 | Succ=0.0% | Reward=0.550 | ETA=428s | Ep=6900
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.579 (best=1.000) | R_gc=0.972 | Succ=0.0% | Reward=0.560 | ETA=342s | Ep=7360
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.541 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.528 | ETA=256s | Ep=7820
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.622 (best=1.000) | R_gc=0.858 | Succ=0.0% | Reward=0.576 | ETA=171s | Ep=8280
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.527 (best=1.000) | R_gc=0.968 | Succ=0.0% | Reward=0.521 | ETA=85s | Ep=8740
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.518 (best=1.000) | R_gc=0.898 | Succ=0.0% | Reward=0.521 | ETA=0s | Ep=9200
+    ✓ Done in 1709.1s | Final: R_struct=0.518, Success=0.0%, Best=1.000, Episodes=9200
+│  Model saved: models/ppo_puzzle54_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 1709.1s | Overall: 95% | ETA: 5.3 min remaining
+
+┌─ [15/15] Puzzle #65: Branching Loop
+│  Structure: .(((((........)((((....))))..))))....... (len=40)
+│  Training 160,000 timesteps (~4,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.454 (best=0.725) | R_gc=0.915 | Succ=0.0% | Reward=0.580 | ETA=293s | Ep=200
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.581 (best=0.800) | R_gc=0.881 | Succ=0.0% | Reward=0.700 | ETA=275s | Ep=400
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.669 (best=0.800) | R_gc=0.821 | Succ=0.0% | Reward=0.775 | ETA=261s | Ep=600
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.656 (best=0.875) | R_gc=0.688 | Succ=0.0% | Reward=0.738 | ETA=247s | Ep=800
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.698 (best=0.875) | R_gc=0.630 | Succ=0.0% | Reward=0.770 | ETA=232s | Ep=1000
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.710 (best=0.875) | R_gc=0.472 | Succ=0.0% | Reward=0.746 | ETA=216s | Ep=1200
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.803 (best=0.950) | R_gc=0.846 | Succ=0.0% | Reward=0.882 | ETA=201s | Ep=1400
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.943 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.988 | ETA=185s | Ep=1600
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.940 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.942 | ETA=170s | Ep=1800
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.949 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.905 | ETA=154s | Ep=2000
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.909 (best=0.950) | R_gc=0.941 | Succ=0.0% | Reward=0.818 | ETA=139s | Ep=2200
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.907 (best=0.950) | R_gc=0.861 | Succ=0.0% | Reward=0.765 | ETA=123s | Ep=2400
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.749 (best=0.950) | R_gc=0.840 | Succ=0.0% | Reward=0.584 | ETA=108s | Ep=2600
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.932 (best=0.950) | R_gc=0.940 | Succ=0.0% | Reward=0.715 | ETA=92s | Ep=2800
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.907 (best=0.950) | R_gc=0.968 | Succ=0.0% | Reward=0.687 | ETA=77s | Ep=3000
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.948 (best=0.950) | R_gc=0.994 | Succ=0.0% | Reward=0.725 | ETA=62s | Ep=3200
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.904 (best=0.950) | R_gc=0.899 | Succ=0.0% | Reward=0.687 | ETA=46s | Ep=3400
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.942 (best=0.950) | R_gc=0.999 | Succ=0.0% | Reward=0.714 | ETA=31s | Ep=3600
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.949 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.723 | ETA=15s | Ep=3800
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.932 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.709 | ETA=0s | Ep=4000
+    ✓ Done in 307.6s | Final: R_struct=0.932, Success=0.0%, Best=0.950, Episodes=4000
+│  Model saved: models/ppo_puzzle65_a0.5_b0.2_g0.1_d0.2_seed42
+└─ Done in 307.7s | Overall: 100% | ETA: 0.0 min remaining
+
+================================================================================
+  ALL TRAINING COMPLETE!
+  Total time: 111.9 minutes (6714s)
+  Models saved to: ./models/
+  TensorBoard:  tensorboard --logdir ./tensorboard_logs/
+================================================================================
+run_grid_search.sh: line 11: $'\r': command not found
+
+>>> Step 2/3: Config 1 (Structure-focused: 0.6, 0.15, 0.1, 0.15)
+================================================================================
+  RNA Inverse Folding — Multi-Objective Training Pipeline
+================================================================================
+  Algorithm    : PPO
+  Seed         : 42
+  Timesteps    : ADAPTIVE (min 3000 eps, +50% for len>30)
+                 Range: 36,000 – 846,400 steps (3,000–9,200 episodes)
+  Total steps  : 3,361,038
+  Targets      : 15
+  Weight config: #1  (α=0.6, β=0.15, γ=0.1, δ=0.15)
+  Log dir      : ./tensorboard_logs/
+================================================================================
+
+┌─ [1/15] Puzzle #1: Simple Hairpin
+│  Structure: ((((((......)))))) (len=18)
+│  Training 54,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.564 (best=1.000) | R_gc=0.306 | Succ=2.0% | Reward=0.593 | ETA=95s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.727 (best=1.000) | R_gc=0.181 | Succ=6.0% | Reward=0.736 | ETA=91s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.929 (best=1.000) | R_gc=0.056 | Succ=58.0% | Reward=0.903 | ETA=86s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.984 (best=1.000) | R_gc=0.017 | Succ=94.0% | Reward=0.961 | ETA=81s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.980 (best=1.000) | R_gc=0.206 | Succ=82.0% | Reward=0.958 | ETA=76s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.971 (best=1.000) | R_gc=0.306 | Succ=84.0% | Reward=0.960 | ETA=71s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.978 (best=1.000) | R_gc=0.276 | Succ=92.0% | Reward=0.939 | ETA=66s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.944 (best=1.000) | R_gc=0.176 | Succ=76.0% | Reward=0.882 | ETA=61s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.993 (best=1.000) | R_gc=0.003 | Succ=94.0% | Reward=0.869 | ETA=56s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.976 (best=1.000) | R_gc=0.003 | Succ=88.0% | Reward=0.812 | ETA=51s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.991 (best=1.000) | R_gc=0.014 | Succ=94.0% | Reward=0.788 | ETA=46s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.003 | Succ=100.0% | Reward=0.766 | ETA=41s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.723 | ETA=36s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.687 | ETA=31s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.003 | Succ=100.0% | Reward=0.690 | ETA=26s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.998 (best=1.000) | R_gc=0.014 | Succ=98.0% | Reward=0.681 | ETA=20s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.014 | Succ=100.0% | Reward=0.689 | ETA=15s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.689 | ETA=10s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.006 | Succ=100.0% | Reward=0.686 | ETA=5s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.688 | ETA=0s | Ep=3000
+    ✓ Done in 102.0s | Final: R_struct=1.000, Success=100.0%, Best=1.000, Episodes=3000
+│  Model saved: models/ppo_puzzle1_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 103.1s | Overall: 2% | ETA: 105.2 min remaining
+
+┌─ [2/15] Puzzle #8: G-C Placement
+│  Structure: ((((...)))). (len=12)
+│  Training 36,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.6% | Phase A (struct) | R_struct=0.343 (best=0.833) | R_gc=0.688 | Succ=0.0% | Reward=0.408 | ETA=60s | Ep=166
+    [██░░░░░░░░░░░░░░░░░░]  11.1% | Phase A (struct) | R_struct=0.637 (best=1.000) | R_gc=0.296 | Succ=2.0% | Reward=0.667 | ETA=60s | Ep=333
+    [███░░░░░░░░░░░░░░░░░]  16.7% | Phase A (struct) | R_struct=0.923 (best=1.000) | R_gc=0.321 | Succ=64.0% | Reward=0.948 | ETA=56s | Ep=500
+    [████░░░░░░░░░░░░░░░░]  22.2% | Phase A (struct) | R_struct=0.990 (best=1.000) | R_gc=0.798 | Succ=94.0% | Reward=1.073 | ETA=52s | Ep=666
+    [█████░░░░░░░░░░░░░░░]  27.8% | Phase A (struct) | R_struct=0.997 (best=1.000) | R_gc=0.808 | Succ=98.0% | Reward=1.081 | ETA=49s | Ep=833
+    [██████░░░░░░░░░░░░░░]  33.3% | Phase B (ramp) | R_struct=0.967 (best=1.000) | R_gc=0.757 | Succ=84.0% | Reward=1.028 | ETA=45s | Ep=1000
+    [███████░░░░░░░░░░░░░]  38.9% | Phase B (ramp) | R_struct=0.990 (best=1.000) | R_gc=0.816 | Succ=94.0% | Reward=1.018 | ETA=42s | Ep=1166
+    [████████░░░░░░░░░░░░]  44.4% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.821 | Succ=98.0% | Reward=0.986 | ETA=38s | Ep=1333
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.983 (best=1.000) | R_gc=0.817 | Succ=90.0% | Reward=0.932 | ETA=34s | Ep=1500
+    [███████████░░░░░░░░░]  55.6% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.821 | Succ=100.0% | Reward=0.907 | ETA=30s | Ep=1666
+    [████████████░░░░░░░░]  61.1% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.779 | Succ=100.0% | Reward=0.862 | ETA=26s | Ep=1833
+    [█████████████░░░░░░░]  66.7% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.671 | Succ=100.0% | Reward=0.803 | ETA=23s | Ep=2000
+    [██████████████░░░░░░]  72.2% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.804 | Succ=100.0% | Reward=0.796 | ETA=19s | Ep=2166
+    [███████████████░░░░░]  77.8% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.642 | Succ=100.0% | Reward=0.770 | ETA=15s | Ep=2333
+    [████████████████░░░░]  83.3% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.525 | Succ=100.0% | Reward=0.754 | ETA=11s | Ep=2500
+    [█████████████████░░░]  88.9% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.346 | Succ=100.0% | Reward=0.720 | ETA=8s | Ep=2666
+    [██████████████████░░]  94.4% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.167 | Succ=100.0% | Reward=0.685 | ETA=4s | Ep=2833
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.250 | Succ=100.0% | Reward=0.705 | ETA=0s | Ep=3000
+    ✓ Done in 68.8s | Final: R_struct=1.000, Success=100.0%, Best=1.000, Episodes=3008
+│  Model saved: models/ppo_puzzle8_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 68.8s | Overall: 3% | ETA: 104.1 min remaining
+
+┌─ [3/15] Puzzle #10: Frog Foot
+│  Structure: ..........((((....))))((((....))))((((...)))) (len=45)
+│  Training 202,500 timesteps (~4,500 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.482 (best=0.733) | R_gc=0.431 | Succ=0.0% | Reward=0.493 | ETA=374s | Ep=225
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.521 (best=0.800) | R_gc=0.354 | Succ=0.0% | Reward=0.523 | ETA=352s | Ep=450
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.515 (best=0.822) | R_gc=0.840 | Succ=0.0% | Reward=0.583 | ETA=332s | Ep=675
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.612 (best=0.822) | R_gc=0.913 | Succ=0.0% | Reward=0.690 | ETA=312s | Ep=900
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.619 (best=0.822) | R_gc=0.959 | Succ=0.0% | Reward=0.709 | ETA=293s | Ep=1125
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.573 (best=0.822) | R_gc=0.963 | Succ=0.0% | Reward=0.666 | ETA=274s | Ep=1350
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.669 (best=0.822) | R_gc=0.994 | Succ=0.0% | Reward=0.732 | ETA=255s | Ep=1575
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.728 (best=0.822) | R_gc=0.898 | Succ=0.0% | Reward=0.756 | ETA=235s | Ep=1800
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.762 (best=0.822) | R_gc=0.999 | Succ=0.0% | Reward=0.771 | ETA=215s | Ep=2025
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.672 (best=0.822) | R_gc=0.974 | Succ=0.0% | Reward=0.660 | ETA=196s | Ep=2250
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.724 (best=0.822) | R_gc=1.000 | Succ=0.0% | Reward=0.680 | ETA=176s | Ep=2475
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.756 (best=0.822) | R_gc=0.970 | Succ=0.0% | Reward=0.667 | ETA=156s | Ep=2700
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.748 (best=0.822) | R_gc=0.962 | Succ=0.0% | Reward=0.632 | ETA=137s | Ep=2925
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.808 (best=0.822) | R_gc=1.000 | Succ=0.0% | Reward=0.632 | ETA=117s | Ep=3150
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.675 (best=0.822) | R_gc=0.596 | Succ=0.0% | Reward=0.467 | ETA=97s | Ep=3375
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.699 (best=0.822) | R_gc=0.488 | Succ=0.0% | Reward=0.467 | ETA=78s | Ep=3600
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.732 (best=0.822) | R_gc=0.440 | Succ=0.0% | Reward=0.468 | ETA=58s | Ep=3825
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.743 (best=0.822) | R_gc=0.230 | Succ=0.0% | Reward=0.447 | ETA=39s | Ep=4050
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.746 (best=0.822) | R_gc=0.193 | Succ=0.0% | Reward=0.443 | ETA=19s | Ep=4275
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.652 (best=0.822) | R_gc=0.096 | Succ=0.0% | Reward=0.371 | ETA=0s | Ep=4500
+    ✓ Done in 389.4s | Final: R_struct=0.648, Success=0.0%, Best=0.822, Episodes=4502
+│  Model saved: models/ppo_puzzle10_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 389.5s | Overall: 9% | ETA: 98.2 min remaining
+
+┌─ [4/15] Puzzle #13: square
+│  Structure: ((((((((((((((((((((((((((...))))))....)))))))....))))))....... (len=67)
+│  Training 448,900 timesteps (~6,700 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.382 (best=0.672) | R_gc=0.721 | Succ=0.0% | Reward=0.449 | ETA=851s | Ep=335
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.607 (best=0.851) | R_gc=0.524 | Succ=0.0% | Reward=0.654 | ETA=807s | Ep=670
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.828 (best=1.000) | R_gc=0.612 | Succ=12.0% | Reward=0.877 | ETA=764s | Ep=1005
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.773 (best=1.000) | R_gc=0.698 | Succ=8.0% | Reward=0.829 | ETA=718s | Ep=1340
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.781 (best=1.000) | R_gc=0.824 | Succ=0.0% | Reward=0.843 | ETA=674s | Ep=1675
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.739 (best=1.000) | R_gc=0.926 | Succ=0.0% | Reward=0.809 | ETA=627s | Ep=2010
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.798 (best=1.000) | R_gc=0.803 | Succ=2.0% | Reward=0.828 | ETA=581s | Ep=2345
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.629 (best=1.000) | R_gc=0.482 | Succ=0.0% | Reward=0.633 | ETA=536s | Ep=2680
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.769 (best=1.000) | R_gc=0.769 | Succ=12.0% | Reward=0.760 | ETA=491s | Ep=3015
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.952 (best=1.000) | R_gc=0.386 | Succ=36.0% | Reward=0.844 | ETA=446s | Ep=3350
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.915 (best=1.000) | R_gc=0.429 | Succ=20.0% | Reward=0.787 | ETA=402s | Ep=3685
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.716 (best=1.000) | R_gc=0.709 | Succ=0.0% | Reward=0.643 | ETA=358s | Ep=4020
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.887 (best=1.000) | R_gc=0.492 | Succ=20.0% | Reward=0.700 | ETA=313s | Ep=4355
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.842 (best=1.000) | R_gc=0.606 | Succ=26.0% | Reward=0.666 | ETA=268s | Ep=4690
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.795 (best=1.000) | R_gc=0.921 | Succ=4.0% | Reward=0.678 | ETA=223s | Ep=5025
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.781 (best=1.000) | R_gc=0.964 | Succ=0.0% | Reward=0.658 | ETA=179s | Ep=5360
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.841 (best=1.000) | R_gc=0.946 | Succ=4.0% | Reward=0.691 | ETA=134s | Ep=5695
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.794 (best=1.000) | R_gc=0.861 | Succ=0.0% | Reward=0.660 | ETA=90s | Ep=6030
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.860 (best=1.000) | R_gc=0.989 | Succ=0.0% | Reward=0.696 | ETA=45s | Ep=6365
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.876 (best=1.000) | R_gc=0.997 | Succ=0.0% | Reward=0.715 | ETA=0s | Ep=6700
+    ✓ Done in 896.3s | Final: R_struct=0.876, Success=0.0%, Best=1.000, Episodes=6701
+│  Model saved: models/ppo_puzzle13_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 896.3s | Overall: 22% | ETA: 85.8 min remaining
+
+┌─ [5/15] Puzzle #15: Small and Easy 6
+│  Structure: (((((.....))..((.........))))) (len=30)
+│  Training 90,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.497 (best=0.800) | R_gc=0.827 | Succ=0.0% | Reward=0.576 | ETA=158s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.612 (best=0.867) | R_gc=0.943 | Succ=0.0% | Reward=0.700 | ETA=154s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.815 (best=0.867) | R_gc=0.988 | Succ=0.0% | Reward=0.897 | ETA=144s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.864 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.944 | ETA=137s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.853 (best=0.867) | R_gc=0.973 | Succ=0.0% | Reward=0.919 | ETA=130s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.863 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.933 | ETA=121s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.997 | Succ=0.0% | Reward=0.903 | ETA=113s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.820 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.840 | ETA=104s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.842 | ETA=96s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.867 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.817 | ETA=87s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.863 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.771 | ETA=78s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.740 | ETA=69s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.861 (best=0.867) | R_gc=0.995 | Succ=0.0% | Reward=0.703 | ETA=61s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase C (joint) | R_struct=0.706 (best=0.867) | R_gc=0.953 | Succ=0.0% | Reward=0.580 | ETA=52s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.863 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.681 | ETA=43s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.848 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.675 | ETA=35s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.856 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.677 | ETA=26s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.865 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.682 | ETA=17s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.867 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.684 | ETA=9s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.845 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.671 | ETA=0s | Ep=3000
+    ✓ Done in 173.4s | Final: R_struct=0.845, Success=0.0%, Best=0.867, Episodes=3003
+│  Model saved: models/ppo_puzzle15_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 173.4s | Overall: 25% | ETA: 82.7 min remaining
+
+┌─ [6/15] Puzzle #23: Shortie 4
+│  Structure: ((....)).((....)) (len=17)
+│  Training 51,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.509 (best=0.765) | R_gc=0.801 | Succ=0.0% | Reward=0.591 | ETA=86s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.525 (best=0.765) | R_gc=0.891 | Succ=0.0% | Reward=0.617 | ETA=85s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.531 (best=0.765) | R_gc=0.894 | Succ=0.0% | Reward=0.620 | ETA=81s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.529 (best=0.765) | R_gc=0.657 | Succ=0.0% | Reward=0.590 | ETA=76s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.527 (best=0.765) | R_gc=0.656 | Succ=0.0% | Reward=0.591 | ETA=72s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.567 (best=0.765) | R_gc=0.816 | Succ=0.0% | Reward=0.644 | ETA=67s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.612 (best=0.765) | R_gc=0.858 | Succ=0.0% | Reward=0.668 | ETA=63s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.612 (best=0.765) | R_gc=0.877 | Succ=0.0% | Reward=0.642 | ETA=58s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.613 (best=0.765) | R_gc=0.977 | Succ=0.0% | Reward=0.632 | ETA=53s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.629 (best=0.765) | R_gc=0.971 | Succ=0.0% | Reward=0.623 | ETA=49s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.611 (best=0.765) | R_gc=0.932 | Succ=0.0% | Reward=0.578 | ETA=44s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.641 (best=0.765) | R_gc=0.905 | Succ=0.0% | Reward=0.570 | ETA=39s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.647 (best=0.765) | R_gc=0.862 | Succ=0.0% | Reward=0.542 | ETA=34s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.628 (best=0.765) | R_gc=0.748 | Succ=0.0% | Reward=0.488 | ETA=29s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.628 (best=0.765) | R_gc=0.871 | Succ=0.0% | Reward=0.498 | ETA=24s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.644 (best=0.765) | R_gc=0.944 | Succ=0.0% | Reward=0.520 | ETA=19s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.633 (best=0.765) | R_gc=0.986 | Succ=0.0% | Reward=0.515 | ETA=15s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.640 (best=0.765) | R_gc=0.844 | Succ=0.0% | Reward=0.503 | ETA=10s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.646 (best=0.765) | R_gc=0.802 | Succ=0.0% | Reward=0.502 | ETA=5s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.646 (best=0.765) | R_gc=0.855 | Succ=0.0% | Reward=0.508 | ETA=0s | Ep=3000
+    ✓ Done in 97.2s | Final: R_struct=0.646, Success=0.0%, Best=0.765, Episodes=3004
+│  Model saved: models/ppo_puzzle23_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 97.3s | Overall: 26% | ETA: 80.9 min remaining
+
+┌─ [7/15] Puzzle #25: The Ministry
+│  Structure: (((.....(((.....(((.....(((.....(((........))).))).))).))).)... (len=62)
+│  Training 384,338 timesteps (~6,199 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.517 (best=0.645) | R_gc=0.131 | Succ=0.0% | Reward=0.467 | ETA=718s | Ep=309
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.519 (best=0.645) | R_gc=0.547 | Succ=0.0% | Reward=0.543 | ETA=686s | Ep=619
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.735 (best=0.903) | R_gc=0.973 | Succ=0.0% | Reward=0.817 | ETA=644s | Ep=929
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.712 (best=0.903) | R_gc=0.999 | Succ=0.0% | Reward=0.802 | ETA=605s | Ep=1239
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.647 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.721 | ETA=567s | Ep=1549
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.794 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.883 | ETA=529s | Ep=1859
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.808 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.871 | ETA=490s | Ep=2169
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.680 (best=0.903) | R_gc=0.855 | Succ=0.0% | Reward=0.697 | ETA=454s | Ep=2479
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.706 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.707 | ETA=416s | Ep=2789
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.754 (best=0.903) | R_gc=0.863 | Succ=0.0% | Reward=0.717 | ETA=378s | Ep=3099
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.516 (best=0.903) | R_gc=0.827 | Succ=0.0% | Reward=0.464 | ETA=340s | Ep=3409
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.755 (best=0.903) | R_gc=0.998 | Succ=0.0% | Reward=0.683 | ETA=302s | Ep=3719
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.746 (best=0.903) | R_gc=0.947 | Succ=0.0% | Reward=0.635 | ETA=264s | Ep=4029
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.739 (best=0.903) | R_gc=0.980 | Succ=0.0% | Reward=0.584 | ETA=226s | Ep=4339
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | R_struct=0.663 (best=0.903) | R_gc=0.847 | Succ=0.0% | Reward=0.509 | ETA=188s | Ep=4649
+    [███████████████░░░░░]  80.0% | Phase C (joint) | R_struct=0.653 (best=0.903) | R_gc=0.996 | Succ=0.0% | Reward=0.532 | ETA=151s | Ep=4958
+    [████████████████░░░░]  85.0% | Phase C (joint) | R_struct=0.632 (best=0.903) | R_gc=0.781 | Succ=0.0% | Reward=0.473 | ETA=113s | Ep=5268
+    [█████████████████░░░]  90.0% | Phase C (joint) | R_struct=0.696 (best=0.903) | R_gc=0.858 | Succ=0.0% | Reward=0.524 | ETA=75s | Ep=5578
+    [██████████████████░░]  95.0% | Phase C (joint) | R_struct=0.710 (best=0.903) | R_gc=0.887 | Succ=0.0% | Reward=0.539 | ETA=38s | Ep=5888
+    [███████████████████░] 100.0% | Phase C (joint) | R_struct=0.569 (best=0.903) | R_gc=0.993 | Succ=0.0% | Reward=0.466 | ETA=0s | Ep=6198
+    ✓ Done in 751.3s | Final: R_struct=0.567, Success=0.0%, Best=0.903, Episodes=6199
+│  Model saved: models/ppo_puzzle25_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 751.4s | Overall: 38% | ETA: 68.3 min remaining
+
+┌─ [8/15] Puzzle #26: stickshift
+│  Structure: ..((((((((.....)).)))))).. (len=26)
+│  Training 78,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.517 (best=0.846) | R_gc=0.727 | Succ=0.0% | Reward=0.591 | ETA=136s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.800 (best=0.923) | R_gc=0.315 | Succ=0.0% | Reward=0.797 | ETA=131s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.826 (best=0.923) | R_gc=0.192 | Succ=0.0% | Reward=0.803 | ETA=124s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.825 (best=0.923) | R_gc=0.354 | Succ=0.0% | Reward=0.827 | ETA=117s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.831 (best=0.923) | R_gc=0.676 | Succ=0.0% | Reward=0.870 | ETA=110s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.872 (best=0.923) | R_gc=0.751 | Succ=0.0% | Reward=0.920 | ETA=103s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.869 (best=0.923) | R_gc=0.750 | Succ=0.0% | Reward=0.895 | ETA=97s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.905 (best=1.000) | R_gc=0.864 | Succ=4.0% | Reward=0.915 | ETA=89s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.845 (best=1.000) | R_gc=0.440 | Succ=0.0% | Reward=0.783 | ETA=82s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.845 (best=1.000) | R_gc=0.427 | Succ=0.0% | Reward=0.758 | ETA=74s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.846 (best=1.000) | R_gc=0.583 | Succ=0.0% | Reward=0.759 | ETA=67s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.912 (best=1.000) | R_gc=0.866 | Succ=0.0% | Reward=0.812 | ETA=60s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.920 (best=1.000) | R_gc=0.995 | Succ=0.0% | Reward=0.774 | ETA=52s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.914 (best=1.000) | R_gc=0.992 | Succ=0.0% | Reward=0.763 | ETA=45s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.922 (best=1.000) | R_gc=0.975 | Succ=0.0% | Reward=0.773 | ETA=37s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.918 (best=1.000) | R_gc=0.988 | Succ=0.0% | Reward=0.773 | ETA=30s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.911 (best=1.000) | R_gc=0.858 | Succ=0.0% | Reward=0.757 | ETA=22s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.620 (best=1.000) | R_gc=0.973 | Succ=0.0% | Reward=0.521 | ETA=15s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.489 (best=1.000) | R_gc=0.901 | Succ=0.0% | Reward=0.395 | ETA=7s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.791 (best=1.000) | R_gc=0.944 | Succ=0.0% | Reward=0.626 | ETA=0s | Ep=3000
+    ✓ Done in 149.1s | Final: R_struct=0.792, Success=0.0%, Best=1.000, Episodes=3003
+│  Model saved: models/ppo_puzzle26_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 149.1s | Overall: 40% | ETA: 65.7 min remaining
+
+┌─ [9/15] Puzzle #30: Corner bulge training
+│  Structure: .(((((((((((...)))))....)))))). (len=31)
+│  Training 96,100 timesteps (~3,100 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.522 (best=0.871) | R_gc=0.856 | Succ=0.0% | Reward=0.609 | ETA=174s | Ep=155
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.647 (best=0.935) | R_gc=0.947 | Succ=0.0% | Reward=0.743 | ETA=167s | Ep=310
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.867 (best=1.000) | R_gc=0.843 | Succ=12.0% | Reward=0.939 | ETA=159s | Ep=465
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.959 (best=1.000) | R_gc=0.658 | Succ=52.0% | Reward=0.995 | ETA=149s | Ep=620
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.968 (best=1.000) | R_gc=0.649 | Succ=72.0% | Reward=1.002 | ETA=141s | Ep=775
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.981 (best=1.000) | R_gc=0.613 | Succ=72.0% | Reward=1.009 | ETA=132s | Ep=930
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.995 (best=1.000) | R_gc=0.579 | Succ=92.0% | Reward=0.990 | ETA=123s | Ep=1085
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.992 (best=1.000) | R_gc=0.513 | Succ=88.0% | Reward=0.944 | ETA=114s | Ep=1240
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.994 (best=1.000) | R_gc=0.529 | Succ=90.0% | Reward=0.914 | ETA=104s | Ep=1395
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.733 (best=1.000) | R_gc=0.526 | Succ=42.0% | Reward=0.653 | ETA=95s | Ep=1550
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.995 (best=1.000) | R_gc=0.600 | Succ=92.0% | Reward=0.861 | ETA=85s | Ep=1705
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.994 (best=1.000) | R_gc=0.519 | Succ=90.0% | Reward=0.812 | ETA=76s | Ep=1860
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.692 | Succ=96.0% | Reward=0.811 | ETA=66s | Ep=2015
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.513 | Succ=96.0% | Reward=0.748 | ETA=56s | Ep=2170
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.999 (best=1.000) | R_gc=0.532 | Succ=98.0% | Reward=0.744 | ETA=47s | Ep=2325
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.999 (best=1.000) | R_gc=0.619 | Succ=98.0% | Reward=0.759 | ETA=37s | Ep=2480
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.974 (best=1.000) | R_gc=0.400 | Succ=84.0% | Reward=0.707 | ETA=28s | Ep=2635
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.968 (best=1.000) | R_gc=0.398 | Succ=58.0% | Reward=0.705 | ETA=19s | Ep=2790
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.996 (best=1.000) | R_gc=0.442 | Succ=98.0% | Reward=0.725 | ETA=9s | Ep=2945
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.888 (best=1.000) | R_gc=0.575 | Succ=62.0% | Reward=0.670 | ETA=0s | Ep=3100
+    ✓ Done in 186.9s | Final: R_struct=0.888, Success=62.0%, Best=1.000, Episodes=3100
+│  Model saved: models/ppo_puzzle30_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 187.0s | Overall: 43% | ETA: 62.5 min remaining
+
+┌─ [10/15] Puzzle #40: Tripod5
+│  Structure: ..((((((((.....))))((((.....)))))))).. (len=38)
+│  Training 144,400 timesteps (~3,800 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.415 (best=0.711) | R_gc=0.944 | Succ=0.0% | Reward=0.508 | ETA=258s | Ep=190
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.716 (best=0.842) | R_gc=0.936 | Succ=0.0% | Reward=0.795 | ETA=244s | Ep=380
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.767 (best=0.947) | R_gc=0.842 | Succ=0.0% | Reward=0.823 | ETA=234s | Ep=570
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.773 (best=0.947) | R_gc=0.966 | Succ=0.0% | Reward=0.840 | ETA=221s | Ep=760
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.783 (best=0.947) | R_gc=0.994 | Succ=0.0% | Reward=0.847 | ETA=208s | Ep=950
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.784 (best=0.947) | R_gc=0.973 | Succ=0.0% | Reward=0.849 | ETA=194s | Ep=1140
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.785 (best=0.947) | R_gc=1.000 | Succ=0.0% | Reward=0.832 | ETA=180s | Ep=1330
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.787 (best=0.947) | R_gc=1.000 | Succ=0.0% | Reward=0.806 | ETA=167s | Ep=1520
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.789 (best=0.947) | R_gc=0.992 | Succ=0.0% | Reward=0.788 | ETA=152s | Ep=1710
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.779 (best=0.947) | R_gc=0.987 | Succ=0.0% | Reward=0.747 | ETA=139s | Ep=1900
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.786 (best=0.947) | R_gc=0.922 | Succ=0.0% | Reward=0.734 | ETA=125s | Ep=2090
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.785 (best=0.947) | R_gc=0.763 | Succ=0.0% | Reward=0.689 | ETA=111s | Ep=2280
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.788 (best=0.947) | R_gc=0.822 | Succ=0.0% | Reward=0.673 | ETA=97s | Ep=2470
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.782 (best=0.947) | R_gc=0.712 | Succ=0.0% | Reward=0.636 | ETA=83s | Ep=2660
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.777 (best=0.947) | R_gc=0.718 | Succ=0.0% | Reward=0.627 | ETA=69s | Ep=2850
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.789 (best=0.947) | R_gc=0.951 | Succ=0.0% | Reward=0.664 | ETA=55s | Ep=3040
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.785 (best=0.947) | R_gc=0.980 | Succ=0.0% | Reward=0.663 | ETA=41s | Ep=3230
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.740 (best=0.947) | R_gc=0.957 | Succ=0.0% | Reward=0.625 | ETA=28s | Ep=3420
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.772 (best=0.947) | R_gc=0.953 | Succ=0.0% | Reward=0.652 | ETA=14s | Ep=3610
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.785 (best=0.947) | R_gc=0.885 | Succ=0.0% | Reward=0.651 | ETA=0s | Ep=3800
+    ✓ Done in 275.9s | Final: R_struct=0.785, Success=0.0%, Best=0.947, Episodes=3802
+│  Model saved: models/ppo_puzzle40_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 276.0s | Overall: 47% | ETA: 57.7 min remaining
+
+┌─ [11/15] Puzzle #41: Shortie 6
+│  Structure: ((....)).((....)).((....)).((....)) (len=35)
+│  Training 122,500 timesteps (~3,500 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.432 (best=0.543) | R_gc=0.917 | Succ=0.0% | Reward=0.514 | ETA=223s | Ep=175
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.534 (best=0.543) | R_gc=0.866 | Succ=0.0% | Reward=0.612 | ETA=211s | Ep=350
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.490 (best=0.600) | R_gc=0.817 | Succ=0.0% | Reward=0.561 | ETA=202s | Ep=525
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.535 (best=0.657) | R_gc=0.927 | Succ=0.0% | Reward=0.624 | ETA=190s | Ep=700
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.532 (best=0.657) | R_gc=0.937 | Succ=0.0% | Reward=0.617 | ETA=178s | Ep=875
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.585 (best=0.657) | R_gc=0.991 | Succ=0.0% | Reward=0.674 | ETA=166s | Ep=1050
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.578 (best=0.714) | R_gc=0.991 | Succ=0.0% | Reward=0.652 | ETA=154s | Ep=1225
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.577 (best=0.714) | R_gc=0.936 | Succ=0.0% | Reward=0.620 | ETA=143s | Ep=1400
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.652 (best=0.714) | R_gc=0.976 | Succ=0.0% | Reward=0.665 | ETA=131s | Ep=1575
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.642 (best=0.714) | R_gc=0.936 | Succ=0.0% | Reward=0.632 | ETA=119s | Ep=1750
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.634 (best=0.714) | R_gc=0.976 | Succ=0.0% | Reward=0.608 | ETA=107s | Ep=1925
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.682 (best=0.714) | R_gc=0.996 | Succ=0.0% | Reward=0.618 | ETA=95s | Ep=2100
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.675 (best=0.714) | R_gc=0.909 | Succ=0.0% | Reward=0.577 | ETA=83s | Ep=2275
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.664 (best=0.714) | R_gc=0.997 | Succ=0.0% | Reward=0.559 | ETA=71s | Ep=2450
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.686 (best=0.714) | R_gc=0.853 | Succ=0.0% | Reward=0.544 | ETA=59s | Ep=2625
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.677 (best=0.714) | R_gc=0.711 | Succ=0.0% | Reward=0.524 | ETA=48s | Ep=2800
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.697 (best=0.771) | R_gc=0.654 | Succ=0.0% | Reward=0.526 | ETA=36s | Ep=2975
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.693 (best=0.771) | R_gc=0.857 | Succ=0.0% | Reward=0.552 | ETA=24s | Ep=3150
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.638 (best=0.771) | R_gc=0.857 | Succ=0.0% | Reward=0.520 | ETA=12s | Ep=3325
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.543 (best=0.771) | R_gc=0.999 | Succ=0.0% | Reward=0.478 | ETA=0s | Ep=3500
+    ✓ Done in 237.4s | Final: R_struct=0.542, Success=0.0%, Best=0.771, Episodes=3503
+│  Model saved: models/ppo_puzzle41_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 237.4s | Overall: 51% | ETA: 53.7 min remaining
+
+┌─ [12/15] Puzzle #45: [CloudBeta] 5 Adjacent Stack Multi-Branch Loop
+│  Structure: (((((((((....))))(((((....)))))(((((....)))))((((....)))))))... (len=63)
+│  Training 396,900 timesteps (~6,300 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.584 (best=0.746) | R_gc=0.552 | Succ=0.0% | Reward=0.634 | ETA=733s | Ep=315
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.648 (best=1.000) | R_gc=0.947 | Succ=0.0% | Reward=0.741 | ETA=703s | Ep=630
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.670 (best=1.000) | R_gc=0.614 | Succ=0.0% | Reward=0.718 | ETA=663s | Ep=945
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.650 (best=1.000) | R_gc=0.749 | Succ=0.0% | Reward=0.716 | ETA=627s | Ep=1260
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.628 (best=1.000) | R_gc=0.914 | Succ=0.0% | Reward=0.714 | ETA=587s | Ep=1575
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.730 (best=1.000) | R_gc=0.922 | Succ=0.0% | Reward=0.814 | ETA=546s | Ep=1890
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.649 (best=1.000) | R_gc=0.957 | Succ=0.0% | Reward=0.721 | ETA=507s | Ep=2205
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.678 (best=1.000) | R_gc=0.985 | Succ=0.0% | Reward=0.733 | ETA=467s | Ep=2520
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.666 (best=1.000) | R_gc=0.981 | Succ=0.0% | Reward=0.708 | ETA=429s | Ep=2835
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.682 (best=1.000) | R_gc=0.935 | Succ=0.0% | Reward=0.698 | ETA=389s | Ep=3150
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.622 (best=1.000) | R_gc=0.826 | Succ=0.0% | Reward=0.611 | ETA=350s | Ep=3465
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.710 (best=1.000) | R_gc=0.925 | Succ=0.0% | Reward=0.672 | ETA=312s | Ep=3780
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.523 (best=1.000) | R_gc=0.925 | Succ=0.0% | Reward=0.486 | ETA=273s | Ep=4095
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.611 (best=1.000) | R_gc=0.624 | Succ=0.0% | Reward=0.541 | ETA=234s | Ep=4410
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.677 (best=1.000) | R_gc=0.904 | Succ=0.0% | Reward=0.610 | ETA=195s | Ep=4725
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.688 (best=1.000) | R_gc=0.980 | Succ=0.0% | Reward=0.612 | ETA=156s | Ep=5040
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.696 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.603 | ETA=117s | Ep=5355
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.595 (best=1.000) | R_gc=0.960 | Succ=0.0% | Reward=0.535 | ETA=78s | Ep=5670
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.667 (best=1.000) | R_gc=0.996 | Succ=0.0% | Reward=0.585 | ETA=39s | Ep=5985
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.679 (best=1.000) | R_gc=0.911 | Succ=0.0% | Reward=0.589 | ETA=0s | Ep=6300
+    ✓ Done in 780.2s | Final: R_struct=0.679, Success=0.0%, Best=1.000, Episodes=6300
+│  Model saved: models/ppo_puzzle45_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 780.2s | Overall: 63% | ETA: 40.9 min remaining
+
+┌─ [13/15] Puzzle #47: Misfolded Aptamer
+│  Structure: ((((......(((((...))).((....)).........)).....)))) (len=50)
+│  Training 250,000 timesteps (~5,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.550 (best=0.720) | R_gc=0.579 | Succ=0.0% | Reward=0.588 | ETA=457s | Ep=250
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.784 (best=1.000) | R_gc=0.957 | Succ=2.0% | Reward=0.867 | ETA=440s | Ep=500
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.813 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.896 | ETA=414s | Ep=750
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.760 (best=1.000) | R_gc=0.910 | Succ=0.0% | Reward=0.833 | ETA=391s | Ep=1000
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.776 (best=1.000) | R_gc=0.934 | Succ=0.0% | Reward=0.862 | ETA=366s | Ep=1250
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.741 (best=1.000) | R_gc=0.991 | Succ=0.0% | Reward=0.838 | ETA=341s | Ep=1500
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.717 (best=1.000) | R_gc=0.972 | Succ=0.0% | Reward=0.786 | ETA=317s | Ep=1750
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.757 (best=1.000) | R_gc=0.930 | Succ=0.0% | Reward=0.796 | ETA=292s | Ep=2000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.817 (best=1.000) | R_gc=0.958 | Succ=0.0% | Reward=0.822 | ETA=267s | Ep=2250
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.920 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.869 | ETA=243s | Ep=2500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.888 (best=1.000) | R_gc=0.999 | Succ=0.0% | Reward=0.813 | ETA=218s | Ep=2750
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.893 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.785 | ETA=194s | Ep=3000
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.853 (best=1.000) | R_gc=0.851 | Succ=0.0% | Reward=0.702 | ETA=170s | Ep=3250
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.808 (best=1.000) | R_gc=0.987 | Succ=0.0% | Reward=0.668 | ETA=145s | Ep=3500
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.878 (best=1.000) | R_gc=0.957 | Succ=0.0% | Reward=0.701 | ETA=121s | Ep=3750
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.843 (best=1.000) | R_gc=0.860 | Succ=0.0% | Reward=0.667 | ETA=97s | Ep=4000
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.838 (best=1.000) | R_gc=0.727 | Succ=0.0% | Reward=0.647 | ETA=73s | Ep=4250
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.892 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.711 | ETA=48s | Ep=4500
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.804 (best=1.000) | R_gc=0.921 | Succ=0.0% | Reward=0.650 | ETA=24s | Ep=4750
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.822 (best=1.000) | R_gc=0.782 | Succ=0.0% | Reward=0.621 | ETA=0s | Ep=5000
+    ✓ Done in 484.3s | Final: R_struct=0.823, Success=0.0%, Best=1.000, Episodes=5002
+│  Model saved: models/ppo_puzzle47_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 484.3s | Overall: 70% | ETA: 32.7 min remaining
+
+┌─ [14/15] Puzzle #54: 7 multiloop
+│  Structure: (((((((((....)))))(((((....)))))(((((....)))))(((((....)))))... (len=92)
+│  Training 846,400 timesteps (~9,200 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.342 (best=0.522) | R_gc=0.672 | Succ=0.0% | Reward=0.400 | ETA=1655s | Ep=460
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.383 (best=0.674) | R_gc=0.404 | Succ=0.0% | Reward=0.399 | ETA=1574s | Ep=920
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.385 (best=0.674) | R_gc=0.759 | Succ=0.0% | Reward=0.456 | ETA=1471s | Ep=1380
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.437 (best=0.674) | R_gc=0.922 | Succ=0.0% | Reward=0.526 | ETA=1387s | Ep=1840
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.508 (best=0.848) | R_gc=0.628 | Succ=0.0% | Reward=0.562 | ETA=1299s | Ep=2300
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.587 (best=0.978) | R_gc=0.860 | Succ=0.0% | Reward=0.660 | ETA=1211s | Ep=2760
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.532 (best=0.978) | R_gc=0.885 | Succ=0.0% | Reward=0.600 | ETA=1122s | Ep=3220
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.490 (best=0.978) | R_gc=0.935 | Succ=0.0% | Reward=0.553 | ETA=1034s | Ep=3680
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.568 (best=0.978) | R_gc=0.965 | Succ=0.0% | Reward=0.613 | ETA=947s | Ep=4140
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.525 (best=0.978) | R_gc=0.864 | Succ=0.0% | Reward=0.547 | ETA=864s | Ep=4600
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.554 (best=1.000) | R_gc=0.843 | Succ=0.0% | Reward=0.549 | ETA=778s | Ep=5060
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.540 (best=1.000) | R_gc=0.826 | Succ=0.0% | Reward=0.527 | ETA=691s | Ep=5520
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.533 (best=1.000) | R_gc=0.803 | Succ=0.0% | Reward=0.506 | ETA=603s | Ep=5980
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.538 (best=1.000) | R_gc=0.872 | Succ=2.0% | Reward=0.501 | ETA=516s | Ep=6440
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.610 (best=1.000) | R_gc=0.807 | Succ=0.0% | Reward=0.547 | ETA=430s | Ep=6900
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.579 (best=1.000) | R_gc=0.972 | Succ=0.0% | Reward=0.548 | ETA=344s | Ep=7360
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.541 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.516 | ETA=258s | Ep=7820
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.622 (best=1.000) | R_gc=0.858 | Succ=0.0% | Reward=0.569 | ETA=172s | Ep=8280
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.527 (best=1.000) | R_gc=0.968 | Succ=0.0% | Reward=0.507 | ETA=86s | Ep=8740
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.518 (best=1.000) | R_gc=0.898 | Succ=0.0% | Reward=0.505 | ETA=0s | Ep=9200
+    ✓ Done in 1715.1s | Final: R_struct=0.518, Success=0.0%, Best=1.000, Episodes=9200
+│  Model saved: models/ppo_puzzle54_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 1715.2s | Overall: 95% | ETA: 5.3 min remaining
+
+┌─ [15/15] Puzzle #65: Branching Loop
+│  Structure: .(((((........)((((....))))..))))....... (len=40)
+│  Training 160,000 timesteps (~4,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.454 (best=0.725) | R_gc=0.915 | Succ=0.0% | Reward=0.548 | ETA=289s | Ep=200
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.581 (best=0.800) | R_gc=0.881 | Succ=0.0% | Reward=0.669 | ETA=274s | Ep=400
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.669 (best=0.800) | R_gc=0.821 | Succ=0.0% | Reward=0.746 | ETA=261s | Ep=600
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.656 (best=0.875) | R_gc=0.688 | Succ=0.0% | Reward=0.714 | ETA=246s | Ep=800
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.698 (best=0.875) | R_gc=0.630 | Succ=0.0% | Reward=0.748 | ETA=232s | Ep=1000
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.710 (best=0.875) | R_gc=0.472 | Succ=0.0% | Reward=0.730 | ETA=216s | Ep=1200
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.803 (best=0.950) | R_gc=0.846 | Succ=0.0% | Reward=0.858 | ETA=201s | Ep=1400
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.943 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.968 | ETA=186s | Ep=1600
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.940 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.930 | ETA=170s | Ep=1800
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.949 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.901 | ETA=155s | Ep=2000
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.909 (best=0.950) | R_gc=0.941 | Succ=0.0% | Reward=0.820 | ETA=139s | Ep=2200
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.907 (best=0.950) | R_gc=0.861 | Succ=0.0% | Reward=0.777 | ETA=124s | Ep=2400
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.749 (best=0.950) | R_gc=0.840 | Succ=0.0% | Reward=0.602 | ETA=108s | Ep=2600
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.932 (best=0.950) | R_gc=0.940 | Succ=0.0% | Reward=0.740 | ETA=92s | Ep=2800
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.907 (best=0.950) | R_gc=0.968 | Succ=0.0% | Reward=0.715 | ETA=77s | Ep=3000
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.948 (best=0.950) | R_gc=0.994 | Succ=0.0% | Reward=0.753 | ETA=62s | Ep=3200
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.904 (best=0.950) | R_gc=0.899 | Succ=0.0% | Reward=0.715 | ETA=46s | Ep=3400
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.942 (best=0.950) | R_gc=0.999 | Succ=0.0% | Reward=0.744 | ETA=31s | Ep=3600
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.949 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.752 | ETA=15s | Ep=3800
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.932 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.738 | ETA=0s | Ep=4000
+    ✓ Done in 307.7s | Final: R_struct=0.932, Success=0.0%, Best=0.950, Episodes=4000
+│  Model saved: models/ppo_puzzle65_a0.6_b0.15_g0.1_d0.15_seed42
+└─ Done in 307.7s | Overall: 100% | ETA: 0.0 min remaining
+
+================================================================================
+  ALL TRAINING COMPLETE!
+  Total time: 110.3 minutes (6617s)
+  Models saved to: ./models/
+  TensorBoard:  tensorboard --logdir ./tensorboard_logs/
+================================================================================
+run_grid_search.sh: line 14: $'\r': command not found
+
+>>> Step 3/3: Config 2 (Biophysics-focused: 0.4, 0.2, 0.15, 0.25)
+================================================================================
+  RNA Inverse Folding — Multi-Objective Training Pipeline
+================================================================================
+  Algorithm    : PPO
+  Seed         : 42
+  Timesteps    : ADAPTIVE (min 3000 eps, +50% for len>30)
+                 Range: 36,000 – 846,400 steps (3,000–9,200 episodes)
+  Total steps  : 3,361,038
+  Targets      : 15
+  Weight config: #2  (α=0.4, β=0.2, γ=0.15, δ=0.25)
+  Log dir      : ./tensorboard_logs/
+================================================================================
+
+┌─ [1/15] Puzzle #1: Simple Hairpin
+│  Structure: ((((((......)))))) (len=18)
+│  Training 54,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.564 (best=1.000) | R_gc=0.306 | Succ=2.0% | Reward=0.602 | ETA=94s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.727 (best=1.000) | R_gc=0.181 | Succ=6.0% | Reward=0.737 | ETA=89s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.929 (best=1.000) | R_gc=0.056 | Succ=58.0% | Reward=0.890 | ETA=86s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.984 (best=1.000) | R_gc=0.017 | Succ=94.0% | Reward=0.950 | ETA=80s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.980 (best=1.000) | R_gc=0.206 | Succ=82.0% | Reward=0.943 | ETA=75s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.971 (best=1.000) | R_gc=0.306 | Succ=84.0% | Reward=0.949 | ETA=71s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.978 (best=1.000) | R_gc=0.276 | Succ=92.0% | Reward=0.916 | ETA=66s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.944 (best=1.000) | R_gc=0.176 | Succ=76.0% | Reward=0.850 | ETA=61s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.993 (best=1.000) | R_gc=0.003 | Succ=94.0% | Reward=0.813 | ETA=56s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.976 (best=1.000) | R_gc=0.003 | Succ=88.0% | Reward=0.738 | ETA=51s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.991 (best=1.000) | R_gc=0.014 | Succ=94.0% | Reward=0.697 | ETA=46s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.003 | Succ=100.0% | Reward=0.662 | ETA=41s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.601 | ETA=36s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.549 | ETA=30s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.003 | Succ=100.0% | Reward=0.554 | ETA=25s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.998 (best=1.000) | R_gc=0.014 | Succ=98.0% | Reward=0.541 | ETA=20s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.014 | Succ=100.0% | Reward=0.550 | ETA=15s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.552 | ETA=10s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.006 | Succ=100.0% | Reward=0.548 | ETA=5s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.000 | Succ=100.0% | Reward=0.550 | ETA=0s | Ep=3000
+    ✓ Done in 101.7s | Final: R_struct=1.000, Success=100.0%, Best=1.000, Episodes=3000
+│  Model saved: models/ppo_puzzle1_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 103.0s | Overall: 2% | ETA: 105.2 min remaining
+
+┌─ [2/15] Puzzle #8: G-C Placement
+│  Structure: ((((...)))). (len=12)
+│  Training 36,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.6% | Phase A (struct) | R_struct=0.343 (best=0.833) | R_gc=0.688 | Succ=0.0% | Reward=0.428 | ETA=61s | Ep=166
+    [██░░░░░░░░░░░░░░░░░░]  11.1% | Phase A (struct) | R_struct=0.637 (best=1.000) | R_gc=0.296 | Succ=2.0% | Reward=0.677 | ETA=59s | Ep=333
+    [███░░░░░░░░░░░░░░░░░]  16.7% | Phase A (struct) | R_struct=0.923 (best=1.000) | R_gc=0.321 | Succ=64.0% | Reward=0.954 | ETA=55s | Ep=500
+    [████░░░░░░░░░░░░░░░░]  22.2% | Phase A (struct) | R_struct=0.990 (best=1.000) | R_gc=0.798 | Succ=94.0% | Reward=1.101 | ETA=52s | Ep=666
+    [█████░░░░░░░░░░░░░░░]  27.8% | Phase A (struct) | R_struct=0.997 (best=1.000) | R_gc=0.808 | Succ=98.0% | Reward=1.109 | ETA=49s | Ep=833
+    [██████░░░░░░░░░░░░░░]  33.3% | Phase B (ramp) | R_struct=0.967 (best=1.000) | R_gc=0.757 | Succ=84.0% | Reward=1.045 | ETA=45s | Ep=1000
+    [███████░░░░░░░░░░░░░]  38.9% | Phase B (ramp) | R_struct=0.990 (best=1.000) | R_gc=0.816 | Succ=94.0% | Reward=1.019 | ETA=42s | Ep=1166
+    [████████░░░░░░░░░░░░]  44.4% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.821 | Succ=98.0% | Reward=0.968 | ETA=38s | Ep=1333
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.983 (best=1.000) | R_gc=0.817 | Succ=90.0% | Reward=0.896 | ETA=34s | Ep=1500
+    [███████████░░░░░░░░░]  55.6% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.821 | Succ=100.0% | Reward=0.851 | ETA=30s | Ep=1666
+    [████████████░░░░░░░░]  61.1% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.779 | Succ=100.0% | Reward=0.784 | ETA=26s | Ep=1833
+    [█████████████░░░░░░░]  66.7% | Phase B (ramp) | R_struct=1.000 (best=1.000) | R_gc=0.671 | Succ=100.0% | Reward=0.700 | ETA=23s | Ep=2000
+    [██████████████░░░░░░]  72.2% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.804 | Succ=100.0% | Reward=0.686 | ETA=19s | Ep=2166
+    [███████████████░░░░░]  77.8% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.642 | Succ=100.0% | Reward=0.652 | ETA=15s | Ep=2333
+    [████████████████░░░░]  83.3% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.525 | Succ=100.0% | Reward=0.630 | ETA=11s | Ep=2500
+    [█████████████████░░░]  88.9% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.346 | Succ=100.0% | Reward=0.584 | ETA=8s | Ep=2666
+    [██████████████████░░]  94.4% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.167 | Succ=100.0% | Reward=0.536 | ETA=4s | Ep=2833
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=1.000 (best=1.000) | R_gc=0.250 | Succ=100.0% | Reward=0.564 | ETA=0s | Ep=3000
+    ✓ Done in 68.3s | Final: R_struct=1.000, Success=100.0%, Best=1.000, Episodes=3008
+│  Model saved: models/ppo_puzzle8_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 68.3s | Overall: 3% | ETA: 103.8 min remaining
+
+┌─ [3/15] Puzzle #10: Frog Foot
+│  Structure: ..........((((....))))((((....))))((((...)))) (len=45)
+│  Training 202,500 timesteps (~4,500 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.482 (best=0.733) | R_gc=0.431 | Succ=0.0% | Reward=0.492 | ETA=373s | Ep=225
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.521 (best=0.800) | R_gc=0.354 | Succ=0.0% | Reward=0.519 | ETA=354s | Ep=450
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.515 (best=0.822) | R_gc=0.840 | Succ=0.0% | Reward=0.603 | ETA=334s | Ep=675
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.612 (best=0.822) | R_gc=0.913 | Succ=0.0% | Reward=0.713 | ETA=314s | Ep=900
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.619 (best=0.822) | R_gc=0.959 | Succ=0.0% | Reward=0.738 | ETA=295s | Ep=1125
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.573 (best=0.822) | R_gc=0.963 | Succ=0.0% | Reward=0.695 | ETA=276s | Ep=1350
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.669 (best=0.822) | R_gc=0.994 | Succ=0.0% | Reward=0.745 | ETA=255s | Ep=1575
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.728 (best=0.822) | R_gc=0.898 | Succ=0.0% | Reward=0.754 | ETA=235s | Ep=1800
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.762 (best=0.822) | R_gc=0.999 | Succ=0.0% | Reward=0.756 | ETA=215s | Ep=2025
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.672 (best=0.822) | R_gc=0.974 | Succ=0.0% | Reward=0.633 | ETA=196s | Ep=2250
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.724 (best=0.822) | R_gc=1.000 | Succ=0.0% | Reward=0.637 | ETA=176s | Ep=2475
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.756 (best=0.822) | R_gc=0.970 | Succ=0.0% | Reward=0.601 | ETA=156s | Ep=2700
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.748 (best=0.822) | R_gc=0.962 | Succ=0.0% | Reward=0.552 | ETA=137s | Ep=2925
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.808 (best=0.822) | R_gc=1.000 | Succ=0.0% | Reward=0.521 | ETA=117s | Ep=3150
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.675 (best=0.822) | R_gc=0.596 | Succ=0.0% | Reward=0.350 | ETA=98s | Ep=3375
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.699 (best=0.822) | R_gc=0.488 | Succ=0.0% | Reward=0.341 | ETA=78s | Ep=3600
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.732 (best=0.822) | R_gc=0.440 | Succ=0.0% | Reward=0.326 | ETA=58s | Ep=3825
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.743 (best=0.822) | R_gc=0.230 | Succ=0.0% | Reward=0.294 | ETA=39s | Ep=4050
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.746 (best=0.822) | R_gc=0.193 | Succ=0.0% | Reward=0.289 | ETA=19s | Ep=4275
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.652 (best=0.822) | R_gc=0.096 | Succ=0.0% | Reward=0.230 | ETA=0s | Ep=4500
+    ✓ Done in 389.8s | Final: R_struct=0.648, Success=0.0%, Best=0.822, Episodes=4502
+│  Model saved: models/ppo_puzzle10_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 389.8s | Overall: 9% | ETA: 98.1 min remaining
+
+┌─ [4/15] Puzzle #13: square
+│  Structure: ((((((((((((((((((((((((((...))))))....)))))))....))))))....... (len=67)
+│  Training 448,900 timesteps (~6,700 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.382 (best=0.672) | R_gc=0.721 | Succ=0.0% | Reward=0.470 | ETA=838s | Ep=335
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.607 (best=0.851) | R_gc=0.524 | Succ=0.0% | Reward=0.668 | ETA=799s | Ep=670
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.828 (best=1.000) | R_gc=0.612 | Succ=12.0% | Reward=0.891 | ETA=759s | Ep=1005
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.773 (best=1.000) | R_gc=0.698 | Succ=8.0% | Reward=0.845 | ETA=717s | Ep=1340
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.781 (best=1.000) | R_gc=0.824 | Succ=0.0% | Reward=0.860 | ETA=672s | Ep=1675
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.739 (best=1.000) | R_gc=0.926 | Succ=0.0% | Reward=0.828 | ETA=625s | Ep=2010
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.798 (best=1.000) | R_gc=0.803 | Succ=2.0% | Reward=0.830 | ETA=579s | Ep=2345
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.629 (best=1.000) | R_gc=0.482 | Succ=0.0% | Reward=0.629 | ETA=536s | Ep=2680
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.769 (best=1.000) | R_gc=0.769 | Succ=12.0% | Reward=0.744 | ETA=492s | Ep=3015
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.952 (best=1.000) | R_gc=0.386 | Succ=36.0% | Reward=0.793 | ETA=446s | Ep=3350
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.915 (best=1.000) | R_gc=0.429 | Succ=20.0% | Reward=0.725 | ETA=402s | Ep=3685
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.716 (best=1.000) | R_gc=0.709 | Succ=0.0% | Reward=0.600 | ETA=357s | Ep=4020
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.887 (best=1.000) | R_gc=0.492 | Succ=20.0% | Reward=0.610 | ETA=312s | Ep=4355
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.842 (best=1.000) | R_gc=0.606 | Succ=26.0% | Reward=0.579 | ETA=268s | Ep=4690
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.795 (best=1.000) | R_gc=0.921 | Succ=4.0% | Reward=0.611 | ETA=223s | Ep=5025
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.781 (best=1.000) | R_gc=0.964 | Succ=0.0% | Reward=0.584 | ETA=179s | Ep=5360
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.841 (best=1.000) | R_gc=0.946 | Succ=4.0% | Reward=0.603 | ETA=134s | Ep=5695
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.794 (best=1.000) | R_gc=0.861 | Succ=0.0% | Reward=0.585 | ETA=90s | Ep=6030
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.860 (best=1.000) | R_gc=0.989 | Succ=0.0% | Reward=0.599 | ETA=45s | Ep=6365
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.876 (best=1.000) | R_gc=0.997 | Succ=0.0% | Reward=0.621 | ETA=0s | Ep=6700
+    ✓ Done in 907.7s | Final: R_struct=0.876, Success=0.0%, Best=1.000, Episodes=6701
+│  Model saved: models/ppo_puzzle13_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 907.8s | Overall: 22% | ETA: 86.5 min remaining
+
+┌─ [5/15] Puzzle #15: Small and Easy 6
+│  Structure: (((((.....))..((.........))))) (len=30)
+│  Training 90,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.497 (best=0.800) | R_gc=0.827 | Succ=0.0% | Reward=0.601 | ETA=187s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.612 (best=0.867) | R_gc=0.943 | Succ=0.0% | Reward=0.728 | ETA=177s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.815 (best=0.867) | R_gc=0.988 | Succ=0.0% | Reward=0.921 | ETA=166s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.864 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.966 | ETA=158s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.853 (best=0.867) | R_gc=0.973 | Succ=0.0% | Reward=0.935 | ETA=148s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.863 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.951 | ETA=139s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.997 | Succ=0.0% | Reward=0.905 | ETA=127s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.820 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.832 | ETA=116s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.813 | ETA=105s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.867 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.775 | ETA=95s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.863 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.707 | ETA=85s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.865 (best=0.867) | R_gc=0.998 | Succ=0.0% | Reward=0.660 | ETA=75s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.861 (best=0.867) | R_gc=0.995 | Succ=0.0% | Reward=0.606 | ETA=65s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase C (joint) | R_struct=0.706 (best=0.867) | R_gc=0.953 | Succ=0.0% | Reward=0.500 | ETA=55s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.863 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.572 | ETA=46s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.848 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.571 | ETA=37s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.856 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.570 | ETA=27s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.865 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.571 | ETA=18s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.867 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.574 | ETA=9s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.845 (best=0.867) | R_gc=1.000 | Succ=0.0% | Reward=0.566 | ETA=0s | Ep=3000
+    ✓ Done in 181.4s | Final: R_struct=0.845, Success=0.0%, Best=0.867, Episodes=3003
+│  Model saved: models/ppo_puzzle15_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 181.5s | Overall: 25% | ETA: 83.7 min remaining
+
+┌─ [6/15] Puzzle #23: Shortie 4
+│  Structure: ((....)).((....)) (len=17)
+│  Training 51,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.509 (best=0.765) | R_gc=0.801 | Succ=0.0% | Reward=0.618 | ETA=92s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.525 (best=0.765) | R_gc=0.891 | Succ=0.0% | Reward=0.647 | ETA=91s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.531 (best=0.765) | R_gc=0.894 | Succ=0.0% | Reward=0.649 | ETA=89s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.529 (best=0.765) | R_gc=0.657 | Succ=0.0% | Reward=0.609 | ETA=85s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.527 (best=0.765) | R_gc=0.656 | Succ=0.0% | Reward=0.612 | ETA=80s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.567 (best=0.765) | R_gc=0.816 | Succ=0.0% | Reward=0.668 | ETA=76s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.612 (best=0.765) | R_gc=0.858 | Succ=0.0% | Reward=0.681 | ETA=70s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.612 (best=0.765) | R_gc=0.877 | Succ=0.0% | Reward=0.640 | ETA=65s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.613 (best=0.765) | R_gc=0.977 | Succ=0.0% | Reward=0.623 | ETA=60s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.629 (best=0.765) | R_gc=0.971 | Succ=0.0% | Reward=0.600 | ETA=55s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.611 (best=0.765) | R_gc=0.932 | Succ=0.0% | Reward=0.542 | ETA=49s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.641 (best=0.765) | R_gc=0.905 | Succ=0.0% | Reward=0.514 | ETA=44s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.647 (best=0.765) | R_gc=0.862 | Succ=0.0% | Reward=0.469 | ETA=38s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.628 (best=0.765) | R_gc=0.748 | Succ=0.0% | Reward=0.400 | ETA=32s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.628 (best=0.765) | R_gc=0.871 | Succ=0.0% | Reward=0.412 | ETA=27s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.644 (best=0.765) | R_gc=0.944 | Succ=0.0% | Reward=0.435 | ETA=21s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.633 (best=0.765) | R_gc=0.986 | Succ=0.0% | Reward=0.432 | ETA=16s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.640 (best=0.765) | R_gc=0.844 | Succ=0.0% | Reward=0.414 | ETA=11s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.646 (best=0.765) | R_gc=0.802 | Succ=0.0% | Reward=0.411 | ETA=5s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.646 (best=0.765) | R_gc=0.855 | Succ=0.0% | Reward=0.419 | ETA=0s | Ep=3000
+    ✓ Done in 105.2s | Final: R_struct=0.646, Success=0.0%, Best=0.765, Episodes=3004
+│  Model saved: models/ppo_puzzle23_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 105.3s | Overall: 26% | ETA: 82.2 min remaining
+
+┌─ [7/15] Puzzle #25: The Ministry
+│  Structure: (((.....(((.....(((.....(((.....(((........))).))).))).))).)... (len=62)
+│  Training 384,338 timesteps (~6,199 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.517 (best=0.645) | R_gc=0.131 | Succ=0.0% | Reward=0.440 | ETA=719s | Ep=309
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.519 (best=0.645) | R_gc=0.547 | Succ=0.0% | Reward=0.545 | ETA=683s | Ep=619
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.735 (best=0.903) | R_gc=0.973 | Succ=0.0% | Reward=0.841 | ETA=643s | Ep=929
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.712 (best=0.903) | R_gc=0.999 | Succ=0.0% | Reward=0.829 | ETA=605s | Ep=1239
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.647 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.741 | ETA=571s | Ep=1549
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.794 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.910 | ETA=543s | Ep=1859
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.808 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.884 | ETA=501s | Ep=2169
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.680 (best=0.903) | R_gc=0.855 | Succ=0.0% | Reward=0.690 | ETA=461s | Ep=2479
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.706 (best=0.903) | R_gc=1.000 | Succ=0.0% | Reward=0.689 | ETA=422s | Ep=2789
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.754 (best=0.903) | R_gc=0.863 | Succ=0.0% | Reward=0.684 | ETA=383s | Ep=3099
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.516 (best=0.903) | R_gc=0.827 | Succ=0.0% | Reward=0.420 | ETA=344s | Ep=3409
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.755 (best=0.903) | R_gc=0.998 | Succ=0.0% | Reward=0.628 | ETA=305s | Ep=3719
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.746 (best=0.903) | R_gc=0.947 | Succ=0.0% | Reward=0.560 | ETA=267s | Ep=4029
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.739 (best=0.903) | R_gc=0.980 | Succ=0.0% | Reward=0.484 | ETA=229s | Ep=4339
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | R_struct=0.663 (best=0.903) | R_gc=0.847 | Succ=0.0% | Reward=0.411 | ETA=190s | Ep=4649
+    [███████████████░░░░░]  80.0% | Phase C (joint) | R_struct=0.653 (best=0.903) | R_gc=0.996 | Succ=0.0% | Reward=0.449 | ETA=152s | Ep=4958
+    [████████████████░░░░]  85.0% | Phase C (joint) | R_struct=0.632 (best=0.903) | R_gc=0.781 | Succ=0.0% | Reward=0.374 | ETA=114s | Ep=5268
+    [█████████████████░░░]  90.0% | Phase C (joint) | R_struct=0.696 (best=0.903) | R_gc=0.858 | Succ=0.0% | Reward=0.418 | ETA=76s | Ep=5578
+    [██████████████████░░]  95.0% | Phase C (joint) | R_struct=0.710 (best=0.903) | R_gc=0.887 | Succ=0.0% | Reward=0.432 | ETA=38s | Ep=5888
+    [███████████████████░] 100.0% | Phase C (joint) | R_struct=0.569 (best=0.903) | R_gc=0.993 | Succ=0.0% | Reward=0.390 | ETA=0s | Ep=6198
+    ✓ Done in 758.4s | Final: R_struct=0.567, Success=0.0%, Best=0.903, Episodes=6199
+│  Model saved: models/ppo_puzzle25_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 758.4s | Overall: 38% | ETA: 69.3 min remaining
+
+┌─ [8/15] Puzzle #26: stickshift
+│  Structure: ..((((((((.....)).)))))).. (len=26)
+│  Training 78,000 timesteps (~3,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.517 (best=0.846) | R_gc=0.727 | Succ=0.0% | Reward=0.615 | ETA=138s | Ep=150
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.800 (best=0.923) | R_gc=0.315 | Succ=0.0% | Reward=0.790 | ETA=132s | Ep=300
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.826 (best=0.923) | R_gc=0.192 | Succ=0.0% | Reward=0.788 | ETA=126s | Ep=450
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.825 (best=0.923) | R_gc=0.354 | Succ=0.0% | Reward=0.822 | ETA=119s | Ep=600
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.831 (best=0.923) | R_gc=0.676 | Succ=0.0% | Reward=0.877 | ETA=113s | Ep=750
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.872 (best=0.923) | R_gc=0.751 | Succ=0.0% | Reward=0.931 | ETA=106s | Ep=900
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.869 (best=0.923) | R_gc=0.750 | Succ=0.0% | Reward=0.896 | ETA=98s | Ep=1050
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.905 (best=1.000) | R_gc=0.864 | Succ=4.0% | Reward=0.908 | ETA=91s | Ep=1200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.845 (best=1.000) | R_gc=0.440 | Succ=0.0% | Reward=0.750 | ETA=83s | Ep=1350
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.845 (best=1.000) | R_gc=0.427 | Succ=0.0% | Reward=0.716 | ETA=75s | Ep=1500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.846 (best=1.000) | R_gc=0.583 | Succ=0.0% | Reward=0.717 | ETA=68s | Ep=1650
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.912 (best=1.000) | R_gc=0.866 | Succ=0.0% | Reward=0.755 | ETA=60s | Ep=1800
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.920 (best=1.000) | R_gc=0.995 | Succ=0.0% | Reward=0.686 | ETA=53s | Ep=1950
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.914 (best=1.000) | R_gc=0.992 | Succ=0.0% | Reward=0.677 | ETA=45s | Ep=2100
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.922 (best=1.000) | R_gc=0.975 | Succ=0.0% | Reward=0.691 | ETA=38s | Ep=2250
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.918 (best=1.000) | R_gc=0.988 | Succ=0.0% | Reward=0.691 | ETA=30s | Ep=2400
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.911 (best=1.000) | R_gc=0.858 | Succ=0.0% | Reward=0.678 | ETA=23s | Ep=2550
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.620 (best=1.000) | R_gc=0.973 | Succ=0.0% | Reward=0.453 | ETA=15s | Ep=2700
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.489 (best=1.000) | R_gc=0.901 | Succ=0.0% | Reward=0.326 | ETA=8s | Ep=2850
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.791 (best=1.000) | R_gc=0.944 | Succ=0.0% | Reward=0.528 | ETA=0s | Ep=3000
+    ✓ Done in 150.4s | Final: R_struct=0.792, Success=0.0%, Best=1.000, Episodes=3003
+│  Model saved: models/ppo_puzzle26_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 150.5s | Overall: 40% | ETA: 66.6 min remaining
+
+┌─ [9/15] Puzzle #30: Corner bulge training
+│  Structure: .(((((((((((...)))))....)))))). (len=31)
+│  Training 96,100 timesteps (~3,100 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.522 (best=0.871) | R_gc=0.856 | Succ=0.0% | Reward=0.638 | ETA=175s | Ep=155
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.647 (best=0.935) | R_gc=0.947 | Succ=0.0% | Reward=0.774 | ETA=168s | Ep=310
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.867 (best=1.000) | R_gc=0.843 | Succ=12.0% | Reward=0.961 | ETA=157s | Ep=465
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.959 (best=1.000) | R_gc=0.658 | Succ=52.0% | Reward=1.002 | ETA=148s | Ep=620
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.968 (best=1.000) | R_gc=0.649 | Succ=72.0% | Reward=1.008 | ETA=140s | Ep=775
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.981 (best=1.000) | R_gc=0.613 | Succ=72.0% | Reward=1.013 | ETA=131s | Ep=930
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.995 (best=1.000) | R_gc=0.579 | Succ=92.0% | Reward=0.979 | ETA=122s | Ep=1085
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.992 (best=1.000) | R_gc=0.513 | Succ=88.0% | Reward=0.915 | ETA=112s | Ep=1240
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.994 (best=1.000) | R_gc=0.529 | Succ=90.0% | Reward=0.871 | ETA=103s | Ep=1395
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.733 (best=1.000) | R_gc=0.526 | Succ=42.0% | Reward=0.607 | ETA=94s | Ep=1550
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.995 (best=1.000) | R_gc=0.600 | Succ=92.0% | Reward=0.792 | ETA=84s | Ep=1705
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.994 (best=1.000) | R_gc=0.519 | Succ=90.0% | Reward=0.722 | ETA=75s | Ep=1860
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.692 | Succ=96.0% | Reward=0.716 | ETA=65s | Ep=2015
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.997 (best=1.000) | R_gc=0.513 | Succ=96.0% | Reward=0.629 | ETA=56s | Ep=2170
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.999 (best=1.000) | R_gc=0.532 | Succ=98.0% | Reward=0.621 | ETA=47s | Ep=2325
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.999 (best=1.000) | R_gc=0.619 | Succ=98.0% | Reward=0.642 | ETA=37s | Ep=2480
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.974 (best=1.000) | R_gc=0.400 | Succ=84.0% | Reward=0.581 | ETA=28s | Ep=2635
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.968 (best=1.000) | R_gc=0.398 | Succ=58.0% | Reward=0.582 | ETA=19s | Ep=2790
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.996 (best=1.000) | R_gc=0.442 | Succ=98.0% | Reward=0.596 | ETA=9s | Ep=2945
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.888 (best=1.000) | R_gc=0.575 | Succ=62.0% | Reward=0.560 | ETA=0s | Ep=3100
+    ✓ Done in 186.5s | Final: R_struct=0.888, Success=62.0%, Best=1.000, Episodes=3100
+│  Model saved: models/ppo_puzzle30_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 186.6s | Overall: 43% | ETA: 63.3 min remaining
+
+┌─ [10/15] Puzzle #40: Tripod5
+│  Structure: ..((((((((.....))))((((.....)))))))).. (len=38)
+│  Training 144,400 timesteps (~3,800 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.415 (best=0.711) | R_gc=0.944 | Succ=0.0% | Reward=0.538 | ETA=262s | Ep=190
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.716 (best=0.842) | R_gc=0.936 | Succ=0.0% | Reward=0.818 | ETA=248s | Ep=380
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.767 (best=0.947) | R_gc=0.842 | Succ=0.0% | Reward=0.835 | ETA=236s | Ep=570
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.773 (best=0.947) | R_gc=0.966 | Succ=0.0% | Reward=0.857 | ETA=223s | Ep=760
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.783 (best=0.947) | R_gc=0.994 | Succ=0.0% | Reward=0.862 | ETA=210s | Ep=950
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.784 (best=0.947) | R_gc=0.973 | Succ=0.0% | Reward=0.864 | ETA=196s | Ep=1140
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.785 (best=0.947) | R_gc=1.000 | Succ=0.0% | Reward=0.838 | ETA=182s | Ep=1330
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.787 (best=0.947) | R_gc=1.000 | Succ=0.0% | Reward=0.800 | ETA=168s | Ep=1520
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.789 (best=0.947) | R_gc=0.992 | Succ=0.0% | Reward=0.771 | ETA=154s | Ep=1710
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.779 (best=0.947) | R_gc=0.987 | Succ=0.0% | Reward=0.716 | ETA=140s | Ep=1900
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.786 (best=0.947) | R_gc=0.922 | Succ=0.0% | Reward=0.696 | ETA=126s | Ep=2090
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.785 (best=0.947) | R_gc=0.763 | Succ=0.0% | Reward=0.632 | ETA=112s | Ep=2280
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.788 (best=0.947) | R_gc=0.822 | Succ=0.0% | Reward=0.606 | ETA=98s | Ep=2470
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.782 (best=0.947) | R_gc=0.712 | Succ=0.0% | Reward=0.559 | ETA=84s | Ep=2660
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.777 (best=0.947) | R_gc=0.718 | Succ=0.0% | Reward=0.548 | ETA=70s | Ep=2850
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.789 (best=0.947) | R_gc=0.951 | Succ=0.0% | Reward=0.590 | ETA=56s | Ep=3040
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.785 (best=0.947) | R_gc=0.980 | Succ=0.0% | Reward=0.590 | ETA=42s | Ep=3230
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.740 (best=0.947) | R_gc=0.957 | Succ=0.0% | Reward=0.555 | ETA=28s | Ep=3420
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.772 (best=0.947) | R_gc=0.953 | Succ=0.0% | Reward=0.580 | ETA=14s | Ep=3610
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.785 (best=0.947) | R_gc=0.885 | Succ=0.0% | Reward=0.574 | ETA=0s | Ep=3800
+    ✓ Done in 277.9s | Final: R_struct=0.785, Success=0.0%, Best=0.947, Episodes=3802
+│  Model saved: models/ppo_puzzle40_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 277.9s | Overall: 47% | ETA: 58.4 min remaining
+
+┌─ [11/15] Puzzle #41: Shortie 6
+│  Structure: ((....)).((....)).((....)).((....)) (len=35)
+│  Training 122,500 timesteps (~3,500 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.432 (best=0.543) | R_gc=0.917 | Succ=0.0% | Reward=0.540 | ETA=220s | Ep=175
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.534 (best=0.543) | R_gc=0.866 | Succ=0.0% | Reward=0.635 | ETA=213s | Ep=350
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.490 (best=0.600) | R_gc=0.817 | Succ=0.0% | Reward=0.582 | ETA=202s | Ep=525
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.535 (best=0.657) | R_gc=0.927 | Succ=0.0% | Reward=0.652 | ETA=190s | Ep=700
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.532 (best=0.657) | R_gc=0.937 | Succ=0.0% | Reward=0.643 | ETA=178s | Ep=875
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.585 (best=0.657) | R_gc=0.991 | Succ=0.0% | Reward=0.702 | ETA=167s | Ep=1050
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.578 (best=0.714) | R_gc=0.991 | Succ=0.0% | Reward=0.672 | ETA=155s | Ep=1225
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.577 (best=0.714) | R_gc=0.936 | Succ=0.0% | Reward=0.625 | ETA=143s | Ep=1400
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.652 (best=0.714) | R_gc=0.976 | Succ=0.0% | Reward=0.653 | ETA=131s | Ep=1575
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.642 (best=0.714) | R_gc=0.936 | Succ=0.0% | Reward=0.609 | ETA=120s | Ep=1750
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.634 (best=0.714) | R_gc=0.976 | Succ=0.0% | Reward=0.576 | ETA=107s | Ep=1925
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.682 (best=0.714) | R_gc=0.996 | Succ=0.0% | Reward=0.564 | ETA=96s | Ep=2100
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.675 (best=0.714) | R_gc=0.909 | Succ=0.0% | Reward=0.510 | ETA=84s | Ep=2275
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.664 (best=0.714) | R_gc=0.997 | Succ=0.0% | Reward=0.485 | ETA=72s | Ep=2450
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.686 (best=0.714) | R_gc=0.853 | Succ=0.0% | Reward=0.457 | ETA=60s | Ep=2625
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.677 (best=0.714) | R_gc=0.711 | Succ=0.0% | Reward=0.437 | ETA=48s | Ep=2800
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.697 (best=0.771) | R_gc=0.654 | Succ=0.0% | Reward=0.431 | ETA=36s | Ep=2975
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.693 (best=0.771) | R_gc=0.857 | Succ=0.0% | Reward=0.465 | ETA=24s | Ep=3150
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.638 (best=0.771) | R_gc=0.857 | Succ=0.0% | Reward=0.446 | ETA=12s | Ep=3325
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.543 (best=0.771) | R_gc=0.999 | Succ=0.0% | Reward=0.425 | ETA=0s | Ep=3500
+    ✓ Done in 238.4s | Final: R_struct=0.542, Success=0.0%, Best=0.771, Episodes=3503
+│  Model saved: models/ppo_puzzle41_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 238.4s | Overall: 51% | ETA: 54.3 min remaining
+
+┌─ [12/15] Puzzle #45: [CloudBeta] 5 Adjacent Stack Multi-Branch Loop
+│  Structure: (((((((((....))))(((((....)))))(((((....)))))((((....)))))))... (len=63)
+│  Training 396,900 timesteps (~6,300 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.584 (best=0.746) | R_gc=0.552 | Succ=0.0% | Reward=0.649 | ETA=741s | Ep=315
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.648 (best=1.000) | R_gc=0.947 | Succ=0.0% | Reward=0.771 | ETA=707s | Ep=630
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.670 (best=1.000) | R_gc=0.614 | Succ=0.0% | Reward=0.731 | ETA=666s | Ep=945
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.650 (best=1.000) | R_gc=0.749 | Succ=0.0% | Reward=0.736 | ETA=628s | Ep=1260
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.628 (best=1.000) | R_gc=0.914 | Succ=0.0% | Reward=0.742 | ETA=588s | Ep=1575
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.730 (best=1.000) | R_gc=0.922 | Succ=0.0% | Reward=0.840 | ETA=548s | Ep=1890
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.649 (best=1.000) | R_gc=0.957 | Succ=0.0% | Reward=0.740 | ETA=509s | Ep=2205
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.678 (best=1.000) | R_gc=0.985 | Succ=0.0% | Reward=0.744 | ETA=470s | Ep=2520
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.666 (best=1.000) | R_gc=0.981 | Succ=0.0% | Reward=0.712 | ETA=430s | Ep=2835
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.682 (best=1.000) | R_gc=0.935 | Succ=0.0% | Reward=0.692 | ETA=391s | Ep=3150
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.622 (best=1.000) | R_gc=0.826 | Succ=0.0% | Reward=0.594 | ETA=353s | Ep=3465
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.710 (best=1.000) | R_gc=0.925 | Succ=0.0% | Reward=0.640 | ETA=314s | Ep=3780
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.523 (best=1.000) | R_gc=0.925 | Succ=0.0% | Reward=0.451 | ETA=275s | Ep=4095
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.611 (best=1.000) | R_gc=0.624 | Succ=0.0% | Reward=0.507 | ETA=235s | Ep=4410
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.677 (best=1.000) | R_gc=0.904 | Succ=0.0% | Reward=0.566 | ETA=196s | Ep=4725
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.688 (best=1.000) | R_gc=0.980 | Succ=0.0% | Reward=0.560 | ETA=157s | Ep=5040
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.696 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.541 | ETA=118s | Ep=5355
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.595 (best=1.000) | R_gc=0.960 | Succ=0.0% | Reward=0.490 | ETA=78s | Ep=5670
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.667 (best=1.000) | R_gc=0.996 | Succ=0.0% | Reward=0.527 | ETA=39s | Ep=5985
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.679 (best=1.000) | R_gc=0.911 | Succ=0.0% | Reward=0.533 | ETA=0s | Ep=6300
+    ✓ Done in 784.6s | Final: R_struct=0.679, Success=0.0%, Best=1.000, Episodes=6300
+│  Model saved: models/ppo_puzzle45_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 784.7s | Overall: 63% | ETA: 41.3 min remaining
+
+┌─ [13/15] Puzzle #47: Misfolded Aptamer
+│  Structure: ((((......(((((...))).((....)).........)).....)))) (len=50)
+│  Training 250,000 timesteps (~5,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.550 (best=0.720) | R_gc=0.579 | Succ=0.0% | Reward=0.597 | ETA=464s | Ep=250
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.784 (best=1.000) | R_gc=0.957 | Succ=2.0% | Reward=0.892 | ETA=439s | Ep=500
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.813 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.920 | ETA=419s | Ep=750
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.760 (best=1.000) | R_gc=0.910 | Succ=0.0% | Reward=0.854 | ETA=409s | Ep=1000
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.776 (best=1.000) | R_gc=0.934 | Succ=0.0% | Reward=0.888 | ETA=390s | Ep=1250
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.741 (best=1.000) | R_gc=0.991 | Succ=0.0% | Reward=0.869 | ETA=362s | Ep=1500
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.717 (best=1.000) | R_gc=0.972 | Succ=0.0% | Reward=0.803 | ETA=335s | Ep=1750
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.757 (best=1.000) | R_gc=0.930 | Succ=0.0% | Reward=0.800 | ETA=309s | Ep=2000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.817 (best=1.000) | R_gc=0.958 | Succ=0.0% | Reward=0.807 | ETA=282s | Ep=2250
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.920 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.825 | ETA=256s | Ep=2500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.888 (best=1.000) | R_gc=0.999 | Succ=0.0% | Reward=0.757 | ETA=230s | Ep=2750
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.893 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.713 | ETA=204s | Ep=3000
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.853 (best=1.000) | R_gc=0.851 | Succ=0.0% | Reward=0.612 | ETA=179s | Ep=3250
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.808 (best=1.000) | R_gc=0.987 | Succ=0.0% | Reward=0.581 | ETA=153s | Ep=3500
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.878 (best=1.000) | R_gc=0.957 | Succ=0.0% | Reward=0.595 | ETA=127s | Ep=3750
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.843 (best=1.000) | R_gc=0.860 | Succ=0.0% | Reward=0.565 | ETA=102s | Ep=4000
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.838 (best=1.000) | R_gc=0.727 | Succ=0.0% | Reward=0.543 | ETA=76s | Ep=4250
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.892 (best=1.000) | R_gc=1.000 | Succ=0.0% | Reward=0.602 | ETA=51s | Ep=4500
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.804 (best=1.000) | R_gc=0.921 | Succ=0.0% | Reward=0.558 | ETA=25s | Ep=4750
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.822 (best=1.000) | R_gc=0.782 | Succ=0.0% | Reward=0.505 | ETA=0s | Ep=5000
+    ✓ Done in 508.6s | Final: R_struct=0.823, Success=0.0%, Best=1.000, Episodes=5002
+│  Model saved: models/ppo_puzzle47_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 508.6s | Overall: 70% | ETA: 33.2 min remaining
+
+┌─ [14/15] Puzzle #54: 7 multiloop
+│  Structure: (((((((((....)))))(((((....)))))(((((....)))))(((((....)))))... (len=92)
+│  Training 846,400 timesteps (~9,200 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.342 (best=0.522) | R_gc=0.672 | Succ=0.0% | Reward=0.417 | ETA=1727s | Ep=460
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.383 (best=0.674) | R_gc=0.404 | Succ=0.0% | Reward=0.400 | ETA=1636s | Ep=920
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.385 (best=0.674) | R_gc=0.759 | Succ=0.0% | Reward=0.479 | ETA=1532s | Ep=1380
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.437 (best=0.674) | R_gc=0.922 | Succ=0.0% | Reward=0.554 | ETA=1438s | Ep=1840
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.508 (best=0.848) | R_gc=0.628 | Succ=0.0% | Reward=0.577 | ETA=1344s | Ep=2300
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.587 (best=0.978) | R_gc=0.860 | Succ=0.0% | Reward=0.681 | ETA=1250s | Ep=2760
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.532 (best=0.978) | R_gc=0.885 | Succ=0.0% | Reward=0.619 | ETA=1159s | Ep=3220
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.490 (best=0.978) | R_gc=0.935 | Succ=0.0% | Reward=0.568 | ETA=1069s | Ep=3680
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.568 (best=0.978) | R_gc=0.965 | Succ=0.0% | Reward=0.618 | ETA=979s | Ep=4140
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.525 (best=0.978) | R_gc=0.864 | Succ=0.0% | Reward=0.545 | ETA=889s | Ep=4600
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.554 (best=1.000) | R_gc=0.843 | Succ=0.0% | Reward=0.533 | ETA=800s | Ep=5060
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.540 (best=1.000) | R_gc=0.826 | Succ=0.0% | Reward=0.509 | ETA=714s | Ep=5520
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.533 (best=1.000) | R_gc=0.803 | Succ=0.0% | Reward=0.481 | ETA=626s | Ep=5980
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.538 (best=1.000) | R_gc=0.872 | Succ=2.0% | Reward=0.471 | ETA=544s | Ep=6440
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.610 (best=1.000) | R_gc=0.807 | Succ=0.0% | Reward=0.507 | ETA=458s | Ep=6900
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.579 (best=1.000) | R_gc=0.972 | Succ=0.0% | Reward=0.519 | ETA=372s | Ep=7360
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.541 (best=1.000) | R_gc=0.971 | Succ=0.0% | Reward=0.488 | ETA=281s | Ep=7820
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.622 (best=1.000) | R_gc=0.858 | Succ=0.0% | Reward=0.534 | ETA=190s | Ep=8280
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.527 (best=1.000) | R_gc=0.968 | Succ=0.0% | Reward=0.482 | ETA=97s | Ep=8740
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.518 (best=1.000) | R_gc=0.898 | Succ=0.0% | Reward=0.487 | ETA=0s | Ep=9200
+    ✓ Done in 1954.5s | Final: R_struct=0.518, Success=0.0%, Best=1.000, Episodes=9200
+│  Model saved: models/ppo_puzzle54_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 1954.6s | Overall: 95% | ETA: 5.5 min remaining
+
+┌─ [15/15] Puzzle #65: Branching Loop
+│  Structure: .(((((........)((((....))))..))))....... (len=40)
+│  Training 160,000 timesteps (~4,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | R_struct=0.454 (best=0.725) | R_gc=0.915 | Succ=0.0% | Reward=0.579 | ETA=395s | Ep=200
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | R_struct=0.581 (best=0.800) | R_gc=0.881 | Succ=0.0% | Reward=0.697 | ETA=385s | Ep=400
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | R_struct=0.669 (best=0.800) | R_gc=0.821 | Succ=0.0% | Reward=0.771 | ETA=364s | Ep=600
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase A (struct) | R_struct=0.656 (best=0.875) | R_gc=0.688 | Succ=0.0% | Reward=0.731 | ETA=343s | Ep=800
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase A (struct) | R_struct=0.698 (best=0.875) | R_gc=0.630 | Succ=0.0% | Reward=0.761 | ETA=323s | Ep=1000
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase A (struct) | R_struct=0.710 (best=0.875) | R_gc=0.472 | Succ=0.0% | Reward=0.731 | ETA=301s | Ep=1200
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | R_struct=0.803 (best=0.950) | R_gc=0.846 | Succ=0.0% | Reward=0.870 | ETA=282s | Ep=1400
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | R_struct=0.943 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.963 | ETA=260s | Ep=1600
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | R_struct=0.940 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.907 | ETA=239s | Ep=1800
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | R_struct=0.949 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.860 | ETA=218s | Ep=2000
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | R_struct=0.909 (best=0.950) | R_gc=0.941 | Succ=0.0% | Reward=0.760 | ETA=195s | Ep=2200
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | R_struct=0.907 (best=0.950) | R_gc=0.861 | Succ=0.0% | Reward=0.700 | ETA=173s | Ep=2400
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | R_struct=0.749 (best=0.950) | R_gc=0.840 | Succ=0.0% | Reward=0.512 | ETA=152s | Ep=2600
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | R_struct=0.932 (best=0.950) | R_gc=0.940 | Succ=0.0% | Reward=0.630 | ETA=131s | Ep=2800
+    [███████████████░░░░░]  75.0% | Phase C (joint) | R_struct=0.907 (best=0.950) | R_gc=0.968 | Succ=0.0% | Reward=0.602 | ETA=109s | Ep=3000
+    [████████████████░░░░]  80.0% | Phase C (joint) | R_struct=0.948 (best=0.950) | R_gc=0.994 | Succ=0.0% | Reward=0.640 | ETA=86s | Ep=3200
+    [█████████████████░░░]  85.0% | Phase C (joint) | R_struct=0.904 (best=0.950) | R_gc=0.899 | Succ=0.0% | Reward=0.606 | ETA=64s | Ep=3400
+    [██████████████████░░]  90.0% | Phase C (joint) | R_struct=0.942 (best=0.950) | R_gc=0.999 | Succ=0.0% | Reward=0.627 | ETA=43s | Ep=3600
+    [███████████████████░]  95.0% | Phase C (joint) | R_struct=0.949 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.637 | ETA=21s | Ep=3800
+    [████████████████████] 100.0% | Phase C (joint) | R_struct=0.932 (best=0.950) | R_gc=1.000 | Succ=0.0% | Reward=0.623 | ETA=0s | Ep=4000
+    ✓ Done in 422.3s | Final: R_struct=0.932, Success=0.0%, Best=0.950, Episodes=4000
+│  Model saved: models/ppo_puzzle65_a0.4_b0.2_g0.15_d0.25_seed42
+└─ Done in 422.4s | Overall: 100% | ETA: 0.0 min remaining
+
+================================================================================
+  ALL TRAINING COMPLETE!
+  Total time: 117.3 minutes (7038s)
+  Models saved to: ./models/
+  TensorBoard:  tensorboard --logdir ./tensorboard_logs/
+================================================================================
+run_grid_search.sh: line 17: $'\r': command not found
+
+=================================================================
+  ALL TRAINING COMPLETED SUCCESSFULLY!
+=================================================================
