@@ -272,7 +272,6 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 - [ ] Complete grid search across all 3 weight configurations
 - [ ] Run DQN experiments with optimized hyperparameters for all puzzles
 - [ ] Deterministic evaluation of all trained models
-- [ ] Test set evaluation (5 held-out targets)
 - [ ] Final comparative analysis (PPO vs DQN)
 
 ## References
