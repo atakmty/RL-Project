@@ -101,6 +101,10 @@ RL-Project/
 
 ### Installation
 
+> ⚠️ **Platform note — ViennaRNA is Linux/macOS only.** The bioconda channel does not publish `viennarna` for `win-64`, so `conda env create` will fail on native Windows with `PackagesNotFoundError: viennarna`. **Windows users must use WSL2** (instructions below). macOS and Linux users can skip straight to the standard install.
+
+#### Linux / macOS
+
 ```bash
 # 1. Clone the repository
 git clone https://github.com/atakmty/RL-Project.git
@@ -112,6 +116,41 @@ conda activate rlrna
 ```
 
 > **Not:** `environment.yml` dosyası Python 3.10, ViennaRNA, GSL ve tüm pip paketlerini otomatik kurar. Ayrı `pip install` gerekmez.
+
+#### Windows (via WSL2)
+
+ViennaRNA is not available on Windows through conda, so the project runs inside a Linux environment on Windows via WSL2. One-time setup:
+
+**1. Install WSL2 + Ubuntu.** In an **administrator PowerShell**:
+
+```powershell
+wsl --install -d Ubuntu
+```
+
+Reboot when prompted. Ubuntu will launch and ask you to create a Linux username and password.
+
+**2. Open Ubuntu** (Start menu → "Ubuntu", or run `wsl` in any terminal) and install Miniconda for Linux:
+
+```bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+# accept defaults; when it asks about running `conda init`, say yes
+```
+
+Close and reopen the Ubuntu terminal — your prompt should now start with `(base)`.
+
+**3. Clone and create the environment** (same commands as Linux):
+
+```bash
+git clone https://github.com/atakmty/RL-Project.git
+cd RL-Project
+conda env create -f environment.yml
+conda activate rlrna
+```
+
+From here, every command in the Training / Evaluation / TensorBoard sections below runs unchanged inside the Ubuntu terminal. Your Windows files remain accessible from Ubuntu at `/mnt/c/Users/<YourName>/`, and the WSL filesystem is reachable from Windows Explorer at `\\wsl.localhost\Ubuntu\home\<YourLinuxName>\`.
+
+> **Tip:** `conda env create` is a **one-time** setup. After it succeeds, every new Ubuntu session only needs `cd ~/RL-Project && conda activate rlrna`.
 
 ### Training
 
