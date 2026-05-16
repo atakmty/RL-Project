@@ -31,22 +31,8 @@ from eterna100 import get_train_structures
 # ======================================================================
 class AdaptiveWeightScheduler:
     """
-    3-phase curriculum for multi-objective reward weighting.
-
-    Phase A (first 30%): Structure-dominant warmup
-        alpha = 1.0
-        beta  = 0.3 * target_beta   (small but nonzero — keeps gc_ratio away
-                                     from saturating endpoints where r_gc=0)
-        gamma = target_gamma        (full anti-homopolymer from step 0,
-                                     prevents all-G / all-C collapse)
-        delta = 0.0
-    Phase B (next 40%):  Linear ramp from Phase-A start weights to target
-    Phase C (final 30%): Fixed target weights
-
-    Why β, γ are active from step 0: pure α=1.0 makes the agent converge to
-    trivial GC-saturated solutions (gc_ratio=1.0 → r_gc=0, flat zero region),
-    and once the policy entropy collapses there, Phase B's gradual weight
-    ramp cannot pull it back into the [0.4, 0.6] GC band.
+    3 Aşamalı (Phase A, B, C) öğrenme planlayıcısı.
+    Agent'in önce yapısal doğruluğu, ardından GC oranını öğrenmesini sağlar.
     """
 
     # Phase A starting fractions of target weights.
@@ -274,10 +260,7 @@ def train_single_target(
     )
 
     if algo_name == "ppo":
-        # n_steps=128 (not 256) and constant LR (no decay): wider net_arch
-        # already needs more grad updates per unit data; doubling n_steps and
-        # decaying LR halved effective gradient steps, undertraining the
-        # 128×128 network and causing puzzle #10 to plateau at best=0.82.
+        # PPO Modeli - Genişletilmiş ağ yapısı (128x128) ve sabit öğrenme oranı.
         model = PPO(
             "MlpPolicy",
             env,
@@ -289,23 +272,11 @@ def train_single_target(
             n_epochs=10,
             learning_rate=3e-4,
             gamma=0.99,
-            ent_coef=0.02,      # entropy bonus — keeps exploration alive so
-                                 # Phase B can escape Phase-A homopolymer basin
-            policy_kwargs=dict(net_arch=[128, 128]),  # wider than 64×64
-                                                       # default; 300+ dim obs
-                                                       # needs the capacity
+            ent_coef=0.02,                            # Keşfi teşvik eder
+            policy_kwargs=dict(net_arch=[128, 128]),  # Geniş ağ yapısı
         )
     elif algo_name == "dqn":
-        # ---- DQN hyperparameters (optimized for RNA inverse folding) ----
-        # Key changes vs v1:
-        #   - exploration_fraction 0.3 → 0.6: explore for 60% of training
-        #   - buffer_size 10K → 50K: retain more diverse transitions
-        #   - learning_rate 1e-3 → 5e-4: slower, more stable updates
-        #   - batch_size 64 → 128: smoother gradients
-        #   - learning_starts 500 → 1000: more random data before first update
-        #   - target_update_interval 250 → 500: more stable target Q
-        #   - exploration_final_eps 0.05 → 0.08: maintain some exploration
-        #   - policy_kwargs: wider network (256-256 vs default 64-64)
+        # DQN Modeli - Uzun süreli keşif ve büyük replay buffer.
         model = DQN(
             "MlpPolicy",
             env,
@@ -350,12 +321,8 @@ def train_single_target(
 
 def compute_timesteps(seq_len: int, min_episodes: int = 3000) -> int:
     """
-    Compute timesteps for a target based on its sequence length.
-
-    Long structures (len > 30) need more episodes to escape structural
-    plateaus — e.g. puzzle #10 (Frog Foot, len=45) plateaus at R_struct≈0.8
-    with 3000 episodes; multi-hairpin patterns require more samples to
-    learn the repeated motif. Scale episodes ~linearly with length above 30.
+    Hedefin (RNA) uzunluğuna göre eğitim adım sayısını dinamik hesaplar.
+    Uzun dizilimler (len > 30) daha fazla eğitime ihtiyaç duyar.
     """
     if seq_len > 30:
         # 1.0 at len=30, 2.0 at len=60, 2.23 at len=67. Empirically puzzle #10

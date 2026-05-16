@@ -24,16 +24,9 @@ def mock_fold(sequence: str):
 
 class LearnaEnv(gym.Env):
     """
-    Custom Gymnasium Environment for RNA Inverse Folding.
-
-    The agent sequentially selects nucleotides (A=0, C=1, G=2, U=3) to construct
-    an RNA sequence of length n. At the terminal step, the sequence is folded via
-    ViennaRNA and evaluated against 4 objectives:
-
-    R = alpha * R_struct + beta * R_GC - gamma * P_homo + delta * R_MFE
-
-    Intermediate steps use Ng et al. (1999) potential-based reward shaping
-    to provide denser learning signals without altering the optimal policy.
+    RNA Ters Katlanma (Inverse Folding) için Özel Gymnasium Ortamı.
+    Agent sırayla nükleotitleri (A, C, G, U) seçerek RNA dizilimini oluşturur.
+    Son adımda ViennaRNA ile yapı katlanır ve 4 hedefe göre (Yapı, GC, Homopolimer, MFE) puanlanır.
     """
 
     metadata = {"render_modes": []}
@@ -55,15 +48,11 @@ class LearnaEnv(gym.Env):
         # Action: choose next nucleotide  A=0, C=1, G=2, U=3
         self.action_space = spaces.Discrete(4)
 
-        # Observation: flat float32 vector with ONE-HOT encoding
-        #   [0 .. 4n-1]  : one-hot nucleotide at each position (4 dims per pos, all zeros = empty)
-        #   [4n .. 7n-1] : one-hot target structure at each position (3 dims: '.', '(', ')')
-        #   [7n]         : current step / n (progress scalar)
-        #   --- Partner-Aware Local Context (9 extra dims) ---
-        #   [7n+1 .. 7n+3] : target structure char at current step (3 dims)
-        #   [7n+4]         : is_paired boolean (1 dim)
-        #   [7n+5]         : partner_placed boolean (1 dim)
-        #   [7n+6 .. 7n+9] : partner_nucleotide one-hot (4 dims)
+        # Gözlem Uzayı (Observation Space): Ajanın görebildiği değişkenler
+        # - Sıradaki nükleotitler (One-hot)
+        # - Hedef yapı (One-hot)
+        # - İlerleme durumu (0-1 arası)
+        # - Eşleşecek partnerin durumu (9 ekstra boyut)
         obs_size = 4 * self.n + 3 * self.n + 1 + 9  # = 7n + 10
         self.observation_space = spaces.Box(
             low=0.0, high=1.0, shape=(obs_size,), dtype=np.float32
@@ -161,12 +150,8 @@ class LearnaEnv(gym.Env):
     # ------------------------------------------------------------------
     def _potential_function(self) -> float:
         """
-        Phi(s) = fraction of already-placed paired positions where the placed
-        nucleotide forms a valid Watson-Crick or wobble base pair with its partner
-        (if the partner has also been placed).
-
-        This gives the agent a dense, structure-aware signal whose shaping reward
-        F(s,a,s') = discount * Phi(s') - Phi(s)  preserves optimal policy (Ng 1999).
+        Ara adım ödüllendirme fonksiyonu.
+        Agent'in adım adım doğru yolda olup olmadığını (doğru baz eşleşmeleri) puanlar.
         """
         if not self.current_seq or not self._pair_table:
             return 0.0
