@@ -1,0 +1,454 @@
+================================================================================
+  RNA Inverse Folding — Multi-Objective Training Pipeline
+================================================================================
+  Algorithm    : DQN
+  Seed         : 42
+  Timesteps    : ADAPTIVE (min 5000 eps, +50% for len>30)
+                 Range: 60,000 – 1,410,636 steps (5,000–15,333 episodes)
+  Total steps  : 5,601,649
+  Targets      : 15
+  Weight config: #0  (α=0.5, β=0.2, γ=0.4, δ=0.2)
+  Log dir      : ./tensorboard_logs/
+================================================================================
+
+┌─ [1/15] Puzzle #1: Simple Hairpin
+│  Structure: ((((((......)))))) (len=18)
+│  Training 90,000 timesteps (~5,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.438(best=0.889,hit=0%) | GC=0.50 | run=2.6 | MFE/nt=0.06 | Solved4=0% | Close=61% | ETA=65s | Ep=250
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.436(best=0.889,hit=0%) | GC=0.55 | run=2.9 | MFE/nt=0.06 | Solved4=0% | Close=62% | ETA=71s | Ep=500
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.487(best=1.000,hit=2%) | GC=0.51 | run=3.1 | MFE/nt=0.08 | Solved4=0% | Close=63% | ETA=80s | Ep=750
+    [replay] buffer cleared at Phase A->B boundary
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.511(best=1.000,hit=2%) | GC=0.54 | run=3.2 | MFE/nt=0.11 | Solved4=0% | Close=63% | ETA=76s | Ep=1000
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.489(best=1.000,hit=2%) | GC=0.52 | run=3.0 | MFE/nt=0.07 | Solved4=0% | Close=63% | ETA=71s | Ep=1250
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.504(best=1.000,hit=0%) | GC=0.55 | run=3.0 | MFE/nt=0.11 | Solved4=0% | Close=65% | ETA=67s | Ep=1500
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.584(best=1.000,hit=2%) | GC=0.54 | run=2.9 | MFE/nt=0.15 | Solved4=0% | Close=69% | ETA=62s | Ep=1750
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.564(best=1.000,hit=2%) | GC=0.53 | run=3.1 | MFE/nt=0.16 | Solved4=0% | Close=66% | ETA=57s | Ep=2000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.689(best=1.000,hit=10%) | GC=0.60 | run=3.2 | MFE/nt=0.23 | Solved4=0% | Close=75% | ETA=51s | Ep=2250
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.616(best=1.000,hit=6%) | GC=0.60 | run=3.2 | MFE/nt=0.21 | Solved4=2% | Close=69% | ETA=47s | Ep=2500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.756(best=1.000,hit=18%) | GC=0.63 | run=2.9 | MFE/nt=0.29 | Solved4=2% | Close=73% | ETA=42s | Ep=2750
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.716(best=1.000,hit=6%) | GC=0.62 | run=3.2 | MFE/nt=0.30 | Solved4=0% | Close=70% | ETA=37s | Ep=3000
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.778(best=1.000,hit=16%) | GC=0.62 | run=3.4 | MFE/nt=0.28 | Solved4=0% | Close=73% | ETA=33s | Ep=3250
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  70.0% | Phase C (joint) | Rs=0.809(best=1.000,hit=20%) | GC=0.57 | run=3.6 | MFE/nt=0.23 | Solved4=0% | Close=76% | ETA=28s | Ep=3500
+    [███████████████░░░░░]  75.0% | Phase C (joint) | Rs=0.802(best=1.000,hit=12%) | GC=0.66 | run=2.4 | MFE/nt=0.30 | Solved4=0% | Close=80% | ETA=24s | Ep=3750
+    [████████████████░░░░]  80.0% | Phase C (joint) | Rs=0.782(best=1.000,hit=10%) | GC=0.64 | run=2.6 | MFE/nt=0.29 | Solved4=0% | Close=80% | ETA=19s | Ep=4000
+    [█████████████████░░░]  85.0% | Phase C (joint) | Rs=0.849(best=1.000,hit=12%) | GC=0.69 | run=3.3 | MFE/nt=0.41 | Solved4=0% | Close=78% | ETA=14s | Ep=4250
+    [██████████████████░░]  90.0% | Phase C (joint) | Rs=0.862(best=1.000,hit=30%) | GC=0.66 | run=3.3 | MFE/nt=0.40 | Solved4=2% | Close=80% | ETA=9s | Ep=4500
+    [███████████████████░]  95.0% | Phase C (joint) | Rs=0.909(best=1.000,hit=42%) | GC=0.66 | run=3.0 | MFE/nt=0.47 | Solved4=6% | Close=87% | ETA=5s | Ep=4750
+    [████████████████████] 100.0% | Phase C (joint) | Rs=0.864(best=1.000,hit=40%) | GC=0.59 | run=3.1 | MFE/nt=0.35 | Solved4=14% | Close=85% | ETA=0s | Ep=5000
+    Done in 95.5s | Final: Rs=0.864(best=1.000, hit=40%) | GC=0.59 maxrun=3.1 MFE/nt=0.35 | Solved4=14% Close=85% | Ep=5000
+│  Model saved: models/dqn_puzzle1_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 96.9s | Overall: 2% | ETA: 98.9 min remaining
+
+┌─ [2/15] Puzzle #8: G-C Placement
+│  Structure: ((((...)))). (len=12)
+│  Training 60,000 timesteps (~5,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.367(best=1.000,hit=2%) | GC=0.46 | run=2.5 | MFE/nt=0.01 | Solved4=0% | Close=51% | ETA=32s | Ep=250
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.393(best=1.000,hit=2%) | GC=0.49 | run=2.6 | MFE/nt=0.02 | Solved4=0% | Close=55% | ETA=36s | Ep=500
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.397(best=1.000,hit=0%) | GC=0.51 | run=2.6 | MFE/nt=0.01 | Solved4=0% | Close=56% | ETA=37s | Ep=750
+    [replay] buffer cleared at Phase A->B boundary
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.383(best=1.000,hit=2%) | GC=0.49 | run=2.6 | MFE/nt=0.01 | Solved4=0% | Close=55% | ETA=36s | Ep=1000
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.407(best=1.000,hit=4%) | GC=0.46 | run=2.6 | MFE/nt=0.02 | Solved4=0% | Close=55% | ETA=35s | Ep=1250
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.417(best=1.000,hit=8%) | GC=0.48 | run=2.5 | MFE/nt=0.02 | Solved4=0% | Close=57% | ETA=35s | Ep=1500
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.427(best=1.000,hit=4%) | GC=0.46 | run=2.8 | MFE/nt=0.02 | Solved4=0% | Close=55% | ETA=33s | Ep=1750
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.473(best=1.000,hit=12%) | GC=0.44 | run=2.6 | MFE/nt=0.04 | Solved4=0% | Close=59% | ETA=30s | Ep=2000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.460(best=1.000,hit=12%) | GC=0.43 | run=2.9 | MFE/nt=0.01 | Solved4=0% | Close=57% | ETA=28s | Ep=2250
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.513(best=1.000,hit=16%) | GC=0.43 | run=2.9 | MFE/nt=0.03 | Solved4=0% | Close=58% | ETA=26s | Ep=2500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.610(best=1.000,hit=34%) | GC=0.41 | run=2.8 | MFE/nt=0.05 | Solved4=0% | Close=62% | ETA=24s | Ep=2750
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.717(best=1.000,hit=56%) | GC=0.39 | run=2.9 | MFE/nt=0.03 | Solved4=0% | Close=64% | ETA=22s | Ep=3000
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.743(best=1.000,hit=58%) | GC=0.42 | run=2.8 | MFE/nt=0.04 | Solved4=0% | Close=68% | ETA=19s | Ep=3250
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | Rs=0.737(best=1.000,hit=50%) | GC=0.40 | run=2.9 | MFE/nt=0.05 | Solved4=0% | Close=66% | ETA=16s | Ep=3500
+    [replay] buffer cleared at Phase B->C boundary
+    [███████████████░░░░░]  75.0% | Phase C (joint) | Rs=0.743(best=1.000,hit=52%) | GC=0.43 | run=3.0 | MFE/nt=0.07 | Solved4=0% | Close=69% | ETA=14s | Ep=3750
+    [████████████████░░░░]  80.0% | Phase C (joint) | Rs=0.880(best=1.000,hit=66%) | GC=0.47 | run=2.9 | MFE/nt=0.10 | Solved4=0% | Close=79% | ETA=11s | Ep=4000
+    [█████████████████░░░]  85.0% | Phase C (joint) | Rs=0.827(best=1.000,hit=64%) | GC=0.50 | run=2.9 | MFE/nt=0.11 | Solved4=0% | Close=76% | ETA=9s | Ep=4250
+    [██████████████████░░]  90.0% | Phase C (joint) | Rs=0.893(best=1.000,hit=78%) | GC=0.52 | run=2.7 | MFE/nt=0.12 | Solved4=0% | Close=78% | ETA=6s | Ep=4500
+    [███████████████████░]  95.0% | Phase C (joint) | Rs=0.760(best=1.000,hit=64%) | GC=0.43 | run=2.9 | MFE/nt=0.04 | Solved4=0% | Close=67% | ETA=3s | Ep=4750
+    [████████████████████] 100.0% | Phase C (joint) | Rs=0.823(best=1.000,hit=72%) | GC=0.43 | run=2.2 | MFE/nt=0.04 | Solved4=0% | Close=70% | ETA=0s | Ep=5000
+    Done in 57.6s | Final: Rs=0.823(best=1.000, hit=72%) | GC=0.43 maxrun=2.2 MFE/nt=0.04 | Solved4=0% Close=70% | Ep=5000
+│  Model saved: models/dqn_puzzle8_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 57.6s | Overall: 3% | ETA: 93.6 min remaining
+
+┌─ [3/15] Puzzle #10: Frog Foot
+│  Structure: ..........((((....))))((((....))))((((...)))) (len=45)
+│  Training 337,500 timesteps (~7,500 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.378(best=0.622,hit=0%) | GC=0.51 | run=3.5 | MFE/nt=0.18 | Solved4=0% | Close=72% | ETA=309s | Ep=375
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.392(best=0.711,hit=0%) | GC=0.49 | run=3.5 | MFE/nt=0.16 | Solved4=0% | Close=72% | ETA=319s | Ep=750
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.420(best=0.711,hit=0%) | GC=0.47 | run=3.7 | MFE/nt=0.15 | Solved4=0% | Close=71% | ETA=316s | Ep=1125
+    [replay] buffer cleared at Phase A->B boundary
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.424(best=0.756,hit=0%) | GC=0.51 | run=3.7 | MFE/nt=0.18 | Solved4=0% | Close=73% | ETA=302s | Ep=1500
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.433(best=0.756,hit=0%) | GC=0.47 | run=4.0 | MFE/nt=0.16 | Solved4=0% | Close=71% | ETA=292s | Ep=1875
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.450(best=0.756,hit=0%) | GC=0.41 | run=4.3 | MFE/nt=0.14 | Solved4=0% | Close=67% | ETA=285s | Ep=2250
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.409(best=0.756,hit=0%) | GC=0.44 | run=4.7 | MFE/nt=0.14 | Solved4=0% | Close=64% | ETA=266s | Ep=2625
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.432(best=0.756,hit=0%) | GC=0.40 | run=5.2 | MFE/nt=0.12 | Solved4=0% | Close=60% | ETA=248s | Ep=3000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.422(best=0.822,hit=0%) | GC=0.40 | run=5.5 | MFE/nt=0.14 | Solved4=0% | Close=57% | ETA=226s | Ep=3375
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.450(best=0.822,hit=0%) | GC=0.41 | run=6.1 | MFE/nt=0.16 | Solved4=0% | Close=54% | ETA=205s | Ep=3750
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.490(best=0.822,hit=0%) | GC=0.43 | run=6.9 | MFE/nt=0.13 | Solved4=0% | Close=47% | ETA=186s | Ep=4125
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.485(best=0.822,hit=0%) | GC=0.35 | run=7.3 | MFE/nt=0.15 | Solved4=0% | Close=38% | ETA=167s | Ep=4500
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.480(best=0.867,hit=0%) | GC=0.38 | run=7.6 | MFE/nt=0.14 | Solved4=0% | Close=43% | ETA=148s | Ep=4875
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  70.0% | Phase C (joint) | Rs=0.469(best=0.867,hit=0%) | GC=0.33 | run=7.6 | MFE/nt=0.12 | Solved4=0% | Close=39% | ETA=128s | Ep=5250
+    [███████████████░░░░░]  75.0% | Phase C (joint) | Rs=0.496(best=0.867,hit=0%) | GC=0.28 | run=7.0 | MFE/nt=0.09 | Solved4=0% | Close=40% | ETA=108s | Ep=5625
+    [████████████████░░░░]  80.0% | Phase C (joint) | Rs=0.450(best=0.867,hit=0%) | GC=0.36 | run=7.8 | MFE/nt=0.14 | Solved4=0% | Close=42% | ETA=88s | Ep=6000
+    [█████████████████░░░]  85.0% | Phase C (joint) | Rs=0.474(best=0.867,hit=0%) | GC=0.35 | run=7.3 | MFE/nt=0.16 | Solved4=0% | Close=44% | ETA=67s | Ep=6375
+    [██████████████████░░]  90.0% | Phase C (joint) | Rs=0.482(best=0.867,hit=0%) | GC=0.32 | run=7.5 | MFE/nt=0.15 | Solved4=0% | Close=41% | ETA=45s | Ep=6750
+    [███████████████████░]  95.0% | Phase C (joint) | Rs=0.471(best=0.867,hit=0%) | GC=0.30 | run=7.6 | MFE/nt=0.13 | Solved4=0% | Close=41% | ETA=23s | Ep=7125
+    [████████████████████] 100.0% | Phase C (joint) | Rs=0.466(best=0.867,hit=0%) | GC=0.33 | run=7.9 | MFE/nt=0.13 | Solved4=0% | Close=36% | ETA=0s | Ep=7500
+    Done in 456.7s | Final: Rs=0.466(best=0.867, hit=0%) | GC=0.33 maxrun=7.9 MFE/nt=0.13 | Solved4=0% Close=36% | Ep=7500
+│  Model saved: models/dqn_puzzle10_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 456.8s | Overall: 9% | ETA: 106.9 min remaining
+
+┌─ [4/15] Puzzle #13: square
+│  Structure: ((((((((((((((((((((((((((...))))))....)))))))....))))))....... (len=67)
+│  Training 748,122 timesteps (~11,166 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.427(best=0.821,hit=0%) | GC=0.50 | run=3.7 | MFE/nt=0.20 | Solved4=0% | Close=77% | ETA=868s | Ep=558
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.416(best=0.821,hit=0%) | GC=0.51 | run=3.9 | MFE/nt=0.21 | Solved4=0% | Close=77% | ETA=834s | Ep=1116
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.442(best=0.821,hit=0%) | GC=0.52 | run=4.3 | MFE/nt=0.22 | Solved4=0% | Close=77% | ETA=802s | Ep=1674
+    [replay] buffer cleared at Phase A->B boundary
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.456(best=0.821,hit=0%) | GC=0.52 | run=4.3 | MFE/nt=0.24 | Solved4=0% | Close=77% | ETA=768s | Ep=2233
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.448(best=0.821,hit=0%) | GC=0.52 | run=5.0 | MFE/nt=0.23 | Solved4=0% | Close=73% | ETA=735s | Ep=2791
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.487(best=0.821,hit=0%) | GC=0.54 | run=5.1 | MFE/nt=0.24 | Solved4=0% | Close=75% | ETA=707s | Ep=3349
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.479(best=0.881,hit=0%) | GC=0.52 | run=6.0 | MFE/nt=0.27 | Solved4=0% | Close=72% | ETA=678s | Ep=3908
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.519(best=0.881,hit=0%) | GC=0.56 | run=7.8 | MFE/nt=0.29 | Solved4=0% | Close=68% | ETA=636s | Ep=4466
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.543(best=0.881,hit=0%) | GC=0.56 | run=7.9 | MFE/nt=0.30 | Solved4=0% | Close=62% | ETA=591s | Ep=5024
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.532(best=0.910,hit=0%) | GC=0.56 | run=10.4 | MFE/nt=0.32 | Solved4=0% | Close=53% | ETA=548s | Ep=5582
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.565(best=0.940,hit=0%) | GC=0.59 | run=12.6 | MFE/nt=0.39 | Solved4=0% | Close=50% | ETA=501s | Ep=6141
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.618(best=0.970,hit=0%) | GC=0.59 | run=15.4 | MFE/nt=0.42 | Solved4=0% | Close=51% | ETA=451s | Ep=6699
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.622(best=0.970,hit=0%) | GC=0.59 | run=15.4 | MFE/nt=0.45 | Solved4=0% | Close=47% | ETA=397s | Ep=7257
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | Rs=0.617(best=1.000,hit=2%) | GC=0.62 | run=15.2 | MFE/nt=0.46 | Solved4=0% | Close=49% | ETA=342s | Ep=7816
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | Rs=0.532(best=1.000,hit=0%) | GC=0.59 | run=13.6 | MFE/nt=0.41 | Solved4=0% | Close=50% | ETA=287s | Ep=8374
+    [███████████████░░░░░]  80.0% | Phase C (joint) | Rs=0.502(best=1.000,hit=0%) | GC=0.50 | run=14.9 | MFE/nt=0.34 | Solved4=0% | Close=49% | ETA=231s | Ep=8932
+    [████████████████░░░░]  85.0% | Phase C (joint) | Rs=0.524(best=1.000,hit=0%) | GC=0.50 | run=13.2 | MFE/nt=0.32 | Solved4=0% | Close=51% | ETA=173s | Ep=9491
+    [█████████████████░░░]  90.0% | Phase C (joint) | Rs=0.537(best=1.000,hit=0%) | GC=0.46 | run=16.3 | MFE/nt=0.28 | Solved4=0% | Close=48% | ETA=116s | Ep=10049
+    [██████████████████░░]  95.0% | Phase C (joint) | Rs=0.541(best=1.000,hit=0%) | GC=0.52 | run=15.1 | MFE/nt=0.37 | Solved4=0% | Close=50% | ETA=58s | Ep=10607
+    [███████████████████░] 100.0% | Phase C (joint) | Rs=0.594(best=1.000,hit=0%) | GC=0.50 | run=17.1 | MFE/nt=0.39 | Solved4=0% | Close=48% | ETA=0s | Ep=11165
+    Done in 1167.8s | Final: Rs=0.595(best=1.000, hit=0%) | GC=0.49 maxrun=17.1 MFE/nt=0.38 | Solved4=0% Close=48% | Ep=11166
+│  Model saved: models/dqn_puzzle13_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 1167.8s | Overall: 22% | ETA: 104.8 min remaining
+
+┌─ [5/15] Puzzle #15: Small and Easy 6
+│  Structure: (((((.....))..((.........))))) (len=30)
+│  Training 150,000 timesteps (~5,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.435(best=0.733,hit=0%) | GC=0.49 | run=3.3 | MFE/nt=0.13 | Solved4=0% | Close=69% | ETA=110s | Ep=250
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.459(best=0.733,hit=0%) | GC=0.51 | run=3.4 | MFE/nt=0.12 | Solved4=0% | Close=69% | ETA=118s | Ep=500
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.411(best=0.733,hit=0%) | GC=0.47 | run=3.0 | MFE/nt=0.12 | Solved4=0% | Close=67% | ETA=113s | Ep=750
+    [replay] buffer cleared at Phase A->B boundary
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.413(best=0.733,hit=0%) | GC=0.46 | run=3.5 | MFE/nt=0.10 | Solved4=0% | Close=66% | ETA=110s | Ep=1000
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.449(best=0.733,hit=0%) | GC=0.43 | run=3.5 | MFE/nt=0.10 | Solved4=0% | Close=65% | ETA=106s | Ep=1250
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.416(best=0.800,hit=0%) | GC=0.42 | run=3.9 | MFE/nt=0.11 | Solved4=0% | Close=62% | ETA=102s | Ep=1500
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.463(best=0.800,hit=0%) | GC=0.42 | run=4.0 | MFE/nt=0.10 | Solved4=0% | Close=63% | ETA=96s | Ep=1750
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.424(best=0.800,hit=0%) | GC=0.41 | run=4.4 | MFE/nt=0.09 | Solved4=0% | Close=60% | ETA=91s | Ep=2000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.456(best=0.800,hit=0%) | GC=0.39 | run=5.0 | MFE/nt=0.09 | Solved4=0% | Close=57% | ETA=85s | Ep=2250
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.457(best=0.800,hit=0%) | GC=0.40 | run=5.0 | MFE/nt=0.08 | Solved4=0% | Close=56% | ETA=78s | Ep=2500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.443(best=0.800,hit=0%) | GC=0.40 | run=5.7 | MFE/nt=0.08 | Solved4=0% | Close=52% | ETA=71s | Ep=2750
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.507(best=0.800,hit=0%) | GC=0.40 | run=6.6 | MFE/nt=0.07 | Solved4=0% | Close=49% | ETA=64s | Ep=3000
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.496(best=0.800,hit=0%) | GC=0.40 | run=6.0 | MFE/nt=0.09 | Solved4=0% | Close=51% | ETA=56s | Ep=3250
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | Rs=0.489(best=0.800,hit=0%) | GC=0.40 | run=6.6 | MFE/nt=0.08 | Solved4=0% | Close=48% | ETA=48s | Ep=3500
+    [replay] buffer cleared at Phase B->C boundary
+    [███████████████░░░░░]  75.0% | Phase C (joint) | Rs=0.472(best=0.800,hit=0%) | GC=0.47 | run=6.2 | MFE/nt=0.08 | Solved4=0% | Close=54% | ETA=40s | Ep=3750
+    [████████████████░░░░]  80.0% | Phase C (joint) | Rs=0.421(best=0.800,hit=0%) | GC=0.43 | run=5.7 | MFE/nt=0.08 | Solved4=0% | Close=55% | ETA=33s | Ep=4000
+    [█████████████████░░░]  85.0% | Phase C (joint) | Rs=0.445(best=0.800,hit=0%) | GC=0.45 | run=6.0 | MFE/nt=0.11 | Solved4=0% | Close=57% | ETA=25s | Ep=4250
+    [██████████████████░░]  90.0% | Phase C (joint) | Rs=0.435(best=0.800,hit=0%) | GC=0.46 | run=6.0 | MFE/nt=0.12 | Solved4=0% | Close=54% | ETA=16s | Ep=4500
+    [███████████████████░]  95.0% | Phase C (joint) | Rs=0.441(best=0.800,hit=0%) | GC=0.47 | run=6.3 | MFE/nt=0.10 | Solved4=0% | Close=54% | ETA=8s | Ep=4750
+    [████████████████████] 100.0% | Phase C (joint) | Rs=0.475(best=0.800,hit=0%) | GC=0.44 | run=6.4 | MFE/nt=0.08 | Solved4=0% | Close=54% | ETA=0s | Ep=5000
+    Done in 165.5s | Final: Rs=0.475(best=0.800, hit=0%) | GC=0.44 maxrun=6.4 MFE/nt=0.08 | Solved4=0% Close=54% | Ep=5000
+│  Model saved: models/dqn_puzzle15_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 165.5s | Overall: 25% | ETA: 98.6 min remaining
+
+┌─ [6/15] Puzzle #23: Shortie 4
+│  Structure: ((....)).((....)) (len=17)
+│  Training 85,000 timesteps (~5,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.451(best=0.765,hit=0%) | GC=0.50 | run=2.6 | MFE/nt=0.04 | Solved4=0% | Close=59% | ETA=49s | Ep=250
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.461(best=0.765,hit=0%) | GC=0.51 | run=2.6 | MFE/nt=0.05 | Solved4=0% | Close=62% | ETA=64s | Ep=500
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.449(best=0.765,hit=0%) | GC=0.55 | run=2.8 | MFE/nt=0.06 | Solved4=0% | Close=60% | ETA=61s | Ep=750
+    [replay] buffer cleared at Phase A->B boundary
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.419(best=0.765,hit=0%) | GC=0.53 | run=2.7 | MFE/nt=0.06 | Solved4=0% | Close=62% | ETA=58s | Ep=1000
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.424(best=0.765,hit=0%) | GC=0.53 | run=3.0 | MFE/nt=0.05 | Solved4=0% | Close=60% | ETA=55s | Ep=1250
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.427(best=0.765,hit=0%) | GC=0.53 | run=2.8 | MFE/nt=0.05 | Solved4=0% | Close=60% | ETA=54s | Ep=1500
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.406(best=0.765,hit=0%) | GC=0.53 | run=2.9 | MFE/nt=0.06 | Solved4=0% | Close=60% | ETA=51s | Ep=1750
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.420(best=0.765,hit=0%) | GC=0.55 | run=2.7 | MFE/nt=0.07 | Solved4=0% | Close=59% | ETA=47s | Ep=2000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.447(best=0.765,hit=0%) | GC=0.54 | run=2.7 | MFE/nt=0.06 | Solved4=0% | Close=58% | ETA=43s | Ep=2250
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.422(best=0.765,hit=0%) | GC=0.53 | run=3.1 | MFE/nt=0.07 | Solved4=0% | Close=57% | ETA=40s | Ep=2500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.435(best=0.765,hit=0%) | GC=0.51 | run=3.1 | MFE/nt=0.07 | Solved4=0% | Close=58% | ETA=36s | Ep=2750
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.379(best=0.765,hit=0%) | GC=0.61 | run=3.1 | MFE/nt=0.07 | Solved4=0% | Close=55% | ETA=33s | Ep=3000
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.400(best=0.765,hit=0%) | GC=0.57 | run=3.3 | MFE/nt=0.08 | Solved4=0% | Close=52% | ETA=29s | Ep=3250
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  70.0% | Phase C (joint) | Rs=0.400(best=0.765,hit=0%) | GC=0.59 | run=3.2 | MFE/nt=0.06 | Solved4=0% | Close=53% | ETA=25s | Ep=3500
+    [███████████████░░░░░]  75.0% | Phase C (joint) | Rs=0.495(best=0.765,hit=0%) | GC=0.33 | run=3.7 | MFE/nt=0.02 | Solved4=0% | Close=47% | ETA=21s | Ep=3750
+    [████████████████░░░░]  80.0% | Phase C (joint) | Rs=0.449(best=0.765,hit=0%) | GC=0.46 | run=2.7 | MFE/nt=0.03 | Solved4=0% | Close=57% | ETA=17s | Ep=4000
+    [█████████████████░░░]  85.0% | Phase C (joint) | Rs=0.451(best=0.765,hit=0%) | GC=0.50 | run=2.6 | MFE/nt=0.04 | Solved4=0% | Close=63% | ETA=13s | Ep=4250
+    [██████████████████░░]  90.0% | Phase C (joint) | Rs=0.405(best=0.765,hit=0%) | GC=0.54 | run=2.8 | MFE/nt=0.08 | Solved4=0% | Close=61% | ETA=9s | Ep=4500
+    [███████████████████░]  95.0% | Phase C (joint) | Rs=0.485(best=0.765,hit=0%) | GC=0.54 | run=3.3 | MFE/nt=0.03 | Solved4=0% | Close=57% | ETA=4s | Ep=4750
+    [████████████████████] 100.0% | Phase C (joint) | Rs=0.448(best=0.765,hit=0%) | GC=0.54 | run=2.8 | MFE/nt=0.05 | Solved4=0% | Close=59% | ETA=0s | Ep=5000
+    Done in 87.0s | Final: Rs=0.448(best=0.765, hit=0%) | GC=0.54 maxrun=2.8 MFE/nt=0.05 | Solved4=0% Close=59% | Ep=5000
+│  Model saved: models/dqn_puzzle23_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 87.1s | Overall: 26% | ETA: 95.1 min remaining
+
+┌─ [7/15] Puzzle #25: The Ministry
+│  Structure: (((.....(((.....(((.....(((.....(((........))).))).))).))).)... (len=62)
+│  Training 640,646 timesteps (~10,333 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.457(best=0.677,hit=0%) | GC=0.50 | run=3.7 | MFE/nt=0.19 | Solved4=0% | Close=76% | ETA=780s | Ep=516
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.434(best=0.677,hit=0%) | GC=0.52 | run=3.8 | MFE/nt=0.21 | Solved4=0% | Close=76% | ETA=722s | Ep=1033
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.452(best=0.677,hit=0%) | GC=0.52 | run=3.9 | MFE/nt=0.23 | Solved4=0% | Close=78% | ETA=685s | Ep=1549
+    [replay] buffer cleared at Phase A->B boundary
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.453(best=0.710,hit=0%) | GC=0.51 | run=4.1 | MFE/nt=0.20 | Solved4=0% | Close=76% | ETA=643s | Ep=2066
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.469(best=0.710,hit=0%) | GC=0.51 | run=5.3 | MFE/nt=0.23 | Solved4=0% | Close=74% | ETA=600s | Ep=2583
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.480(best=0.710,hit=0%) | GC=0.54 | run=5.4 | MFE/nt=0.23 | Solved4=0% | Close=73% | ETA=561s | Ep=3099
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.463(best=0.710,hit=0%) | GC=0.54 | run=6.0 | MFE/nt=0.22 | Solved4=0% | Close=68% | ETA=524s | Ep=3616
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.489(best=0.710,hit=0%) | GC=0.56 | run=7.4 | MFE/nt=0.26 | Solved4=0% | Close=61% | ETA=496s | Ep=4133
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.489(best=0.774,hit=0%) | GC=0.55 | run=9.4 | MFE/nt=0.26 | Solved4=0% | Close=52% | ETA=464s | Ep=4649
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.519(best=0.774,hit=0%) | GC=0.56 | run=9.9 | MFE/nt=0.28 | Solved4=0% | Close=49% | ETA=428s | Ep=5166
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.527(best=0.774,hit=0%) | GC=0.56 | run=12.7 | MFE/nt=0.31 | Solved4=0% | Close=46% | ETA=390s | Ep=5683
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.507(best=0.774,hit=0%) | GC=0.62 | run=17.2 | MFE/nt=0.36 | Solved4=0% | Close=47% | ETA=351s | Ep=6199
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.530(best=0.774,hit=0%) | GC=0.63 | run=18.4 | MFE/nt=0.42 | Solved4=0% | Close=44% | ETA=310s | Ep=6716
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | Rs=0.514(best=0.806,hit=0%) | GC=0.57 | run=17.9 | MFE/nt=0.33 | Solved4=0% | Close=44% | ETA=269s | Ep=7233
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | Rs=0.512(best=0.806,hit=0%) | GC=0.54 | run=19.0 | MFE/nt=0.35 | Solved4=0% | Close=42% | ETA=227s | Ep=7749
+    [███████████████░░░░░]  80.0% | Phase C (joint) | Rs=0.482(best=0.806,hit=0%) | GC=0.60 | run=18.3 | MFE/nt=0.44 | Solved4=0% | Close=42% | ETA=183s | Ep=8266
+    [████████████████░░░░]  85.0% | Phase C (joint) | Rs=0.523(best=0.806,hit=0%) | GC=0.56 | run=19.1 | MFE/nt=0.38 | Solved4=0% | Close=47% | ETA=138s | Ep=8782
+    [█████████████████░░░]  90.0% | Phase C (joint) | Rs=0.495(best=0.806,hit=0%) | GC=0.57 | run=16.8 | MFE/nt=0.38 | Solved4=0% | Close=44% | ETA=93s | Ep=9299
+    [██████████████████░░]  95.0% | Phase C (joint) | Rs=0.483(best=0.806,hit=0%) | GC=0.55 | run=18.3 | MFE/nt=0.38 | Solved4=0% | Close=41% | ETA=47s | Ep=9816
+    [███████████████████░] 100.0% | Phase C (joint) | Rs=0.497(best=0.806,hit=0%) | GC=0.54 | run=16.1 | MFE/nt=0.36 | Solved4=0% | Close=44% | ETA=0s | Ep=10332
+    Done in 945.9s | Final: Rs=0.496(best=0.806, hit=0%) | GC=0.55 maxrun=16.1 MFE/nt=0.37 | Solved4=0% Close=44% | Ep=10333
+│  Model saved: models/dqn_puzzle25_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 946.0s | Overall: 38% | ETA: 82.0 min remaining
+
+┌─ [8/15] Puzzle #26: stickshift
+│  Structure: ..((((((((.....)).)))))).. (len=26)
+│  Training 130,000 timesteps (~5,000 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.501(best=0.923,hit=0%) | GC=0.51 | run=3.2 | MFE/nt=0.11 | Solved4=0% | Close=69% | ETA=89s | Ep=250
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.534(best=0.923,hit=0%) | GC=0.49 | run=3.3 | MFE/nt=0.12 | Solved4=0% | Close=69% | ETA=96s | Ep=500
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.521(best=0.923,hit=0%) | GC=0.50 | run=3.2 | MFE/nt=0.12 | Solved4=0% | Close=71% | ETA=97s | Ep=750
+    [replay] buffer cleared at Phase A->B boundary
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.550(best=1.000,hit=2%) | GC=0.46 | run=3.3 | MFE/nt=0.11 | Solved4=0% | Close=69% | ETA=93s | Ep=1000
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.555(best=1.000,hit=0%) | GC=0.46 | run=3.4 | MFE/nt=0.11 | Solved4=0% | Close=69% | ETA=91s | Ep=1250
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.593(best=1.000,hit=0%) | GC=0.45 | run=3.4 | MFE/nt=0.12 | Solved4=0% | Close=70% | ETA=86s | Ep=1500
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.587(best=1.000,hit=0%) | GC=0.45 | run=3.4 | MFE/nt=0.12 | Solved4=0% | Close=69% | ETA=81s | Ep=1750
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.636(best=1.000,hit=0%) | GC=0.43 | run=3.6 | MFE/nt=0.12 | Solved4=0% | Close=70% | ETA=76s | Ep=2000
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.654(best=1.000,hit=2%) | GC=0.42 | run=3.6 | MFE/nt=0.14 | Solved4=0% | Close=72% | ETA=70s | Ep=2250
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.677(best=1.000,hit=0%) | GC=0.44 | run=4.1 | MFE/nt=0.19 | Solved4=0% | Close=74% | ETA=64s | Ep=2500
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.789(best=1.000,hit=8%) | GC=0.43 | run=4.3 | MFE/nt=0.20 | Solved4=2% | Close=78% | ETA=58s | Ep=2750
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.788(best=1.000,hit=6%) | GC=0.43 | run=4.3 | MFE/nt=0.22 | Solved4=0% | Close=78% | ETA=52s | Ep=3000
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.829(best=1.000,hit=4%) | GC=0.42 | run=4.5 | MFE/nt=0.24 | Solved4=0% | Close=80% | ETA=46s | Ep=3250
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | Rs=0.818(best=1.000,hit=2%) | GC=0.43 | run=4.6 | MFE/nt=0.24 | Solved4=0% | Close=81% | ETA=40s | Ep=3500
+    [replay] buffer cleared at Phase B->C boundary
+    [███████████████░░░░░]  75.0% | Phase C (joint) | Rs=0.831(best=1.000,hit=4%) | GC=0.39 | run=4.2 | MFE/nt=0.21 | Solved4=0% | Close=81% | ETA=33s | Ep=3750
+    [████████████████░░░░]  80.0% | Phase C (joint) | Rs=0.775(best=1.000,hit=6%) | GC=0.38 | run=4.0 | MFE/nt=0.16 | Solved4=0% | Close=73% | ETA=27s | Ep=4000
+    [█████████████████░░░]  85.0% | Phase C (joint) | Rs=0.815(best=1.000,hit=4%) | GC=0.41 | run=4.6 | MFE/nt=0.21 | Solved4=0% | Close=74% | ETA=20s | Ep=4250
+    [██████████████████░░]  90.0% | Phase C (joint) | Rs=0.786(best=1.000,hit=4%) | GC=0.41 | run=3.9 | MFE/nt=0.18 | Solved4=0% | Close=78% | ETA=14s | Ep=4500
+    [███████████████████░]  95.0% | Phase C (joint) | Rs=0.799(best=1.000,hit=8%) | GC=0.38 | run=3.6 | MFE/nt=0.17 | Solved4=0% | Close=75% | ETA=7s | Ep=4750
+    [████████████████████] 100.0% | Phase C (joint) | Rs=0.843(best=1.000,hit=18%) | GC=0.35 | run=3.7 | MFE/nt=0.19 | Solved4=4% | Close=76% | ETA=0s | Ep=5000
+    Done in 137.1s | Final: Rs=0.843(best=1.000, hit=18%) | GC=0.35 maxrun=3.7 MFE/nt=0.19 | Solved4=4% Close=76% | Ep=5000
+│  Model saved: models/dqn_puzzle26_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 137.1s | Overall: 40% | ETA: 77.8 min remaining
+
+┌─ [9/15] Puzzle #30: Corner bulge training
+│  Structure: .(((((((((((...)))))....)))))). (len=31)
+│  Training 160,146 timesteps (~5,166 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.436(best=0.742,hit=0%) | GC=0.51 | run=3.5 | MFE/nt=0.15 | Solved4=0% | Close=70% | ETA=129s | Ep=258
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.451(best=0.871,hit=0%) | GC=0.51 | run=3.0 | MFE/nt=0.11 | Solved4=0% | Close=69% | ETA=126s | Ep=516
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.493(best=0.871,hit=0%) | GC=0.52 | run=3.3 | MFE/nt=0.15 | Solved4=0% | Close=72% | ETA=127s | Ep=774
+    [replay] buffer cleared at Phase A->B boundary
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.462(best=0.871,hit=0%) | GC=0.51 | run=3.3 | MFE/nt=0.13 | Solved4=0% | Close=70% | ETA=122s | Ep=1033
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.514(best=0.871,hit=0%) | GC=0.56 | run=3.4 | MFE/nt=0.20 | Solved4=0% | Close=74% | ETA=118s | Ep=1291
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.507(best=0.935,hit=0%) | GC=0.59 | run=3.6 | MFE/nt=0.22 | Solved4=0% | Close=74% | ETA=111s | Ep=1549
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.510(best=0.935,hit=0%) | GC=0.58 | run=3.6 | MFE/nt=0.23 | Solved4=0% | Close=77% | ETA=105s | Ep=1808
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.557(best=1.000,hit=0%) | GC=0.58 | run=3.8 | MFE/nt=0.22 | Solved4=0% | Close=75% | ETA=98s | Ep=2066
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.599(best=1.000,hit=2%) | GC=0.62 | run=4.2 | MFE/nt=0.32 | Solved4=0% | Close=76% | ETA=91s | Ep=2324
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.621(best=1.000,hit=6%) | GC=0.65 | run=4.6 | MFE/nt=0.32 | Solved4=2% | Close=73% | ETA=83s | Ep=2582
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.692(best=1.000,hit=2%) | GC=0.65 | run=5.1 | MFE/nt=0.37 | Solved4=2% | Close=73% | ETA=76s | Ep=2841
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.767(best=1.000,hit=10%) | GC=0.65 | run=4.9 | MFE/nt=0.38 | Solved4=2% | Close=78% | ETA=68s | Ep=3099
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.737(best=1.000,hit=8%) | GC=0.62 | run=5.3 | MFE/nt=0.37 | Solved4=6% | Close=77% | ETA=60s | Ep=3357
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | Rs=0.710(best=1.000,hit=4%) | GC=0.63 | run=5.5 | MFE/nt=0.38 | Solved4=2% | Close=73% | ETA=52s | Ep=3616
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | Rs=0.767(best=1.000,hit=12%) | GC=0.67 | run=5.4 | MFE/nt=0.46 | Solved4=0% | Close=75% | ETA=44s | Ep=3874
+    [███████████████░░░░░]  80.0% | Phase C (joint) | Rs=0.730(best=1.000,hit=4%) | GC=0.66 | run=6.0 | MFE/nt=0.45 | Solved4=2% | Close=69% | ETA=35s | Ep=4132
+    [████████████████░░░░]  85.0% | Phase C (joint) | Rs=0.756(best=1.000,hit=8%) | GC=0.68 | run=6.1 | MFE/nt=0.47 | Solved4=0% | Close=69% | ETA=27s | Ep=4390
+    [█████████████████░░░]  90.0% | Phase C (joint) | Rs=0.718(best=1.000,hit=8%) | GC=0.69 | run=6.0 | MFE/nt=0.48 | Solved4=0% | Close=68% | ETA=18s | Ep=4649
+    [██████████████████░░]  95.0% | Phase C (joint) | Rs=0.708(best=1.000,hit=12%) | GC=0.71 | run=6.5 | MFE/nt=0.48 | Solved4=4% | Close=65% | ETA=9s | Ep=4907
+    [███████████████████░] 100.0% | Phase C (joint) | Rs=0.725(best=1.000,hit=12%) | GC=0.63 | run=5.2 | MFE/nt=0.38 | Solved4=0% | Close=68% | ETA=0s | Ep=5165
+    Done in 183.1s | Final: Rs=0.726(best=1.000, hit=12%) | GC=0.63 maxrun=5.1 MFE/nt=0.38 | Solved4=0% Close=69% | Ep=5166
+│  Model saved: models/dqn_puzzle30_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 183.1s | Overall: 43% | ETA: 73.2 min remaining
+
+┌─ [10/15] Puzzle #40: Tripod5
+│  Structure: ..((((((((.....))))((((.....)))))))).. (len=38)
+│  Training 240,654 timesteps (~6,333 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.446(best=0.789,hit=0%) | GC=0.50 | run=3.2 | MFE/nt=0.15 | Solved4=0% | Close=72% | ETA=201s | Ep=316
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.443(best=0.789,hit=0%) | GC=0.49 | run=3.4 | MFE/nt=0.16 | Solved4=0% | Close=73% | ETA=209s | Ep=633
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.467(best=0.789,hit=0%) | GC=0.49 | run=3.4 | MFE/nt=0.16 | Solved4=0% | Close=73% | ETA=207s | Ep=949
+    [replay] buffer cleared at Phase A->B boundary
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.485(best=0.789,hit=0%) | GC=0.48 | run=3.5 | MFE/nt=0.15 | Solved4=0% | Close=72% | ETA=200s | Ep=1266
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.451(best=0.842,hit=0%) | GC=0.50 | run=3.7 | MFE/nt=0.16 | Solved4=0% | Close=70% | ETA=191s | Ep=1583
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.483(best=0.842,hit=0%) | GC=0.51 | run=3.7 | MFE/nt=0.17 | Solved4=0% | Close=73% | ETA=181s | Ep=1899
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.516(best=0.842,hit=0%) | GC=0.46 | run=3.9 | MFE/nt=0.14 | Solved4=0% | Close=72% | ETA=169s | Ep=2216
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.495(best=0.842,hit=0%) | GC=0.48 | run=4.0 | MFE/nt=0.16 | Solved4=0% | Close=72% | ETA=158s | Ep=2533
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.516(best=0.868,hit=0%) | GC=0.48 | run=4.6 | MFE/nt=0.18 | Solved4=0% | Close=71% | ETA=146s | Ep=2849
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.498(best=0.947,hit=0%) | GC=0.47 | run=5.0 | MFE/nt=0.18 | Solved4=0% | Close=67% | ETA=134s | Ep=3166
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.533(best=0.947,hit=0%) | GC=0.46 | run=5.3 | MFE/nt=0.17 | Solved4=0% | Close=67% | ETA=122s | Ep=3482
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.536(best=0.947,hit=0%) | GC=0.44 | run=5.8 | MFE/nt=0.16 | Solved4=0% | Close=65% | ETA=109s | Ep=3799
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.575(best=0.947,hit=0%) | GC=0.44 | run=6.2 | MFE/nt=0.17 | Solved4=0% | Close=65% | ETA=96s | Ep=4116
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | Rs=0.512(best=0.947,hit=0%) | GC=0.44 | run=6.7 | MFE/nt=0.17 | Solved4=0% | Close=53% | ETA=83s | Ep=4432
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | Rs=0.494(best=0.947,hit=0%) | GC=0.48 | run=5.3 | MFE/nt=0.18 | Solved4=0% | Close=64% | ETA=70s | Ep=4749
+    [███████████████░░░░░]  80.0% | Phase C (joint) | Rs=0.503(best=0.947,hit=0%) | GC=0.50 | run=6.4 | MFE/nt=0.20 | Solved4=0% | Close=59% | ETA=56s | Ep=5066
+    [████████████████░░░░]  85.0% | Phase C (joint) | Rs=0.477(best=0.947,hit=0%) | GC=0.43 | run=7.0 | MFE/nt=0.12 | Solved4=0% | Close=50% | ETA=42s | Ep=5382
+    [█████████████████░░░]  90.0% | Phase C (joint) | Rs=0.502(best=0.947,hit=0%) | GC=0.50 | run=7.0 | MFE/nt=0.21 | Solved4=0% | Close=55% | ETA=29s | Ep=5699
+    [██████████████████░░]  95.0% | Phase C (joint) | Rs=0.462(best=0.947,hit=0%) | GC=0.43 | run=6.6 | MFE/nt=0.19 | Solved4=0% | Close=55% | ETA=15s | Ep=6016
+    [███████████████████░] 100.0% | Phase C (joint) | Rs=0.525(best=0.947,hit=0%) | GC=0.50 | run=7.3 | MFE/nt=0.24 | Solved4=0% | Close=51% | ETA=0s | Ep=6332
+    Done in 292.1s | Final: Rs=0.522(best=0.947, hit=0%) | GC=0.51 maxrun=7.4 MFE/nt=0.24 | Solved4=0% Close=50% | Ep=6333
+│  Model saved: models/dqn_puzzle40_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 292.1s | Overall: 47% | ETA: 67.0 min remaining
+
+┌─ [11/15] Puzzle #41: Shortie 6
+│  Structure: ((....)).((....)).((....)).((....)) (len=35)
+│  Training 204,155 timesteps (~5,833 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.397(best=0.629,hit=0%) | GC=0.52 | run=3.1 | MFE/nt=0.16 | Solved4=0% | Close=71% | ETA=192s | Ep=291
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.395(best=0.629,hit=0%) | GC=0.50 | run=3.2 | MFE/nt=0.16 | Solved4=0% | Close=70% | ETA=182s | Ep=583
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.410(best=0.657,hit=0%) | GC=0.48 | run=3.4 | MFE/nt=0.13 | Solved4=0% | Close=67% | ETA=177s | Ep=874
+    [replay] buffer cleared at Phase A->B boundary
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.413(best=0.657,hit=0%) | GC=0.52 | run=3.4 | MFE/nt=0.16 | Solved4=0% | Close=71% | ETA=171s | Ep=1166
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.404(best=0.657,hit=0%) | GC=0.48 | run=3.8 | MFE/nt=0.14 | Solved4=0% | Close=66% | ETA=161s | Ep=1458
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.418(best=0.657,hit=0%) | GC=0.52 | run=3.7 | MFE/nt=0.16 | Solved4=0% | Close=69% | ETA=156s | Ep=1749
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.409(best=0.714,hit=0%) | GC=0.52 | run=4.0 | MFE/nt=0.16 | Solved4=0% | Close=68% | ETA=147s | Ep=2041
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.423(best=0.714,hit=0%) | GC=0.53 | run=4.7 | MFE/nt=0.16 | Solved4=0% | Close=66% | ETA=137s | Ep=2333
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.435(best=0.714,hit=0%) | GC=0.54 | run=4.1 | MFE/nt=0.16 | Solved4=0% | Close=69% | ETA=126s | Ep=2624
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.430(best=0.714,hit=0%) | GC=0.55 | run=5.1 | MFE/nt=0.19 | Solved4=0% | Close=67% | ETA=115s | Ep=2916
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.398(best=0.714,hit=0%) | GC=0.55 | run=5.1 | MFE/nt=0.19 | Solved4=0% | Close=64% | ETA=104s | Ep=3207
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.419(best=0.714,hit=0%) | GC=0.56 | run=5.8 | MFE/nt=0.18 | Solved4=0% | Close=62% | ETA=93s | Ep=3499
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.415(best=0.714,hit=0%) | GC=0.56 | run=6.4 | MFE/nt=0.17 | Solved4=0% | Close=61% | ETA=82s | Ep=3791
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | Rs=0.390(best=0.714,hit=0%) | GC=0.60 | run=5.4 | MFE/nt=0.22 | Solved4=0% | Close=63% | ETA=71s | Ep=4082
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | Rs=0.419(best=0.714,hit=0%) | GC=0.49 | run=6.4 | MFE/nt=0.14 | Solved4=0% | Close=58% | ETA=60s | Ep=4374
+    [███████████████░░░░░]  80.0% | Phase C (joint) | Rs=0.431(best=0.714,hit=0%) | GC=0.51 | run=6.0 | MFE/nt=0.14 | Solved4=0% | Close=57% | ETA=48s | Ep=4666
+    [████████████████░░░░]  85.0% | Phase C (joint) | Rs=0.426(best=0.714,hit=0%) | GC=0.53 | run=5.8 | MFE/nt=0.17 | Solved4=0% | Close=58% | ETA=36s | Ep=4957
+    [█████████████████░░░]  90.0% | Phase C (joint) | Rs=0.420(best=0.714,hit=0%) | GC=0.52 | run=6.3 | MFE/nt=0.15 | Solved4=0% | Close=56% | ETA=24s | Ep=5249
+    [██████████████████░░]  95.0% | Phase C (joint) | Rs=0.428(best=0.714,hit=0%) | GC=0.52 | run=6.1 | MFE/nt=0.17 | Solved4=0% | Close=56% | ETA=12s | Ep=5540
+    [███████████████████░] 100.0% | Phase C (joint) | Rs=0.451(best=0.714,hit=0%) | GC=0.52 | run=6.1 | MFE/nt=0.16 | Solved4=0% | Close=55% | ETA=0s | Ep=5832
+    Done in 241.5s | Final: Rs=0.450(best=0.714, hit=0%) | GC=0.52 maxrun=6.1 MFE/nt=0.16 | Solved4=0% Close=54% | Ep=5833
+│  Model saved: models/dqn_puzzle41_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 241.5s | Overall: 51% | ETA: 61.8 min remaining
+
+┌─ [12/15] Puzzle #45: [CloudBeta] 5 Adjacent Stack Multi-Branch Loop
+│  Structure: (((((((((....))))(((((....)))))(((((....)))))((((....)))))))... (len=63)
+│  Training 661,500 timesteps (~10,500 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.378(best=0.698,hit=0%) | GC=0.49 | run=3.6 | MFE/nt=0.21 | Solved4=0% | Close=76% | ETA=830s | Ep=525
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.373(best=0.698,hit=0%) | GC=0.49 | run=3.7 | MFE/nt=0.20 | Solved4=0% | Close=75% | ETA=754s | Ep=1050
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.376(best=0.810,hit=0%) | GC=0.51 | run=3.9 | MFE/nt=0.23 | Solved4=0% | Close=76% | ETA=708s | Ep=1575
+    [replay] buffer cleared at Phase A->B boundary
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.386(best=0.857,hit=0%) | GC=0.48 | run=4.0 | MFE/nt=0.20 | Solved4=0% | Close=74% | ETA=666s | Ep=2100
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.381(best=0.857,hit=0%) | GC=0.47 | run=4.4 | MFE/nt=0.19 | Solved4=0% | Close=71% | ETA=627s | Ep=2625
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.405(best=0.857,hit=0%) | GC=0.47 | run=4.7 | MFE/nt=0.21 | Solved4=0% | Close=72% | ETA=587s | Ep=3150
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.412(best=0.857,hit=0%) | GC=0.48 | run=5.9 | MFE/nt=0.21 | Solved4=0% | Close=67% | ETA=550s | Ep=3675
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.412(best=0.857,hit=0%) | GC=0.46 | run=6.2 | MFE/nt=0.20 | Solved4=0% | Close=64% | ETA=527s | Ep=4200
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.428(best=0.857,hit=0%) | GC=0.46 | run=6.7 | MFE/nt=0.22 | Solved4=0% | Close=64% | ETA=492s | Ep=4725
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.426(best=0.857,hit=0%) | GC=0.48 | run=7.2 | MFE/nt=0.24 | Solved4=0% | Close=60% | ETA=452s | Ep=5250
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.436(best=0.857,hit=0%) | GC=0.43 | run=8.3 | MFE/nt=0.24 | Solved4=0% | Close=51% | ETA=412s | Ep=5775
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.418(best=0.857,hit=0%) | GC=0.42 | run=9.5 | MFE/nt=0.24 | Solved4=0% | Close=45% | ETA=371s | Ep=6300
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.424(best=0.857,hit=0%) | GC=0.41 | run=9.6 | MFE/nt=0.23 | Solved4=0% | Close=45% | ETA=332s | Ep=6825
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  70.0% | Phase C (joint) | Rs=0.428(best=0.857,hit=0%) | GC=0.44 | run=9.8 | MFE/nt=0.26 | Solved4=0% | Close=48% | ETA=288s | Ep=7350
+    [███████████████░░░░░]  75.0% | Phase C (joint) | Rs=0.433(best=0.857,hit=0%) | GC=0.42 | run=9.4 | MFE/nt=0.25 | Solved4=0% | Close=45% | ETA=242s | Ep=7875
+    [████████████████░░░░]  80.0% | Phase C (joint) | Rs=0.406(best=0.857,hit=0%) | GC=0.41 | run=9.8 | MFE/nt=0.22 | Solved4=0% | Close=46% | ETA=194s | Ep=8400
+    [█████████████████░░░]  85.0% | Phase C (joint) | Rs=0.415(best=0.857,hit=0%) | GC=0.42 | run=9.7 | MFE/nt=0.24 | Solved4=0% | Close=41% | ETA=147s | Ep=8925
+    [██████████████████░░]  90.0% | Phase C (joint) | Rs=0.417(best=0.857,hit=0%) | GC=0.41 | run=9.9 | MFE/nt=0.23 | Solved4=0% | Close=46% | ETA=99s | Ep=9450
+    [███████████████████░]  95.0% | Phase C (joint) | Rs=0.434(best=0.857,hit=0%) | GC=0.34 | run=10.7 | MFE/nt=0.20 | Solved4=0% | Close=39% | ETA=50s | Ep=9975
+    [████████████████████] 100.0% | Phase C (joint) | Rs=0.415(best=0.857,hit=0%) | GC=0.40 | run=10.7 | MFE/nt=0.24 | Solved4=0% | Close=43% | ETA=0s | Ep=10500
+    Done in 1003.1s | Final: Rs=0.415(best=0.857, hit=0%) | GC=0.40 maxrun=10.7 MFE/nt=0.24 | Solved4=0% Close=43% | Ep=10500
+│  Model saved: models/dqn_puzzle45_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 1003.1s | Overall: 63% | ETA: 48.1 min remaining
+
+┌─ [13/15] Puzzle #47: Misfolded Aptamer
+│  Structure: ((((......(((((...))).((....)).........)).....)))) (len=50)
+│  Training 416,650 timesteps (~8,333 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.412(best=0.700,hit=0%) | GC=0.49 | run=3.3 | MFE/nt=0.18 | Solved4=0% | Close=74% | ETA=412s | Ep=416
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.446(best=0.700,hit=0%) | GC=0.48 | run=3.5 | MFE/nt=0.17 | Solved4=0% | Close=74% | ETA=420s | Ep=833
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.431(best=0.760,hit=0%) | GC=0.49 | run=3.7 | MFE/nt=0.18 | Solved4=0% | Close=74% | ETA=407s | Ep=1249
+    [replay] buffer cleared at Phase A->B boundary
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.457(best=0.760,hit=0%) | GC=0.47 | run=3.8 | MFE/nt=0.16 | Solved4=0% | Close=72% | ETA=387s | Ep=1666
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.432(best=0.760,hit=0%) | GC=0.47 | run=4.2 | MFE/nt=0.17 | Solved4=0% | Close=72% | ETA=366s | Ep=2083
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.470(best=0.760,hit=0%) | GC=0.46 | run=4.5 | MFE/nt=0.16 | Solved4=0% | Close=69% | ETA=346s | Ep=2499
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.471(best=0.760,hit=0%) | GC=0.46 | run=5.0 | MFE/nt=0.17 | Solved4=0% | Close=67% | ETA=323s | Ep=2916
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.466(best=0.760,hit=0%) | GC=0.42 | run=5.7 | MFE/nt=0.13 | Solved4=0% | Close=59% | ETA=300s | Ep=3333
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.468(best=0.760,hit=0%) | GC=0.47 | run=6.2 | MFE/nt=0.17 | Solved4=0% | Close=60% | ETA=293s | Ep=3749
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.463(best=0.760,hit=0%) | GC=0.44 | run=7.3 | MFE/nt=0.17 | Solved4=0% | Close=53% | ETA=272s | Ep=4166
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.491(best=0.780,hit=0%) | GC=0.43 | run=7.9 | MFE/nt=0.13 | Solved4=0% | Close=46% | ETA=247s | Ep=4583
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.474(best=0.780,hit=0%) | GC=0.43 | run=9.5 | MFE/nt=0.19 | Solved4=0% | Close=40% | ETA=222s | Ep=4999
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.482(best=0.780,hit=0%) | GC=0.43 | run=8.8 | MFE/nt=0.14 | Solved4=0% | Close=43% | ETA=197s | Ep=5416
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | Rs=0.492(best=0.780,hit=0%) | GC=0.42 | run=9.2 | MFE/nt=0.16 | Solved4=0% | Close=43% | ETA=171s | Ep=5832
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | Rs=0.494(best=0.800,hit=0%) | GC=0.41 | run=8.3 | MFE/nt=0.17 | Solved4=0% | Close=49% | ETA=144s | Ep=6249
+    [███████████████░░░░░]  80.0% | Phase C (joint) | Rs=0.475(best=0.800,hit=0%) | GC=0.45 | run=9.3 | MFE/nt=0.19 | Solved4=0% | Close=40% | ETA=117s | Ep=6666
+    [████████████████░░░░]  85.0% | Phase C (joint) | Rs=0.466(best=0.800,hit=0%) | GC=0.43 | run=8.8 | MFE/nt=0.18 | Solved4=0% | Close=46% | ETA=88s | Ep=7082
+    [█████████████████░░░]  90.0% | Phase C (joint) | Rs=0.496(best=0.800,hit=0%) | GC=0.44 | run=9.4 | MFE/nt=0.16 | Solved4=0% | Close=41% | ETA=60s | Ep=7499
+    [██████████████████░░]  95.0% | Phase C (joint) | Rs=0.483(best=0.800,hit=0%) | GC=0.45 | run=9.2 | MFE/nt=0.17 | Solved4=0% | Close=43% | ETA=30s | Ep=7916
+    [███████████████████░] 100.0% | Phase C (joint) | Rs=0.470(best=0.800,hit=0%) | GC=0.41 | run=9.8 | MFE/nt=0.15 | Solved4=0% | Close=40% | ETA=0s | Ep=8332
+    Done in 607.2s | Final: Rs=0.471(best=0.800, hit=0%) | GC=0.41 maxrun=9.8 MFE/nt=0.15 | Solved4=0% Close=41% | Ep=8333
+│  Model saved: models/dqn_puzzle47_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 607.2s | Overall: 70% | ETA: 38.8 min remaining
+
+┌─ [14/15] Puzzle #54: 7 multiloop
+│  Structure: (((((((((....)))))(((((....)))))(((((....)))))(((((....)))))... (len=92)
+│  Training 1,410,636 timesteps (~15,333 episodes)...
+    [░░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.363(best=0.565,hit=0%) | GC=0.51 | run=4.0 | MFE/nt=0.24 | Solved4=0% | Close=77% | ETA=2037s | Ep=766
+    [█░░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.363(best=0.652,hit=0%) | GC=0.52 | run=4.0 | MFE/nt=0.25 | Solved4=0% | Close=79% | ETA=2200s | Ep=1533
+    [██░░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.377(best=0.652,hit=0%) | GC=0.53 | run=4.4 | MFE/nt=0.26 | Solved4=0% | Close=78% | ETA=2184s | Ep=2299
+    [replay] buffer cleared at Phase A->B boundary
+    [███░░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.364(best=0.652,hit=0%) | GC=0.54 | run=4.6 | MFE/nt=0.25 | Solved4=0% | Close=77% | ETA=2068s | Ep=3066
+    [████░░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.368(best=0.652,hit=0%) | GC=0.54 | run=5.3 | MFE/nt=0.25 | Solved4=0% | Close=75% | ETA=1992s | Ep=3833
+    [█████░░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.417(best=0.652,hit=0%) | GC=0.56 | run=5.8 | MFE/nt=0.31 | Solved4=0% | Close=76% | ETA=1847s | Ep=4599
+    [██████░░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.431(best=0.674,hit=0%) | GC=0.53 | run=6.4 | MFE/nt=0.27 | Solved4=0% | Close=74% | ETA=1724s | Ep=5366
+    [███████░░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.433(best=0.717,hit=0%) | GC=0.55 | run=7.5 | MFE/nt=0.32 | Solved4=0% | Close=69% | ETA=1650s | Ep=6133
+    [████████░░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.425(best=0.717,hit=0%) | GC=0.54 | run=7.8 | MFE/nt=0.30 | Solved4=0% | Close=67% | ETA=1557s | Ep=6899
+    [█████████░░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.451(best=0.739,hit=0%) | GC=0.57 | run=9.4 | MFE/nt=0.36 | Solved4=0% | Close=58% | ETA=1410s | Ep=7666
+    [██████████░░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.427(best=0.739,hit=0%) | GC=0.55 | run=9.9 | MFE/nt=0.37 | Solved4=0% | Close=55% | ETA=1273s | Ep=8433
+    [███████████░░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.414(best=0.739,hit=0%) | GC=0.59 | run=11.7 | MFE/nt=0.44 | Solved4=0% | Close=51% | ETA=1129s | Ep=9199
+    [████████████░░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.422(best=0.739,hit=0%) | GC=0.56 | run=12.2 | MFE/nt=0.42 | Solved4=0% | Close=48% | ETA=1069s | Ep=9966
+    [█████████████░░░░░░░]  70.0% | Phase B (ramp) | Rs=0.394(best=0.739,hit=0%) | GC=0.51 | run=13.0 | MFE/nt=0.36 | Solved4=0% | Close=53% | ETA=948s | Ep=10732
+    [replay] buffer cleared at Phase B->C boundary
+    [██████████████░░░░░░]  75.0% | Phase C (joint) | Rs=0.426(best=0.739,hit=0%) | GC=0.56 | run=13.1 | MFE/nt=0.42 | Solved4=0% | Close=53% | ETA=789s | Ep=11499
+    [███████████████░░░░░]  80.0% | Phase C (joint) | Rs=0.417(best=0.739,hit=0%) | GC=0.50 | run=14.6 | MFE/nt=0.33 | Solved4=0% | Close=48% | ETA=684s | Ep=12266
+    [████████████████░░░░]  85.0% | Phase C (joint) | Rs=0.459(best=0.739,hit=0%) | GC=0.55 | run=12.2 | MFE/nt=0.39 | Solved4=0% | Close=51% | ETA=517s | Ep=13032
+    [█████████████████░░░]  90.0% | Phase C (joint) | Rs=0.412(best=0.739,hit=0%) | GC=0.51 | run=11.7 | MFE/nt=0.37 | Solved4=0% | Close=54% | ETA=368s | Ep=13799
+    [██████████████████░░]  95.0% | Phase C (joint) | Rs=0.388(best=0.739,hit=0%) | GC=0.56 | run=13.4 | MFE/nt=0.44 | Solved4=0% | Close=49% | ETA=182s | Ep=14566
+    [███████████████████░] 100.0% | Phase C (joint) | Rs=0.384(best=0.750,hit=0%) | GC=0.55 | run=14.7 | MFE/nt=0.40 | Solved4=0% | Close=50% | ETA=0s | Ep=15332
+    Done in 3599.5s | Final: Rs=0.385(best=0.750, hit=0%) | GC=0.54 maxrun=14.8 MFE/nt=0.39 | Solved4=0% Close=50% | Ep=15333
+│  Model saved: models/dqn_puzzle54_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 3599.7s | Overall: 95% | ETA: 7.5 min remaining
+
+┌─ [15/15] Puzzle #65: Branching Loop
+│  Structure: .(((((........)((((....))))..))))....... (len=40)
+│  Training 266,640 timesteps (~6,666 episodes)...
+    [█░░░░░░░░░░░░░░░░░░░]   5.0% | Phase A (struct) | Rs=0.500(best=0.775,hit=0%) | GC=0.50 | run=3.5 | MFE/nt=0.18 | Solved4=0% | Close=75% | ETA=256s | Ep=333
+    [██░░░░░░░░░░░░░░░░░░]  10.0% | Phase A (struct) | Rs=0.477(best=0.775,hit=0%) | GC=0.51 | run=3.4 | MFE/nt=0.17 | Solved4=0% | Close=74% | ETA=260s | Ep=666
+    [███░░░░░░░░░░░░░░░░░]  15.0% | Phase A (struct) | Rs=0.496(best=0.775,hit=0%) | GC=0.47 | run=3.5 | MFE/nt=0.14 | Solved4=0% | Close=72% | ETA=257s | Ep=999
+    [replay] buffer cleared at Phase A->B boundary
+    [████░░░░░░░░░░░░░░░░]  20.0% | Phase B (ramp) | Rs=0.501(best=0.775,hit=0%) | GC=0.49 | run=3.8 | MFE/nt=0.17 | Solved4=0% | Close=74% | ETA=247s | Ep=1333
+    [█████░░░░░░░░░░░░░░░]  25.0% | Phase B (ramp) | Rs=0.518(best=0.900,hit=0%) | GC=0.48 | run=3.9 | MFE/nt=0.16 | Solved4=0% | Close=72% | ETA=234s | Ep=1666
+    [██████░░░░░░░░░░░░░░]  30.0% | Phase B (ramp) | Rs=0.545(best=0.900,hit=0%) | GC=0.48 | run=4.1 | MFE/nt=0.15 | Solved4=0% | Close=71% | ETA=220s | Ep=1999
+    [███████░░░░░░░░░░░░░]  35.0% | Phase B (ramp) | Rs=0.555(best=0.900,hit=0%) | GC=0.47 | run=4.7 | MFE/nt=0.16 | Solved4=0% | Close=68% | ETA=207s | Ep=2333
+    [████████░░░░░░░░░░░░]  40.0% | Phase B (ramp) | Rs=0.545(best=0.900,hit=0%) | GC=0.46 | run=4.6 | MFE/nt=0.15 | Solved4=0% | Close=69% | ETA=193s | Ep=2666
+    [█████████░░░░░░░░░░░]  45.0% | Phase B (ramp) | Rs=0.577(best=0.900,hit=0%) | GC=0.45 | run=5.0 | MFE/nt=0.15 | Solved4=0% | Close=65% | ETA=178s | Ep=2999
+    [██████████░░░░░░░░░░]  50.0% | Phase B (ramp) | Rs=0.622(best=0.900,hit=0%) | GC=0.45 | run=5.6 | MFE/nt=0.17 | Solved4=0% | Close=65% | ETA=163s | Ep=3333
+    [███████████░░░░░░░░░]  55.0% | Phase B (ramp) | Rs=0.610(best=0.925,hit=0%) | GC=0.51 | run=6.4 | MFE/nt=0.25 | Solved4=0% | Close=60% | ETA=148s | Ep=3666
+    [████████████░░░░░░░░]  60.0% | Phase B (ramp) | Rs=0.664(best=0.950,hit=0%) | GC=0.49 | run=7.0 | MFE/nt=0.24 | Solved4=0% | Close=58% | ETA=132s | Ep=3999
+    [█████████████░░░░░░░]  65.0% | Phase B (ramp) | Rs=0.658(best=0.950,hit=0%) | GC=0.54 | run=6.8 | MFE/nt=0.27 | Solved4=0% | Close=63% | ETA=119s | Ep=4332
+    [██████████████░░░░░░]  70.0% | Phase B (ramp) | Rs=0.679(best=0.950,hit=0%) | GC=0.53 | run=6.6 | MFE/nt=0.24 | Solved4=0% | Close=61% | ETA=103s | Ep=4666
+    [replay] buffer cleared at Phase B->C boundary
+    [███████████████░░░░░]  75.0% | Phase C (joint) | Rs=0.650(best=0.950,hit=0%) | GC=0.56 | run=6.8 | MFE/nt=0.28 | Solved4=0% | Close=67% | ETA=86s | Ep=4999
+    [████████████████░░░░]  80.0% | Phase C (joint) | Rs=0.582(best=0.950,hit=0%) | GC=0.52 | run=6.7 | MFE/nt=0.26 | Solved4=0% | Close=61% | ETA=69s | Ep=5332
+    [█████████████████░░░]  85.0% | Phase C (joint) | Rs=0.587(best=0.950,hit=0%) | GC=0.50 | run=7.5 | MFE/nt=0.27 | Solved4=0% | Close=58% | ETA=52s | Ep=5666
+    [██████████████████░░]  90.0% | Phase C (joint) | Rs=0.610(best=0.950,hit=0%) | GC=0.46 | run=6.9 | MFE/nt=0.23 | Solved4=0% | Close=61% | ETA=36s | Ep=5999
+    [███████████████████░]  95.0% | Phase C (joint) | Rs=0.584(best=0.950,hit=0%) | GC=0.49 | run=7.3 | MFE/nt=0.26 | Solved4=0% | Close=55% | ETA=20s | Ep=6332
+    [████████████████████] 100.0% | Phase C (joint) | Rs=0.611(best=0.950,hit=0%) | GC=0.49 | run=7.2 | MFE/nt=0.22 | Solved4=0% | Close=58% | ETA=0s | Ep=6666
+    Done in 444.4s | Final: Rs=0.611(best=0.950, hit=0%) | GC=0.49 maxrun=7.2 MFE/nt=0.22 | Solved4=0% Close=58% | Ep=6666
+│  Model saved: models/dqn_puzzle65_a0.5_b0.2_g0.4_d0.2_seed42
+└─ Done in 444.5s | Overall: 100% | ETA: 0.0 min remaining
+
+================================================================================
+  ALL TRAINING COMPLETE!
+  Total time: 158.1 minutes (9486s)
+  Models saved to: ./models/
+  TensorBoard:  tensorboard --logdir ./tensorboard_logs/
+================================================================================

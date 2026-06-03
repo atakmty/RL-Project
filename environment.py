@@ -210,16 +210,28 @@ class LearnaEnv(gym.Env):
             r_struct = 1.0 - (hamming / self.n)
 
             # 2. GC-Content  R_GC   (Eq. 2 from proposal)
+            # Steeper, signed variant: 1.0 inside the [0.4, 0.6] band, decreasing
+            # to -1.0 at full saturation (g=1.0 or g=0.0). Letting the reward go
+            # NEGATIVE at extreme compositions gives the policy a real cost AND a
+            # gradient at the all-GC attractor, instead of the flat zero plateau
+            # that previously let PPO collapse onto all-GC structures.
             gc_count = self.current_seq.count("G") + self.current_seq.count("C")
             gc_ratio = gc_count / self.n
-            r_gc = 1.0 - (max(0.0, abs(gc_ratio - 0.5) - 0.1) / 0.4)
-            r_gc = max(0.0, r_gc)  # clamp to [0, 1]
+            gc_dev = max(0.0, abs(gc_ratio - 0.5) - 0.1)  # 0 inside [0.4, 0.6]
+            r_gc = 1.0 - 2.0 * (gc_dev / 0.4)             # 1.0 in band -> -1.0 saturated
 
-            # 3. Homopolymer Penalty  P_homo  (Eq. 3 from proposal)
+            # 3. Homopolymer Penalty  P_homo
+            # Quadratic penalty over a margin threshold of 3. The "fully solved"
+            # gate allows runs <= 4, so penalising runs > 3 leaves a one-nt
+            # safety margin; squaring the excess makes long runs disproportionately
+            # costly, pushing the policy to break up block-stems (e.g. GGGGGG
+            # paired with CCCCCC) into alternating GC pairs that satisfy the same
+            # structure with no homopolymer run.
             p_homo = 0.0
             for m in re.finditer(r"(.)\1+", self.current_seq):
                 run_len = m.end() - m.start()
-                p_homo += max(0, run_len - 4)
+                excess = max(0, run_len - 3)
+                p_homo += excess * excess
             p_homo /= self.n
 
             # 4. MFE Stability  R_MFE  (Eq. 4 from proposal)

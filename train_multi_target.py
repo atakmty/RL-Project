@@ -16,6 +16,7 @@ Usage:
 
 import argparse
 import os
+import re
 import time
 import sys
 import numpy as np
@@ -24,6 +25,58 @@ from stable_baselines3 import PPO, DQN
 from stable_baselines3.common.callbacks import BaseCallback
 from environment import LearnaEnv
 from eterna100 import get_train_structures
+
+
+# ======================================================================
+# Weight configurations (alpha, beta, gamma, delta) for the grid search.
+# Single source of truth -- scripts/evaluate_deterministic.py imports this
+# so the saved-model filenames and the evaluator never drift apart.
+# Config 0 gamma raised 0.1 -> 0.3 -> 0.4 to crush homopolymer runs
+# (paired with the quadratic/margin-3 homopolymer penalty in environment.py).
+# ======================================================================
+WEIGHT_CONFIGS = [
+    (0.5, 0.2, 0.4, 0.2),
+    (0.6, 0.15, 0.1, 0.15),
+    (0.4, 0.2, 0.15, 0.25),
+]
+
+# Four-objective "fully solved" thresholds -- MUST match
+# scripts/evaluate_deterministic.py so live training metrics and the final
+# deterministic evaluation use the same definition of "solved".
+GC_LOW, GC_HIGH = 0.40, 0.60
+HOMO_K = 4
+TAU_MFE = 0.3
+
+
+def _longest_run(seq):
+    """Length of the longest run of identical characters in seq."""
+    return max((m.end() - m.start() for m in re.finditer(r"(.)\1*", seq)), default=0)
+
+
+def episode_scores(info):
+    """Per-episode four-objective gates + closeness for one terminal info dict,
+    matching scripts/evaluate_deterministic.py. Returns
+    (gc_ratio, max_run, r_mfe, solved4, closeness)."""
+    seq = info.get("sequence", "")
+    r_struct = info["r_struct"]
+    r_gc = info["r_gc"]
+    p_homo = info["p_homo"]
+    r_mfe = info["r_mfe"]
+    gc_ratio = info.get("gc_ratio", 0.0)
+    max_run = _longest_run(seq)
+
+    struct_ok = bool(info["is_success"])      # R_struct == 1 (Hamming 0)
+    gc_ok = (GC_LOW <= gc_ratio <= GC_HIGH)
+    homo_ok = (max_run <= HOMO_K)
+    mfe_ok = (r_mfe >= TAU_MFE)
+    solved4 = struct_ok and gc_ok and homo_ok and mfe_ok
+
+    s_struct = r_struct
+    s_gc = max(0.0, min(1.0, r_gc))           # r_gc can be negative for extreme GC
+    s_homo = max(0.0, 1.0 - p_homo)
+    s_mfe = min(1.0, r_mfe / TAU_MFE) if TAU_MFE > 0 else 1.0
+    closeness = (s_struct + s_gc + s_homo + s_mfe) / 4.0
+    return gc_ratio, max_run, r_mfe, solved4, closeness
 
 
 # ======================================================================
@@ -36,11 +89,12 @@ class AdaptiveWeightScheduler:
     """
 
     # Phase A starting fractions of target weights.
-    # β kept high (0.7) so a perfect-structure / saturated-GC solution
-    # (r_struct=1, r_gc=0) still loses ~0.14 reward to a balanced one,
-    # forcing the agent off the all-GC attractor before policy entropy
-    # collapses. Lower fractions (0.3) let short puzzles like #8 lock in.
-    PHASE_A_BETA_FRAC = 0.7
+    # beta now FULLY active from step 0 (1.0): combined with the signed GC
+    # reward (negative at the all-GC plateau, see environment.py) and a
+    # shorter Phase A, this keeps the agent off the all-GC attractor before
+    # policy entropy collapses. gamma also fully active so long homopolymer
+    # runs are penalised from the start.
+    PHASE_A_BETA_FRAC = 1.0
     PHASE_A_GAMMA_FRAC = 1.0
     PHASE_A_DELTA_FRAC = 0.0
 
@@ -59,7 +113,10 @@ class AdaptiveWeightScheduler:
         self.target_delta = target_delta
 
         # Phase boundaries
-        self.phase_a_end = int(0.30 * total_timesteps)
+        # Phase A shortened 0.30 -> 0.15 so the biophysical penalties (GC band,
+        # homopolymer) start ramping while the policy still has high entropy,
+        # rather than after it has already collapsed onto an all-GC solution.
+        self.phase_a_end = int(0.15 * total_timesteps)
         self.phase_b_end = int(0.70 * total_timesteps)
 
         # Phase A fixed weights (used as ramp start in Phase B)
@@ -120,12 +177,21 @@ class TrainingCallback(BaseCallback):
         self._start_time = None
         self._last_print_step = 0
 
-        # Rolling window for live metrics
+        # Rolling window for live metrics (four-objective view)
         self._recent_r_struct = deque(maxlen=50)
         self._recent_r_gc = deque(maxlen=50)
-        self._recent_success = deque(maxlen=50)
+        self._recent_success = deque(maxlen=50)      # R_struct == 1 hit rate
         self._recent_reward = deque(maxlen=50)
+        self._recent_gc_ratio = deque(maxlen=50)     # actual GC fraction
+        self._recent_maxrun = deque(maxlen=50)       # longest homopolymer run
+        self._recent_r_mfe = deque(maxlen=50)        # |MFE| / n
+        self._recent_solved4 = deque(maxlen=50)      # all four objectives pass
+        self._recent_closeness = deque(maxlen=50)    # solution closeness [0,1]
         self._best_r_struct = 0.0
+
+        # Replay-buffer phase-boundary reset bookkeeping (DQN only)
+        self._cleared_b = False
+        self._cleared_c = False
 
     def _on_training_start(self):
         self._start_time = time.time()
@@ -144,6 +210,27 @@ class TrainingCallback(BaseCallback):
         self.logger.record("weights/beta", beta)
         self.logger.record("weights/gamma", gamma)
         self.logger.record("weights/delta", delta)
+
+        # --- Replay-buffer reset at phase boundaries (DQN only) ---
+        # The terminal reward is weight-dependent and the curriculum overwrites
+        # the weights every step, so transitions collected in an earlier phase
+        # carry stale rewards. Flushing the buffer when a new phase begins keeps
+        # the off-policy Q-target consistent with the current weight regime.
+        # PPO is on-policy and has no replay_buffer -> skipped automatically.
+        # (A fuller fix would store the four reward components and re-score them
+        #  with the current weights at sample time; the boundary reset is the
+        #  cheap version that removes cross-phase staleness.)
+        rb = getattr(self.model, "replay_buffer", None)
+        if rb is not None:
+            t = self.num_timesteps
+            if not self._cleared_b and t > self.scheduler.phase_a_end:
+                rb.reset()
+                self._cleared_b = True
+                print("    [replay] buffer cleared at Phase A->B boundary", flush=True)
+            if not self._cleared_c and t > self.scheduler.phase_b_end:
+                rb.reset()
+                self._cleared_c = True
+                print("    [replay] buffer cleared at Phase B->C boundary", flush=True)
 
         # Log per-objective metrics from terminal info
         infos = self.locals.get("infos", [])
@@ -166,6 +253,14 @@ class TrainingCallback(BaseCallback):
                 )
                 self._best_r_struct = max(self._best_r_struct, r_s)
 
+                # Four-objective view (same definition as the deterministic eval)
+                gc_ratio, max_run, r_mfe, solved4, closeness = episode_scores(terminal)
+                self._recent_gc_ratio.append(gc_ratio)
+                self._recent_maxrun.append(max_run)
+                self._recent_r_mfe.append(r_mfe)
+                self._recent_solved4.append(1.0 if solved4 else 0.0)
+                self._recent_closeness.append(closeness)
+
                 # TensorBoard
                 self.logger.record("episode/r_struct", r_s)
                 self.logger.record("episode/r_gc", r_gc)
@@ -173,6 +268,9 @@ class TrainingCallback(BaseCallback):
                 self.logger.record("episode/r_mfe", terminal["r_mfe"])
                 self.logger.record("episode/gc_ratio", terminal.get("gc_ratio", 0.0))
                 self.logger.record("episode/is_success", is_succ)
+                self.logger.record("episode/max_run", max_run)
+                self.logger.record("episode/solved4", 1.0 if solved4 else 0.0)
+                self.logger.record("episode/closeness", closeness)
                 self.logger.record("episode/count", self._episode_count)
 
         # Print progress at intervals
@@ -195,11 +293,14 @@ class TrainingCallback(BaseCallback):
         else:
             eta_str = "?"
 
-        # Rolling metrics
+        # Rolling metrics (four-objective view; over stochastic training episodes)
         avg_struct = np.mean(self._recent_r_struct) if self._recent_r_struct else 0.0
-        avg_gc = np.mean(self._recent_r_gc) if self._recent_r_gc else 0.0
-        succ_rate = np.mean(self._recent_success) if self._recent_success else 0.0
-        avg_rew = np.mean(self._recent_reward) if self._recent_reward else 0.0
+        hit_rate = np.mean(self._recent_success) if self._recent_success else 0.0     # R_struct==1
+        avg_gc = np.mean(self._recent_gc_ratio) if self._recent_gc_ratio else 0.0     # GC fraction
+        avg_run = np.mean(self._recent_maxrun) if self._recent_maxrun else 0.0        # longest run
+        avg_mfe = np.mean(self._recent_r_mfe) if self._recent_r_mfe else 0.0          # |MFE|/n
+        solved4 = np.mean(self._recent_solved4) if self._recent_solved4 else 0.0      # all 4 objectives
+        closeness = np.mean(self._recent_closeness) if self._recent_closeness else 0.0
 
         # Build progress bar
         bar_len = 20
@@ -208,21 +309,27 @@ class TrainingCallback(BaseCallback):
 
         print(
             f"    [{bar}] {pct:5.1f}% | Phase {phase} | "
-            f"R_struct={avg_struct:.3f} (best={self._best_r_struct:.3f}) | "
-            f"R_gc={avg_gc:.3f} | Succ={succ_rate:.1%} | "
-            f"Reward={avg_rew:.3f} | "
+            f"Rs={avg_struct:.3f}(best={self._best_r_struct:.3f},hit={hit_rate:.0%}) | "
+            f"GC={avg_gc:.2f} | run={avg_run:.1f} | MFE/nt={avg_mfe:.2f} | "
+            f"Solved4={solved4:.0%} | Close={closeness:.0%} | "
             f"ETA={eta_str} | Ep={self._episode_count}",
             flush=True,
         )
 
     def _on_training_end(self):
         elapsed = time.time() - self._start_time if self._start_time else 0
-        succ_rate = np.mean(self._recent_success) if self._recent_success else 0.0
         avg_struct = np.mean(self._recent_r_struct) if self._recent_r_struct else 0.0
+        hit_rate = np.mean(self._recent_success) if self._recent_success else 0.0
+        avg_gc = np.mean(self._recent_gc_ratio) if self._recent_gc_ratio else 0.0
+        avg_run = np.mean(self._recent_maxrun) if self._recent_maxrun else 0.0
+        avg_mfe = np.mean(self._recent_r_mfe) if self._recent_r_mfe else 0.0
+        solved4 = np.mean(self._recent_solved4) if self._recent_solved4 else 0.0
+        closeness = np.mean(self._recent_closeness) if self._recent_closeness else 0.0
         print(
-            f"    ✓ Done in {elapsed:.1f}s | Final: R_struct={avg_struct:.3f}, "
-            f"Success={succ_rate:.1%}, Best={self._best_r_struct:.3f}, "
-            f"Episodes={self._episode_count}"
+            f"    Done in {elapsed:.1f}s | Final: Rs={avg_struct:.3f}"
+            f"(best={self._best_r_struct:.3f}, hit={hit_rate:.0%}) | "
+            f"GC={avg_gc:.2f} maxrun={avg_run:.1f} MFE/nt={avg_mfe:.2f} | "
+            f"Solved4={solved4:.0%} Close={closeness:.0%} | Ep={self._episode_count}"
         )
 
 
@@ -272,8 +379,8 @@ def train_single_target(
             n_epochs=10,
             learning_rate=3e-4,
             gamma=0.99,
-            ent_coef=0.02,                            # Keşfi teşvik eder
-            policy_kwargs=dict(net_arch=[128, 128]),  # Geniş ağ yapısı
+            ent_coef=0.05,                            # Kesfi tesvik eder (0.02->0.05: all-GC entropi cokusunu engeller)
+            policy_kwargs=dict(net_arch=[128, 128]),  # Genis ag yapisi
         )
     elif algo_name == "dqn":
         # DQN Modeli - Uzun süreli keşif ve büyük replay buffer.
@@ -358,16 +465,11 @@ def main():
         type=int,
         default=0,
         choices=[0, 1, 2],
-        help="Grid search config index: 0=(0.5,0.2,0.1,0.2), "
+        help="Grid search config index: 0=(0.5,0.2,0.4,0.2), "
         "1=(0.6,0.15,0.1,0.15), 2=(0.4,0.2,0.15,0.25)",
     )
     args = parser.parse_args()
 
-    WEIGHT_CONFIGS = [
-        (0.5, 0.2, 0.1, 0.2),
-        (0.6, 0.15, 0.1, 0.15),
-        (0.4, 0.2, 0.15, 0.25),
-    ]
     weight_config = WEIGHT_CONFIGS[args.weight_config]
 
     log_dir = "./tensorboard_logs/"
