@@ -135,7 +135,8 @@ def evaluate(model_dir, algo, pid, structure, cfg, seed, tau_mfe):
     path = find_model(model_dir, algo, pid, cfg, seed)
     if path is None:
         return None
-    env = LearnaEnv(structure, alpha=1.0, beta=0.0, gamma=0.0, delta=0.0)
+    env = LearnaEnv(structure, alpha=1.0, beta=0.0, gamma=0.0, delta=0.0,
+                    homo_step_scale=0.15)
     try:
         if algo == "dqn":
             model = DQN.load(path, env=env, custom_objects={"exploration_rate": 0.0})

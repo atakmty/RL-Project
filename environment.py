@@ -39,6 +39,7 @@ class LearnaEnv(gym.Env):
         gamma: float = 0.1,
         delta: float = 0.2,
         discount: float = 0.99,
+        homo_step_scale: float = 0.15,
     ):
         super().__init__()
         self.target_structure = target_structure
@@ -79,6 +80,13 @@ class LearnaEnv(gym.Env):
 
         # RL discount factor for potential-based shaping (separate from gamma weight)
         self.discount = discount
+
+        # Dense per-step homopolymer penalty scale.
+        # Penalises the action of extending a run at each placement step,
+        # creating a gradient the value baseline cannot fully absorb.
+        # This is NOT potential-based shaping -- it intentionally changes
+        # the optimal policy to discourage block-stem sequences.
+        self.homo_step_scale = homo_step_scale
         self.shaping_scale = 0.1  # Scale down shaping to not dominate terminal reward
 
         # Episode state
@@ -179,6 +187,35 @@ class LearnaEnv(gym.Env):
         return correct / total_checked
 
     # ------------------------------------------------------------------
+    # Dense per-step homopolymer penalty
+    # ------------------------------------------------------------------
+    def _compute_step_homo_penalty(self) -> float:
+        """Immediate penalty for extending a homopolymer run.
+
+        Called after each nucleotide placement.  Counts the trailing run
+        of identical nucleotides at the end of the current (partial)
+        sequence.  Runs <= 3 are free; longer runs receive a quadratic
+        penalty that grows with every additional repeated nucleotide.
+
+        Returns a non-positive value (0.0 or negative).
+        """
+        seq = self.current_seq
+        if len(seq) < 2:
+            return 0.0
+
+        last_nuc = seq[-1]
+        trailing_run = 1
+        i = len(seq) - 2
+        while i >= 0 and seq[i] == last_nuc:
+            trailing_run += 1
+            i -= 1
+
+        excess = max(0, trailing_run - 3)
+        if excess == 0:
+            return 0.0
+        return -self.homo_step_scale * (excess * excess)
+
+    # ------------------------------------------------------------------
     # Step
     # ------------------------------------------------------------------
     def step(self, action):
@@ -192,11 +229,15 @@ class LearnaEnv(gym.Env):
         info = {}
 
         if not terminated:
-            # Ng et al. 1999 potential-based shaping: F = discount * Phi(s') - Phi(s)
+            # 1. Ng et al. 1999 potential-based shaping: F = discount * Phi(s') - Phi(s)
             new_potential = self._potential_function()
             shaping_reward = self.shaping_scale * (self.discount * new_potential - self.last_potential)
             self.last_potential = new_potential
-            reward = shaping_reward
+
+            # 2. Dense per-step homopolymer penalty
+            step_homo_penalty = self._compute_step_homo_penalty()
+
+            reward = shaping_reward + step_homo_penalty
         else:
             # ===== Terminal Reward (4 objectives) =====
             if HAS_VIENNARNA:

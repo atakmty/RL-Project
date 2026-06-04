@@ -31,11 +31,12 @@ from eterna100 import get_train_structures
 # Weight configurations (alpha, beta, gamma, delta) for the grid search.
 # Single source of truth -- scripts/evaluate_deterministic.py imports this
 # so the saved-model filenames and the evaluator never drift apart.
-# Config 0 gamma raised 0.1 -> 0.3 -> 0.4 to crush homopolymer runs
-# (paired with the quadratic/margin-3 homopolymer penalty in environment.py).
+# Config 0 gamma raised 0.1 -> 0.3 -> 0.4 for terminal penalty, then lowered
+# to 0.2 because the new dense per-step homopolymer penalty in environment.py
+# carries the main workload; the terminal penalty is now just a final check.
 # ======================================================================
 WEIGHT_CONFIGS = [
-    (0.5, 0.2, 0.4, 0.2),
+    (0.5, 0.2, 0.2, 0.2),
     (0.6, 0.15, 0.1, 0.15),
     (0.4, 0.2, 0.15, 0.25),
 ]
@@ -350,7 +351,8 @@ def train_single_target(
 
     target_alpha, target_beta, target_gamma, target_delta = weight_config
 
-    env = LearnaEnv(structure, alpha=1.0, beta=0.0, gamma=0.0, delta=0.0)
+    env = LearnaEnv(structure, alpha=1.0, beta=0.0, gamma=0.0, delta=0.0,
+                    homo_step_scale=0.15)
 
     scheduler = AdaptiveWeightScheduler(
         total_timesteps,
