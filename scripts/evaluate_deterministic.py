@@ -61,16 +61,22 @@ def longest_run(seq):
     return max((m.end() - m.start() for m in re.finditer(r"(.)\1*", seq)), default=0)
 
 
-def find_model(model_dir, algo, pid, cfg, seed):
+def find_model(model_dir, algo, pid, cfg, seed, homo_step_scale=None):
     """Return the path to the saved specialist model, or None if it is missing.
 
-    Models on disk may be stored with or without a .zip suffix; SB3's loader
-    resolves both, so we just confirm one of them exists.
+    Tries the new filename with the homopolymer-scale tag (_h<scale>) first, then
+    falls back to the legacy name (no _h tag) so previously-trained models still
+    load. Models may be stored with or without a .zip suffix; SB3 resolves both.
     """
-    run_name = f"{algo}_puzzle{pid}_{config_token(cfg)}_seed{seed}"
-    base = os.path.join(model_dir, run_name)
-    if os.path.exists(base) or os.path.exists(base + ".zip"):
-        return base
+    token = config_token(cfg)
+    names = []
+    if homo_step_scale is not None:
+        names.append(f"{algo}_puzzle{pid}_{token}_h{homo_step_scale}_seed{seed}")
+    names.append(f"{algo}_puzzle{pid}_{token}_seed{seed}")  # legacy (no _h tag)
+    for run_name in names:
+        base = os.path.join(model_dir, run_name)
+        if os.path.exists(base) or os.path.exists(base + ".zip"):
+            return base
     return None
 
 
@@ -128,15 +134,16 @@ def score_sequence(info, tau_mfe):
     }
 
 
-def evaluate(model_dir, algo, pid, structure, cfg, seed, tau_mfe):
+def evaluate(model_dir, algo, pid, structure, cfg, seed, tau_mfe, homo_step_scale=0.15):
     """Load the specialist model for (algo, pid, cfg, seed) and score its
     canonical sequence. Returns a result dict, or None if the model is
-    missing or fails to load."""
-    path = find_model(model_dir, algo, pid, cfg, seed)
+    missing or fails to load. (homo_step_scale only affects which file is loaded
+    and the env reward, not the deterministic argmax rollout.)"""
+    path = find_model(model_dir, algo, pid, cfg, seed, homo_step_scale)
     if path is None:
         return None
     env = LearnaEnv(structure, alpha=1.0, beta=0.0, gamma=0.0, delta=0.0,
-                    homo_step_scale=0.15)
+                    homo_step_scale=homo_step_scale)
     try:
         if algo == "dqn":
             model = DQN.load(path, env=env, custom_objects={"exploration_rate": 0.0})
@@ -150,6 +157,36 @@ def evaluate(model_dir, algo, pid, structure, cfg, seed, tau_mfe):
     return score_sequence(info, tau_mfe)
 
 
+def evaluate_best_of_seeds(model_dir, algo, pid, structure, cfg, seeds, tau_mfe,
+                           homo_step_scale=0.15):
+    """Evaluate the (algo, puzzle) specialist across several seeds and return the
+    best result, with the winning seed stored under result['seed'].
+
+    'Best' prefers a fully-solved canonical sequence; among ties it takes the
+    higher closeness. The SAME seed set is applied to every (algo, puzzle), so
+    PPO and DQN stay directly comparable -- multi-seed only adds restart
+    robustness symmetrically, it does not advantage either algorithm. This is
+    the standard inverse-folding "solved within a restart budget" criterion.
+
+    Returns the result dict (with extra 'seed' and 'n_solved' keys) or None.
+    """
+    best = None
+    n_solved = 0
+    for seed in seeds:
+        r = evaluate(model_dir, algo, pid, structure, cfg, seed, tau_mfe, homo_step_scale)
+        if r is None:
+            continue
+        if r["fully_solved"]:
+            n_solved += 1
+        if best is None or (r["fully_solved"], r["closeness"]) > (
+                best["fully_solved"], best["closeness"]):
+            best = dict(r)
+            best["seed"] = seed
+    if best is not None:
+        best["n_solved"] = n_solved
+    return best
+
+
 def flag(b):
     return "Y" if b else "-"
 
@@ -158,8 +195,9 @@ def print_table(algo, rows, tau_mfe):
     print()
     print(f"  {algo.upper()} -- Four-Objective Deterministic Evaluation")
     print(f"  {'Puzzle':<7}{'Len':>4} | {'R_struct':>9} | {'GC frac':>8} {'ok':>2} | "
-          f"{'MaxRun':>6} {'ok':>2} | {'MFE/nt':>7} {'ok':>2} | {'Close':>7} | {'SOLVED':>6}")
-    print("  " + "-" * 88)
+          f"{'MaxRun':>6} {'ok':>2} | {'MFE/nt':>7} {'ok':>2} | {'Close':>7} | "
+          f"{'Seed':>5} | {'SOLVED':>6}")
+    print("  " + "-" * 98)
     for pid, name, r in rows:
         if r is None:
             print(f"  P{pid:<6}{'':>4} |   (no model found)")
@@ -170,8 +208,9 @@ def print_table(algo, rows, tau_mfe):
               f"{r['max_run']:>6} {flag(r['homo_ok']):>2} | "
               f"{r['mfe_per_nt']:>7.3f} {flag(r['mfe_ok']):>2} | "
               f"{r['closeness'] * 100:>6.1f}% | "
+              f"{r.get('seed', '-'):>5} | "
               f"{('YES' if r['fully_solved'] else 'no'):>6}")
-    print("  " + "-" * 88)
+    print("  " + "-" * 98)
 
     valid = [r for _, _, r in rows if r is not None]
     if valid:
@@ -187,7 +226,7 @@ def print_table(algo, rows, tau_mfe):
 
 def write_csv(path, targets, all_rows):
     name_by_pid = {pid: name for pid, name, _ in targets}
-    fields = ["puzzle_id", "name", "algo", "length", "r_struct", "hamming",
+    fields = ["puzzle_id", "name", "algo", "seed", "length", "r_struct", "hamming",
               "gc_fraction", "gc_ok", "max_run", "homo_ok", "p_homo",
               "mfe", "mfe_per_nt", "mfe_ok", "closeness", "fully_solved", "sequence"]
     with open(path, "w", newline="") as f:
@@ -198,7 +237,7 @@ def write_csv(path, targets, all_rows):
                 if r is None:
                     continue
                 w.writerow([
-                    pid, name_by_pid[pid], algo, r["len"],
+                    pid, name_by_pid[pid], algo, r.get("seed", ""), r["len"],
                     f"{r['r_struct']:.4f}", r["hamming"],
                     f"{r['gc_frac']:.4f}", int(r["gc_ok"]),
                     r["max_run"], int(r["homo_ok"]), f"{r['p_homo']:.4f}",
@@ -212,30 +251,45 @@ def main():
     ap = argparse.ArgumentParser(
         description="Four-objective deterministic evaluation of trained RNA specialists")
     ap.add_argument("--models-dir", default="./models")
-    ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--seed", type=int, default=42,
+                    help="Single seed (used only if --seeds is not given)")
+    ap.add_argument("--seeds", type=str, default="",
+                    help="Comma-separated seeds for best-of-seeds eval, e.g. 42,43,44. "
+                         "The SAME set is applied to PPO and DQN, so the comparison "
+                         "stays fair. Empty -> use --seed.")
     ap.add_argument("--weight-config", type=int, default=0, choices=[0, 1, 2],
                     help="Which trained config to evaluate "
                          "(0=balanced [report default], 1=struct-heavy, 2=thermo-focused)")
+    ap.add_argument("--homo-step-scale", type=float, default=0.15,
+                    help="Dense-penalty tag of the models to load (must match training; "
+                         "default 0.15). Use 0 for structure-focused models.")
     ap.add_argument("--tau-mfe", type=float, default=0.3,
                     help="MFE-per-nucleotide stability threshold in kcal/mol/nt (default 0.3)")
     ap.add_argument("--csv", default="./evaluation_results.csv")
     args = ap.parse_args()
 
     cfg = WEIGHT_CONFIGS[args.weight_config]
+    seeds = [int(s) for s in args.seeds.split(",") if s.strip()] or [args.seed]
 
-    print("=" * 92)
+    seed_label = ",".join(str(s) for s in seeds)
+    print("=" * 98)
     print("  RNA Inverse Folding -- FOUR-OBJECTIVE DETERMINISTIC EVALUATION")
     print(f"  Config #{args.weight_config} (a={cfg[0]}, b={cfg[1]}, g={cfg[2]}, d={cfg[3]})"
-          f" | seed {args.seed} | tau_MFE = {args.tau_mfe} kcal/mol/nt")
+          f" | seeds {seed_label} (best-of) | h={args.homo_step_scale}"
+          f" | tau_MFE = {args.tau_mfe}")
     print(f"  Pass criteria: R_struct==1.0 | GC in [{GC_LOW}, {GC_HIGH}] | "
           f"max run <= {HOMO_K} | |MFE|/n >= {args.tau_mfe}")
-    print("=" * 92)
+    if len(seeds) > 1:
+        print(f"  (a puzzle counts as solved if ANY seed solves it -- applied "
+              f"identically to PPO and DQN)")
+    print("=" * 98)
 
     targets = get_train_structures()
     all_rows = {"ppo": [], "dqn": []}
     for algo in ("ppo", "dqn"):
         for pid, name, structure in targets:
-            r = evaluate(args.models_dir, algo, pid, structure, cfg, args.seed, args.tau_mfe)
+            r = evaluate_best_of_seeds(args.models_dir, algo, pid, structure, cfg,
+                                       seeds, args.tau_mfe, args.homo_step_scale)
             all_rows[algo].append((pid, name, r))
 
     for algo in ("ppo", "dqn"):

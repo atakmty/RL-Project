@@ -346,13 +346,14 @@ def train_single_target(
     total_timesteps,
     weight_config,
     log_dir,
+    homo_step_scale=0.15,
 ):
     """Train one agent on one target structure."""
 
     target_alpha, target_beta, target_gamma, target_delta = weight_config
 
     env = LearnaEnv(structure, alpha=1.0, beta=0.0, gamma=0.0, delta=0.0,
-                    homo_step_scale=0.15)
+                    homo_step_scale=homo_step_scale)
 
     scheduler = AdaptiveWeightScheduler(
         total_timesteps,
@@ -362,10 +363,14 @@ def train_single_target(
         target_delta=target_delta,
     )
 
+    # homo_step_scale is part of the run name so models trained with a different
+    # dense-penalty strength (e.g. the structure-focused scale=0) do NOT overwrite
+    # each other. Legacy models without the _h tag are still found by the evaluator.
     run_name = (
         f"{algo_name}_puzzle{target_id}"
         f"_a{target_alpha}_b{target_beta}"
-        f"_g{target_gamma}_d{target_delta}_seed{seed}"
+        f"_g{target_gamma}_d{target_delta}"
+        f"_h{homo_step_scale}_seed{seed}"
     )
 
     if algo_name == "ppo":
@@ -467,8 +472,16 @@ def main():
         type=int,
         default=0,
         choices=[0, 1, 2],
-        help="Grid search config index: 0=(0.5,0.2,0.4,0.2), "
+        help="Grid search config index: 0=(0.5,0.2,0.2,0.2), "
         "1=(0.6,0.15,0.1,0.15), 2=(0.4,0.2,0.15,0.25)",
+    )
+    parser.add_argument(
+        "--homo-step-scale",
+        type=float,
+        default=0.15,
+        help="Dense per-step homopolymer penalty strength (default 0.15). "
+        "Set 0 for a structure-focused run (let post-hoc repair handle "
+        "homopolymers); applied identically to PPO and DQN.",
     )
     args = parser.parse_args()
 
@@ -520,6 +533,7 @@ def main():
         f"(α={weight_config[0]}, β={weight_config[1]}, "
         f"γ={weight_config[2]}, δ={weight_config[3]})"
     )
+    print(f"  Homo penalty : dense step scale = {args.homo_step_scale}")
     print(f"  Log dir      : {log_dir}")
     print("=" * 80)
     print()
@@ -539,7 +553,8 @@ def main():
 
         t0 = time.time()
         save_path = train_single_target(
-            args.algo, pid, name, struct, args.seed, ts, weight_config, log_dir
+            args.algo, pid, name, struct, args.seed, ts, weight_config, log_dir,
+            homo_step_scale=args.homo_step_scale,
         )
         elapsed = time.time() - t0
         steps_done += ts
