@@ -40,7 +40,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from stable_baselines3 import DQN, PPO
 from environment import LearnaEnv
-from eterna100 import get_train_structures
+from eterna100 import get_train_structures, get_test_structures
 # Import the weight configs from the trainer so the model-filename tokens
 # (a<alpha>_b<beta>_g<gamma>_d<delta>) always match what was trained.
 from train_multi_target import WEIGHT_CONFIGS
@@ -251,8 +251,8 @@ def main():
     ap = argparse.ArgumentParser(
         description="Four-objective deterministic evaluation of trained RNA specialists")
     ap.add_argument("--models-dir", default="./models")
-    ap.add_argument("--seed", type=int, default=42,
-                    help="Single seed (used only if --seeds is not given)")
+    ap.add_argument("--seed", type=int, default=44,
+                    help="Single seed (used only if --seeds is not given; default 44).")
     ap.add_argument("--seeds", type=str, default="",
                     help="Comma-separated seeds for best-of-seeds eval, e.g. 42,43,44. "
                          "The SAME set is applied to PPO and DQN, so the comparison "
@@ -260,11 +260,15 @@ def main():
     ap.add_argument("--weight-config", type=int, default=0, choices=[0, 1, 2],
                     help="Which trained config to evaluate "
                          "(0=balanced [report default], 1=struct-heavy, 2=thermo-focused)")
-    ap.add_argument("--homo-step-scale", type=float, default=0.15,
+    ap.add_argument("--homo-step-scale", type=float, default=0.05,
                     help="Dense-penalty tag of the models to load (must match training; "
-                         "default 0.15). Use 0 for structure-focused models.")
+                         "default 0.05).")
     ap.add_argument("--tau-mfe", type=float, default=0.3,
                     help="MFE-per-nucleotide stability threshold in kcal/mol/nt (default 0.3)")
+    ap.add_argument("--test", action="store_true",
+                    help="Evaluate the 5 HELD-OUT test puzzles (get_test_structures) "
+                         "instead of the 15 training puzzles. Requires models trained "
+                         "with --test.")
     ap.add_argument("--csv", default="./evaluation_results.csv")
     args = ap.parse_args()
 
@@ -284,7 +288,8 @@ def main():
               f"identically to PPO and DQN)")
     print("=" * 98)
 
-    targets = get_train_structures()
+    targets = get_test_structures() if args.test else get_train_structures()
+    print(f"  Split        : {'TEST (held-out 5)' if args.test else 'TRAIN (15)'}")
     all_rows = {"ppo": [], "dqn": []}
     for algo in ("ppo", "dqn"):
         for pid, name, structure in targets:

@@ -24,7 +24,7 @@ from collections import deque
 from stable_baselines3 import PPO, DQN
 from stable_baselines3.common.callbacks import BaseCallback
 from environment import LearnaEnv
-from eterna100 import get_train_structures
+from eterna100 import get_train_structures, get_test_structures
 
 
 # ======================================================================
@@ -388,7 +388,7 @@ def train_single_target(
     )
 
     if algo_name == "ppo":
-        # PPO Modeli - Genişletilmiş ağ yapısı (128x128) ve sabit öğrenme oranı.
+        # PPO model -- wider [128, 128] network and a constant learning rate.
         model = PPO(
             "MlpPolicy",
             env,
@@ -400,11 +400,11 @@ def train_single_target(
             n_epochs=10,
             learning_rate=3e-4,
             gamma=0.99,
-            ent_coef=0.05,                            # Kesfi tesvik eder (0.02->0.05: all-GC entropi cokusunu engeller)
-            policy_kwargs=dict(net_arch=[128, 128]),  # Genis ag yapisi
+            ent_coef=0.05,                            # encourages exploration (0.02->0.05: prevents all-GC entropy collapse)
+            policy_kwargs=dict(net_arch=[128, 128]),  # wider network
         )
     elif algo_name == "dqn":
-        # DQN Modeli - Uzun süreli keşif ve büyük replay buffer.
+        # DQN model -- long exploration schedule and a large replay buffer.
         model = DQN(
             "MlpPolicy",
             env,
@@ -464,11 +464,18 @@ def compute_timesteps(seq_len: int, min_episodes: int = 3000) -> int:
 
 
 def main():
+    # ---- Command-line interface (argparse) ----
+    # Defines the flags this script accepts and parses them from the command
+    # line into `args` (see `args = parser.parse_args()` below). EVERY default
+    # here is the value used for the reported run, so
+    #   python train_multi_target.py --algo ppo   (or --algo dqn)
+    # reproduces the results with no extra flags; pass a flag only to override.
     parser = argparse.ArgumentParser(
         description="Multi-objective RNA inverse folding training"
     )
     parser.add_argument("--algo", type=str, default="ppo", choices=["ppo", "dqn"])
-    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--seed", type=int, default=44,
+                        help="Random seed (default 44, the reported run).")
     parser.add_argument(
         "--timesteps",
         type=int,
@@ -492,10 +499,9 @@ def main():
     parser.add_argument(
         "--homo-step-scale",
         type=float,
-        default=0.15,
-        help="Dense per-step homopolymer penalty strength (default 0.15). "
-        "Set 0 for a structure-focused run (let post-hoc repair handle "
-        "homopolymers); applied identically to PPO and DQN.",
+        default=0.05,
+        help="Dense per-step homopolymer penalty strength (default 0.05, the "
+        "reported run); applied identically to PPO and DQN.",
     )
     parser.add_argument(
         "--mfe-tau",
@@ -537,17 +543,24 @@ def main():
         type=str,
         default="",
         help="Comma-separated puzzle IDs to train (e.g. '1,8,15,23,26,30'). "
-        "Empty = all train puzzles. Use a subset for fast reward-knob tuning "
-        "before committing to the full run.",
+        "Empty = all puzzles in the chosen split. Use a subset for fast "
+        "reward-knob tuning before committing to the full run.",
+    )
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        help="Train on the 5 HELD-OUT test puzzles (get_test_structures) instead "
+        "of the 15 training puzzles. Use the SAME reward knobs as the train run "
+        "(no extra tuning) so the result is a clean generalization check.",
     )
     args = parser.parse_args()
 
     weight_config = WEIGHT_CONFIGS[args.weight_config]
 
     log_dir = "./tensorboard_logs/"
-    train_targets = get_train_structures()
+    train_targets = get_test_structures() if args.test else get_train_structures()
 
-    # Optional subset filter (keeps the original order of get_train_structures).
+    # Optional subset filter (keeps the original order of the chosen split).
     if args.puzzles.strip():
         wanted = {int(p) for p in args.puzzles.split(",") if p.strip()}
         train_targets = [t for t in train_targets if t[0] in wanted]
@@ -581,6 +594,7 @@ def main():
     print("  RNA Inverse Folding — Multi-Objective Training Pipeline")
     print("=" * 80)
     print(f"  Algorithm    : {args.algo.upper()}")
+    print(f"  Split        : {'TEST (held-out 5)' if args.test else 'TRAIN (15)'}")
     print(f"  Seed         : {args.seed}")
     if adaptive:
         ep_counts = [ts // len(s) for ts, (_, _, s) in zip(target_steps, train_targets)]
