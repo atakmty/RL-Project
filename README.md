@@ -3,8 +3,8 @@
 > **Work in Progress** — actively developed; results and code are updated regularly.
 
 Solving the RNA inverse folding problem with PPO and DQN, optimizing **structural accuracy,
-GC-content, thermodynamic stability, and homopolymer avoidance simultaneously** — and satisfying
-all four with the RL policy itself, **with no post-hoc repair**.
+GC-content, thermodynamic stability, and homopolymer avoidance simultaneously** — all four
+satisfied by the RL policy itself.
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Stable-Baselines3](https://img.shields.io/badge/RL-Stable--Baselines3-green.svg)](https://github.com/DLR-RM/stable-baselines3)
@@ -35,7 +35,7 @@ optimum** (see [Reward Design](#reward-design)): the MFE term saturates at a sta
 the GC-band penalty is steepened, and a **multiplicative joint-satisfaction bonus `B`** is near
 zero unless all four objectives are met at once.
 
-## Key Results (seed 44, deterministic evaluation, no post-hoc repair)
+## Key Results (seed 44, deterministic evaluation)
 
 | Metric | PPO | DQN |
 |--------|-----|-----|
@@ -108,7 +108,6 @@ RL-Project/
 ├── environment.py              # Gymnasium env (Partner-Aware obs, 4-objective reward + joint bonus)
 ├── eterna100.py                # Eterna100 dataset (15 train + 5 test targets)
 ├── train_multi_target.py       # Main training pipeline (curriculum, weight scheduling, CLI flags)
-├── run_multiseed.sh            # Train all puzzles for both algorithms at a given seed/scale
 ├── scripts/
 │   ├── evaluate_deterministic.py  # Four-objective deterministic evaluation (ε=0)
 │   ├── analyze_ppo_vs_dqn.py   # PPO vs DQN comparison from TensorBoard logs
@@ -121,10 +120,6 @@ RL-Project/
 └── README.md
 ```
 
-> `run_grid_search_{ppo,dqn}.sh` remains in the repo but is **not part of the current pipeline**: we
-> report a single (balanced) weight configuration, and full solutions are produced by the policy
-> itself — there is **no post-hoc repair**.
-
 ### What each file does
 
 | File | Purpose |
@@ -132,7 +127,7 @@ RL-Project/
 | `environment.py` | The `LearnaEnv` Gymnasium environment. The agent places one nucleotide (A/C/G/U) per step; at the final step ViennaRNA folds the sequence and returns the 4-objective reward plus the joint-satisfaction bonus. Intermediate steps use potential-based shaping. |
 | `eterna100.py` | The 20 selected Eterna100 target structures (15 train + 5 held-out test). Each target is a dot-bracket string like `((((((......))))))`. |
 | `train_multi_target.py` | Main training script. Trains a **separate PPO or DQN specialist per puzzle**, with the 3-phase curriculum and adaptive episode scaling for longer sequences. |
-| `scripts/evaluate_deterministic.py` | Loads saved models and evaluates them deterministically (PPO `deterministic=True`, DQN ε=0) against the four-objective criteria. Best-of-seeds via `--seeds` (a puzzle counts as solved if any seed solves it; the same seed set is applied to both algorithms). |
+| `scripts/evaluate_deterministic.py` | Loads saved models and evaluates them deterministically (PPO `deterministic=True`, DQN ε=0) against the four-objective criteria. |
 
 ## Quick Start
 
@@ -205,16 +200,6 @@ python train_multi_target.py --algo dqn
 > under `tensorboard_logs/`. Only `--algo` differs between the two runs; everything else defaults to
 > the reported configuration.
 
-**Multi-seed (no repair).** The per-target specialist setup admits a restart budget. Train extra
-seeds and take the best per puzzle (the same seed set is applied to both algorithms, keeping the
-comparison fair):
-
-```bash
-python train_multi_target.py --algo ppo --seed 43
-python train_multi_target.py --algo dqn --seed 43
-python scripts/evaluate_deterministic.py --seeds 43,44 --csv combined.csv
-```
-
 ### Key CLI flags (`train_multi_target.py`)
 
 | Flag | Default | Meaning |
@@ -247,7 +232,7 @@ work.)
 The evaluator defaults match training (seed 44, scale 0.05):
 
 ```bash
-# Four-objective deterministic evaluation — no post-hoc repair
+# Four-objective deterministic evaluation
 python scripts/evaluate_deterministic.py --csv results_seed44_v2.csv
 
 # Compare PPO vs DQN from TensorBoard logs

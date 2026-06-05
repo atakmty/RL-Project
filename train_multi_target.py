@@ -10,8 +10,8 @@ Implements:
 - Rich terminal progress output
 
 Usage:
-    python train_multi_target.py --algo ppo --seed 42
-    python train_multi_target.py --algo dqn --seed 42
+    python train_multi_target.py --algo ppo --seed 44
+    python train_multi_target.py --algo dqn --seed 44
 """
 
 import argparse
