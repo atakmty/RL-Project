@@ -106,12 +106,18 @@ class AdaptiveWeightScheduler:
         target_beta=0.2,
         target_gamma=0.1,
         target_delta=0.2,
+        alpha_floor=0.0,
     ):
         self.total = total_timesteps
         self.target_alpha = target_alpha
         self.target_beta = target_beta
         self.target_gamma = target_gamma
         self.target_delta = target_delta
+        # Soft floor on alpha (Future Work 6, ii): once in Phase B/C the
+        # structural weight is never allowed to drop below this, so the
+        # structural gradient cannot be fully overpowered by the biophysical
+        # terms (the dominant DQN failure mode). 0.0 = disabled (legacy).
+        self.alpha_floor = alpha_floor
 
         # Phase boundaries
         # Phase A shortened 0.30 -> 0.15 so the biophysical penalties (GC band,
@@ -137,10 +143,10 @@ class AdaptiveWeightScheduler:
             beta = self._a_beta + progress * (self.target_beta - self._a_beta)
             gamma = self._a_gamma + progress * (self.target_gamma - self._a_gamma)
             delta = self._a_delta + progress * (self.target_delta - self._a_delta)
-            return alpha, beta, gamma, delta
+            return max(self.alpha_floor, alpha), beta, gamma, delta
         else:
             return (
-                self.target_alpha,
+                max(self.alpha_floor, self.target_alpha),
                 self.target_beta,
                 self.target_gamma,
                 self.target_delta,
@@ -347,13 +353,20 @@ def train_single_target(
     weight_config,
     log_dir,
     homo_step_scale=0.15,
+    mfe_tau=0.3,
+    gc_falloff=0.2,
+    solve_bonus_scale=0.5,
+    solve_jackpot=0.5,
+    alpha_floor=0.0,
 ):
     """Train one agent on one target structure."""
 
     target_alpha, target_beta, target_gamma, target_delta = weight_config
 
     env = LearnaEnv(structure, alpha=1.0, beta=0.0, gamma=0.0, delta=0.0,
-                    homo_step_scale=homo_step_scale)
+                    homo_step_scale=homo_step_scale,
+                    mfe_tau=mfe_tau, gc_falloff=gc_falloff,
+                    solve_bonus_scale=solve_bonus_scale, solve_jackpot=solve_jackpot)
 
     scheduler = AdaptiveWeightScheduler(
         total_timesteps,
@@ -361,6 +374,7 @@ def train_single_target(
         target_beta=target_beta,
         target_gamma=target_gamma,
         target_delta=target_delta,
+        alpha_floor=alpha_floor,
     )
 
     # homo_step_scale is part of the run name so models trained with a different
@@ -483,12 +497,66 @@ def main():
         "Set 0 for a structure-focused run (let post-hoc repair handle "
         "homopolymers); applied identically to PPO and DQN.",
     )
+    parser.add_argument(
+        "--mfe-tau",
+        type=float,
+        default=0.3,
+        help="|MFE|/n threshold; the MFE reward saturates at this value so the "
+        "policy is not rewarded for over-stabilising (and drifting GC out of band). "
+        "Must match the evaluator's TAU_MFE.",
+    )
+    parser.add_argument(
+        "--gc-falloff",
+        type=float,
+        default=0.2,
+        help="GC band reward reaches its -1.0 floor at (|gc-0.5|-0.1) == gc_falloff. "
+        "Smaller = steeper out-of-band penalty (default 0.2).",
+    )
+    parser.add_argument(
+        "--solve-bonus",
+        type=float,
+        default=0.5,
+        help="Scale of the multiplicative joint-satisfaction bonus (Change C).",
+    )
+    parser.add_argument(
+        "--solve-jackpot",
+        type=float,
+        default=0.5,
+        help="Discrete terminal bonus added when all four hard gates pass.",
+    )
+    parser.add_argument(
+        "--alpha-floor",
+        type=float,
+        default=0.0,
+        help="Soft floor on the structural weight alpha during Phase B/C so the "
+        "structural gradient is not overpowered by biophysical terms (fixes the "
+        "DQN structure-collapse failure mode). 0 = disabled. Try ~0.7 for DQN.",
+    )
+    parser.add_argument(
+        "--puzzles",
+        type=str,
+        default="",
+        help="Comma-separated puzzle IDs to train (e.g. '1,8,15,23,26,30'). "
+        "Empty = all train puzzles. Use a subset for fast reward-knob tuning "
+        "before committing to the full run.",
+    )
     args = parser.parse_args()
 
     weight_config = WEIGHT_CONFIGS[args.weight_config]
 
     log_dir = "./tensorboard_logs/"
     train_targets = get_train_structures()
+
+    # Optional subset filter (keeps the original order of get_train_structures).
+    if args.puzzles.strip():
+        wanted = {int(p) for p in args.puzzles.split(",") if p.strip()}
+        train_targets = [t for t in train_targets if t[0] in wanted]
+        missing = wanted - {t[0] for t in train_targets}
+        if missing:
+            raise SystemExit(f"--puzzles: unknown puzzle id(s) {sorted(missing)}")
+        if not train_targets:
+            raise SystemExit("--puzzles: no matching puzzles to train")
+
     total_experiments = len(train_targets)
 
     # Auto-select min episodes based on algorithm
@@ -555,6 +623,9 @@ def main():
         save_path = train_single_target(
             args.algo, pid, name, struct, args.seed, ts, weight_config, log_dir,
             homo_step_scale=args.homo_step_scale,
+            mfe_tau=args.mfe_tau, gc_falloff=args.gc_falloff,
+            solve_bonus_scale=args.solve_bonus, solve_jackpot=args.solve_jackpot,
+            alpha_floor=args.alpha_floor,
         )
         elapsed = time.time() - t0
         steps_done += ts

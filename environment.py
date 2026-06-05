@@ -40,6 +40,10 @@ class LearnaEnv(gym.Env):
         delta: float = 0.2,
         discount: float = 0.99,
         homo_step_scale: float = 0.15,
+        mfe_tau: float = 0.3,
+        gc_falloff: float = 0.2,
+        solve_bonus_scale: float = 0.5,
+        solve_jackpot: float = 0.5,
     ):
         super().__init__()
         self.target_structure = target_structure
@@ -88,6 +92,15 @@ class LearnaEnv(gym.Env):
         # the optimal policy to discourage block-stem sequences.
         self.homo_step_scale = homo_step_scale
         self.shaping_scale = 0.1  # Scale down shaping to not dominate terminal reward
+
+        # --- Four-objective joint-satisfaction shaping ---
+        # These make the all-objectives-satisfied state the reward OPTIMUM
+        # rather than a tradeable point (additive rewards alone let the policy
+        # buy structure/MFE with out-of-band GC).
+        self.mfe_tau = mfe_tau                    # |MFE|/n threshold; MFE reward saturates here
+        self.gc_falloff = gc_falloff              # r_gc hits -1.0 at (|gc-0.5|-0.1) == gc_falloff
+        self.solve_bonus_scale = solve_bonus_scale  # weight of the multiplicative joint bonus
+        self.solve_jackpot = solve_jackpot          # discrete bonus when all four gates pass
 
         # Episode state
         self.current_seq = ""
@@ -259,7 +272,12 @@ class LearnaEnv(gym.Env):
             gc_count = self.current_seq.count("G") + self.current_seq.count("C")
             gc_ratio = gc_count / self.n
             gc_dev = max(0.0, abs(gc_ratio - 0.5) - 0.1)  # 0 inside [0.4, 0.6]
-            r_gc = 1.0 - 2.0 * (gc_dev / 0.4)             # 1.0 in band -> -1.0 saturated
+            # Steeper band penalty (Change B). The policy only ever drifts
+            # GC-rich (G-C pairs make structure + MFE easier), so a steep
+            # fall-off past the band makes structure too expensive to "buy"
+            # with out-of-band GC. Reaches the -1.0 floor at gc_dev == gc_falloff
+            # (default 0.2 -> twice as steep as the old fixed 0.4 denominator).
+            r_gc = max(-1.0, 1.0 - 2.0 * (gc_dev / self.gc_falloff))
 
             # 3. Homopolymer Penalty  P_homo
             # Quadratic penalty over a margin threshold of 3. The "fully solved"
@@ -276,15 +294,46 @@ class LearnaEnv(gym.Env):
             p_homo /= self.n
 
             # 4. MFE Stability  R_MFE  (Eq. 4 from proposal)
-            r_mfe = abs(mfe_val) / self.n
+            r_mfe = abs(mfe_val) / self.n                 # raw |MFE|/n: kept for info + gate
+            # Saturated MFE reward (Change A): once the sequence is stable
+            # enough (|MFE|/n >= mfe_tau) there is NO extra reward for being
+            # more stable. This removes the incentive to over-stabilise by
+            # stacking G-C, which was pushing GC out of the [0.4, 0.6] band.
+            r_mfe_reward = min(1.0, r_mfe / self.mfe_tau) if self.mfe_tau > 0 else 1.0
 
-            # Compound terminal reward
+            # Compound terminal reward (MFE term now uses the saturated reward)
             terminal_reward = (
                 self.alpha * r_struct
                 + self.beta * r_gc
                 - self.gamma * p_homo
-                + self.delta * r_mfe
+                + self.delta * r_mfe_reward
             )
+
+            # ---- Joint-satisfaction bonus (Change C) ----
+            # Additive rewards let the policy TRADE objectives. To make the
+            # all-four-satisfied corner the reward OPTIMUM, add a MULTIPLICATIVE
+            # bonus: if any sub-score is ~0 the product is ~0, so partial
+            # solutions earn almost nothing. A discrete jackpot is added only
+            # when all four hard gates pass simultaneously (the real "solved"
+            # definition, identical to the deterministic evaluator).
+            max_run = max(
+                (m.end() - m.start() for m in re.finditer(r"(.)\1*", self.current_seq)),
+                default=0,
+            )
+            struct_ok = (hamming == 0)
+            gc_ok = (0.40 <= gc_ratio <= 0.60)
+            homo_ok = (max_run <= 4)
+            mfe_ok = (r_mfe >= self.mfe_tau)
+
+            s_struct = r_struct
+            s_gc = max(0.0, min(1.0, r_gc))
+            s_homo = max(0.0, 1.0 - p_homo)
+            s_mfe = r_mfe_reward
+            solve_bonus = self.solve_bonus_scale * (s_struct * s_gc * s_homo * s_mfe)
+            if struct_ok and gc_ok and homo_ok and mfe_ok:
+                solve_bonus += self.solve_jackpot
+
+            terminal_reward += solve_bonus
 
             # Final shaping: transition to absorbing state with Phi=0
             shaping_reward = self.shaping_scale * (0.0 - self.last_potential)
@@ -300,6 +349,8 @@ class LearnaEnv(gym.Env):
                 "gc_ratio": gc_ratio,
                 "sequence": self.current_seq,
                 "is_success": float(hamming == 0),
+                "solve_bonus": solve_bonus,
+                "solved4": float(struct_ok and gc_ok and homo_ok and mfe_ok),
             }
 
         return self._get_obs(), reward, terminated, truncated, info
