@@ -1,5 +1,7 @@
 # RNA Inverse Folding — Multi-Objective Deep Reinforcement Learning
 
+> **Work in Progress** — This project is actively being developed. Results and code are updated regularly.
+
 Solving the RNA inverse folding problem with PPO and DQN, optimizing for structural accuracy, GC-content, thermodynamic stability, and homopolymer avoidance simultaneously.
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
@@ -9,9 +11,9 @@ Solving the RNA inverse folding problem with PPO and DQN, optimizing for structu
 
 ## Overview
 
-The RNA inverse folding problem asks: *given a target secondary structure, find a nucleotide sequence that folds into it*. This is an NP-hard combinatorial optimization problem (Bonnet et al., 2020) with a search space of **4ⁿ** candidates.
+The RNA inverse folding problem asks: *given a target secondary structure, find a nucleotide sequence that folds into it*. This is an NP-hard combinatorial optimization problem with a search space of **4ⁿ** candidates.
 
-We formulate this as a **multi-objective reinforcement learning** problem with four simultaneous objectives:
+Existing DRL frameworks like [LEARNA](https://github.com/automl/learna) optimize for structural match alone. Our pipeline extends this with **four simultaneous objectives**:
 
 | Objective | Description | Weight |
 |-----------|-------------|--------|
@@ -22,18 +24,12 @@ We formulate this as a **multi-objective reinforcement learning** problem with f
 
 **Compound reward:** `R = α·R_struct + β·R_GC − γ·P_homo + δ·R_MFE`
 
-## Key Results (Eterna100 Benchmark, 15 Targets)
+### Preliminary Findings
 
-| Metric | PPO | DQN |
-|--------|-----|-----|
-| Mean R_struct | **0.769** | 0.568 |
-| Success rate | **10.8%** | 7.1% |
-| Solved puzzles | **3/15** | 1/15 |
-
-PPO consistently outperforms DQN, with the advantage most pronounced on long sequences (n ≥ 40): mean R_struct of **0.720 vs 0.505**.
-
-![PPO vs DQN Boxplot](docs/ppo_vs_dqn_boxplot.png)
-![R_struct vs Sequence Length](docs/length_vs_rstruct_scatter.png)
+- 100% success rate on short structures (P1, P8)
+- 48% success rate on P10 Frog Foot (len=45, 3 hairpins) — up from initial 0%
+- PPO shows better performance than DQN on longer structures (n > 30)
+- Partner-Aware observation space improved DQN R_struct from 0.27 → 0.46 on P54 (92 nt)
 
 ## Architecture
 
@@ -41,7 +37,7 @@ PPO consistently outperforms DQN, with the advantage most pronounced on long seq
 ┌──────────────┐     ┌──────────────────┐     ┌───────────────┐
 │  Eterna100   │────▶│  LearnaEnv       │────▶│  PPO / DQN    │
 │  Benchmark   │     │  (Gymnasium)     │     │  (SB3)        │
-│  (15 targets)│     │                  │     │               │
+│  (20 targets)│     │                  │     │               │
 └──────────────┘     │  • One-hot obs   │     │  • [128,128]  │
                      │  • Partner-aware │     │  • ent=0.02   │
                      │  • Reward shaping│     │  • GAE / Replay│
@@ -68,29 +64,34 @@ PPO consistently outperforms DQN, with the advantage most pronounced on long seq
 ```
 RL-Project/
 ├── environment.py              # Gymnasium RL environment (Partner-Aware obs, 4-objective reward)
-├── eterna100.py                # Eterna100 dataset (15 target structures)
-├── train_multi_target.py       # Main training pipeline (curriculum, weight scheduling)
+├── eterna100.py                # Eterna100-V2 dataset (15 train + 5 test targets)
+├── train_multi_target.py       # Main training pipeline (curriculum learning, weight scheduling)
+├── run_grid_search_ppo.sh      # Grid search runner — 3 weight configs × PPO
+├── run_grid_search_dqn.sh      # Grid search runner — 3 weight configs × DQN
 ├── scripts/
 │   ├── analyze_ppo_vs_dqn.py   # PPO vs DQN comparison from TensorBoard logs
 │   ├── analyze_dqn.py          # DQN-specific result analysis
-│   ├── combine_seeds.py        # Combine multi-seed evaluation results
-│   ├── evaluate_deterministic.py  # Deterministic evaluation (ε=0)
-│   ├── preflight_check.py      # Environment verification (ViennaRNA, GPU, etc.)
-│   └── repair_sequences.py     # Post-hoc sequence repair utilities
-├── results/                    # Evaluation CSVs (per-seed, combined, repaired)
-├── logs/                       # Training logs (PPO/DQN retrain logs)
-├── docs/                       # Figures, reports
-├── paper/                      # Manuscript files (intro, bibliography)
+│   ├── evaluate_deterministic.py  # Deterministic evaluation (ε=0, no exploration noise)
+│   └── preflight_check.py      # Environment verification (ViennaRNA, GPU, etc.)
 ├── models/                     # Trained model checkpoints (gitignored)
-├── tensorboard_logs/           # TensorBoard logs (gitignored)
-├── run_grid_search_ppo.sh      # Grid search — 3 weight configs × PPO
-├── run_grid_search_dqn.sh      # Grid search — 3 weight configs × DQN
-├── run_multiseed.sh            # Multi-seed training runner
+├── tensorboard_logs/           # Training logs (gitignored)
 ├── environment.yml             # Conda environment definition
 ├── requirements.txt            # pip dependencies
 ├── LICENSE
 └── README.md
 ```
+
+### What each file does
+
+| File | Purpose |
+|------|---------|
+| `environment.py` | Defines the `LearnaEnv` Gymnasium environment. The agent places one nucleotide (A/C/G/U) per step. At the final step, ViennaRNA folds the sequence and returns a 4-objective reward. Intermediate steps use Ng et al. (1999) potential-based reward shaping. |
+| `eterna100.py` | Contains the 20 selected Eterna100-V2 target structures (15 train + 5 test). Each target is a dot-bracket string like `((((((......))))))`. |
+| `train_multi_target.py` | The main training script. Trains a **separate PPO or DQN model for each puzzle** sequentially. Includes the 3-phase adaptive weight scheduler and adaptive episode scaling for longer sequences. |
+| `run_grid_search_ppo.sh` | Runs `train_multi_target.py` 3 times with PPO for each weight configuration (Balanced, Structure-heavy, Thermodynamic-focused). |
+| `run_grid_search_dqn.sh` | Same as above but with DQN. |
+| `scripts/evaluate_deterministic.py` | Loads saved models and evaluates them with `deterministic=True` (no exploration noise), revealing the true learned policy performance. |
+| `scripts/analyze_ppo_vs_dqn.py` | Reads TensorBoard logs and prints a side-by-side PPO vs DQN comparison table. |
 
 ## Quick Start
 
@@ -101,33 +102,43 @@ RL-Project/
 
 ### Installation
 
-> **Platform note — ViennaRNA is Linux/macOS only.** The bioconda channel does not publish `viennarna` for `win-64`, so `conda env create` will fail on native Windows. **Windows users must use WSL2** (instructions below).
+> **Platform note — ViennaRNA is Linux/macOS only.** The bioconda channel does not publish `viennarna` for `win-64`, so `conda env create` will fail on native Windows with `PackagesNotFoundError: viennarna`. **Windows users must use WSL2** (instructions below). macOS and Linux users can skip straight to the standard install.
 
 #### Linux / macOS
 
 ```bash
+# 1. Clone the repository
 git clone https://github.com/atakmty/RL-Project.git
 cd RL-Project
+
+# 2. Create environment with ALL dependencies (single command)
 conda env create -f environment.yml
 conda activate rlrna
 ```
 
+> `environment.yml` installs Python 3.10, ViennaRNA, GSL, and all pip packages automatically. No separate `pip install` needed.
+
 #### Windows (via WSL2)
 
-**1. Install WSL2 + Ubuntu** (administrator PowerShell):
+**1. Install WSL2 + Ubuntu.** In an **administrator PowerShell**:
 
 ```powershell
 wsl --install -d Ubuntu
 ```
 
-**2. Open Ubuntu** and install Miniconda:
+Reboot when prompted. Ubuntu will launch and ask you to create a Linux username and password.
+
+**2. Open Ubuntu** (Start menu → "Ubuntu", or run `wsl` in any terminal) and install Miniconda:
 
 ```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
+# accept defaults; when it asks about running conda init, say yes
 ```
 
-**3. Clone and set up** (same as Linux):
+Close and reopen the Ubuntu terminal — your prompt should now start with `(base)`.
+
+**3. Clone and create the environment** (same commands as Linux):
 
 ```bash
 git clone https://github.com/atakmty/RL-Project.git
@@ -135,6 +146,8 @@ cd RL-Project
 conda env create -f environment.yml
 conda activate rlrna
 ```
+
+> **Tip:** `conda env create` is a **one-time** setup. After it succeeds, every new Ubuntu session only needs `cd ~/RL-Project && conda activate rlrna`.
 
 ### Training
 
@@ -146,11 +159,13 @@ python train_multi_target.py --algo ppo --seed 42 --weight-config 0
 python train_multi_target.py --algo dqn --seed 42 --weight-config 0
 
 # Run full grid search (3 weight configs)
-bash run_grid_search_ppo.sh
-bash run_grid_search_dqn.sh
+bash run_grid_search_ppo.sh   # PPO × 3 configs
+bash run_grid_search_dqn.sh   # DQN × 3 configs
 ```
 
-### Weight Configurations
+> Each run trains **15 separate models** (one per puzzle). Models are saved under `models/` and logs under `tensorboard_logs/`.
+
+### Weight Configurations (Grid Search)
 
 | Config | α | β | γ | δ | Strategy |
 |--------|---|---|---|---|----------|
@@ -161,11 +176,14 @@ bash run_grid_search_dqn.sh
 ### Evaluation
 
 ```bash
-# Deterministic evaluation (epsilon=0)
+# Deterministic evaluation (epsilon=0, no exploration noise)
 python scripts/evaluate_deterministic.py
 
-# Compare PPO vs DQN
+# Compare PPO vs DQN from TensorBoard logs
 python scripts/analyze_ppo_vs_dqn.py
+
+# Analyze DQN results
+python scripts/analyze_dqn.py
 ```
 
 ### TensorBoard
@@ -174,9 +192,16 @@ python scripts/analyze_ppo_vs_dqn.py
 tensorboard --logdir ./tensorboard_logs/
 ```
 
+
 ## Technical Details
 
+### Search Space
+
+The search space is **4ⁿ** — for a target of length *n*, there are 4ⁿ possible nucleotide sequences (A, C, G, U at each position). For example, the longest puzzle P54 (n=92) has a search space of 4⁹² ≈ 2.4 × 10⁵⁵ candidates, making brute-force search infeasible.
+
 ### Observation Space (7n + 10 dimensions)
+
+The observation vector has two parts: a **base encoding** of 7n + 1 dimensions and a **Partner-Aware extension** of 9 dimensions.
 
 **Base encoding (7n + 1):**
 
@@ -186,20 +211,33 @@ tensorboard --logdir ./tensorboard_logs/
 | Target one-hot | 3n | ./(/) at each position |
 | Progress | 1 | current_step / n |
 
-**Partner-Aware extension (+9):**
+**Partner-Aware extension (+9 → total +10 with progress):**
+
+RNA structures contain base pairs — positions marked `(` are paired with positions marked `)`. The agent needs to know about its partner when placing a nucleotide at a paired position. Without this context, the agent has no way to choose a complementary base (e.g., G for a partner C).
 
 | Component | Dims | Description |
 |-----------|------|-------------|
-| Local target char | 3 | One-hot of target at current step |
-| is_paired | 1 | 1.0 if position has a base-pair partner |
-| partner_placed | 1 | 1.0 if partner nucleotide already placed |
-| partner_nucleotide | 4 | One-hot of partner's nucleotide |
+| Local target char | 3 | One-hot of target structure at current step: `.` / `(` / `)` |
+| is_paired | 1 | 1.0 if current position has a base-pair partner, 0.0 otherwise |
+| partner_placed | 1 | 1.0 if the partner's nucleotide has already been placed |
+| partner_nucleotide | 4 | One-hot of partner's nucleotide (A/C/G/U), zeros if not yet placed |
+
+> These 9 extra dimensions give the agent explicit structural context. For example, when placing position 15 (a `)`) whose partner position 3 (a `(`) already has `C`, the agent sees `partner_nucleotide = [0,1,0,0]` and can learn to place `G` for a valid C-G base pair.
 
 ### Action Space
 
-**Discrete(4)** — at each step, the agent selects one nucleotide (A/C/G/U).
+**Discrete(4)** — at each step, the agent selects one nucleotide. The action is encoded as one-hot:
+
+| Action | Nucleotide | One-hot |
+|--------|------------|----------|
+| 0 | A (Adenine) | `[1, 0, 0, 0]` |
+| 1 | C (Cytosine) | `[0, 1, 0, 0]` |
+| 2 | G (Guanine) | `[0, 0, 1, 0]` |
+| 3 | U (Uracil) | `[0, 0, 0, 1]` |
 
 ### Reward Shaping (Ng et al., 1999)
+
+Potential-based shaping provides dense intermediate rewards without altering the optimal policy:
 
 ```
 Φ(s) = correct_pairs / checked_pairs
@@ -215,18 +253,39 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 | Long-horizon (n>30) | Strong | Weak |
 | Exploration | Entropy bonus | ε-greedy (1.0 → 0.08) |
 
+**Preliminary finding:** PPO with GAE appears superior to DQN for sequential combinatorial problems with sparse terminal rewards and n > 30. Further experiments are in progress.
+
+## Current Best Results (Eterna100-V2 Subset)
+
+> These are preliminary results from ongoing experiments. Final results will be updated.
+
+| Puzzle | Length | Type | PPO Best R_struct | Current Status |
+|--------|--------|------|-------------------|----------------|
+| P1 Simple Hairpin | 18 | Basic | 1.000 | Solved |
+| P8 G-C Placement | 12 | Basic | 1.000 | Solved |
+| P10 Frog Foot | 45 | Multi-stem | 0.860 | Improving |
+| P13 Square | 67 | Nested | 0.760 | In progress |
+| P54 7-Multiloop | 92 | Complex | 0.420 | Needs more training |
+
+## Roadmap
+
+- [ ] Complete grid search across all 3 weight configurations
+- [ ] Run DQN experiments with optimized hyperparameters for all puzzles
+- [ ] Deterministic evaluation of all trained models
+- [ ] Final comparative analysis (PPO vs DQN)
+
 ## References
 
-- Bonnet, É., Rzążewski, P., & Sikora, F. (2020). *Designing RNA secondary structures is hard*. J. Comput. Biol.
 - Runge, F., Stoll, D., Falkner, S., & Hutter, F. (2019). *Learning to Design RNA*. ICLR.
 - Ng, A. Y., Harada, D., & Russell, S. (1999). *Policy invariance under reward transformations*. ICML.
+- Schulman, J., Wolski, F., Dhariwal, P., Radford, A., & Klimov, O. (2017). *Proximal Policy Optimization Algorithms*. arXiv:1707.06347.
+- Mnih, V., et al. (2015). *Human-level control through deep reinforcement learning*. Nature, 518(7540), 529–533.
 - Lorenz, R., et al. (2011). *ViennaRNA Package 2.0*. Algorithms for Molecular Biology.
-- Anderson-Lee, J., et al. (2016). *Principles for predicting RNA secondary structure design difficulty*. J. Mol. Biol.
 
 ## Authors
 
-- **Ata Kamutay** — Department of Health Informatics
 - **Utku Bora Döke** — Department of Health Informatics
+- **Ata Kamutay** — Department of Health Informatics
 
 ## License
 
