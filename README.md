@@ -328,16 +328,6 @@ F(s, a, s') = 0.1 × (0.99 × Φ(s') − Φ(s))
 | P26 Stickshift            | 26 | 0.54 | 3 | 0.37 | `AAGGGCCGCGAUUUACGACGGCUUAA` |
 | P30 Corner Bulge Training | 31 | 0.52 | 4 | 0.45 | `UUUGAGAGCCCCAAAGGGGCAAGAUCUCGAA` |
 
-## Roadmap / Future Work
-
-- [x] Four-objective deterministic evaluation (R_struct + GC + homopolymer + MFE)
-- [x] Reward redesign so the policy satisfies all four objectives without post-hoc repair
-- [x] PPO vs DQN comparison under an identical environment and reward
-- [ ] Multi-seed restarts for the structure-limited long targets (several are one step short)
-- [ ] Curriculum protection of the structural signal for DQN (Phase-C α-floor)
-- [ ] Hyperparameter / budget tuning for the hardest long targets (P25, P45, P54)
-- [ ] Differentiated grid search over weight configurations; held-out test evaluation
-
 ## Authors
 
 - **Utku Bora Döke** — Department of Health Informatics
